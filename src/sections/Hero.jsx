@@ -7,30 +7,64 @@ gsap.registerPlugin(Observer);
 
 export default function Hero() {
   useGSAP(() => {
-    const scrollingText = gsap.utils.toArray(".rail h4");
+    const loops = gsap.utils.toArray(".hero-text-rail").map((rail) => {
+      const isReverse = rail.dataset.direction === "reverse";
 
-    const tl = horizontalLoop(scrollingText, {
-      repeat: -1,
-      paddingRight: 30,
+      return {
+        tl: horizontalLoop(rail.querySelectorAll("h4"), {
+          repeat: -1,
+          paddingRight: 60,
+          speed: 1.1,
+          reversed: isReverse,
+        }),
+        scrollDirection: isReverse ? -1 : 1,
+      };
     });
 
-    Observer.create({
+    const observer = Observer.create({
       onChangeY(self) {
         let factor = 2.5;
         if (self.deltaY < 0) {
           factor *= -1;
         }
-        gsap
-          .timeline({
-            defaults: {
-              ease: "none",
-            },
-          })
-          .to(tl, { timeScale: factor * 2.5, duration: 0.2, overwrite: true })
-          .to(tl, { timeScale: factor / 2.5, duration: 1 }, "+=0.3");
+        loops.forEach(({ tl, scrollDirection }) => {
+          const scrollFactor = factor * scrollDirection;
+
+          gsap
+            .timeline({
+              defaults: {
+                ease: "none",
+              },
+            })
+            .to(tl, {
+              timeScale: scrollFactor * 2.5,
+              duration: 0.2,
+              overwrite: true,
+            })
+            .to(tl, { timeScale: scrollFactor / 2.5, duration: 1 }, "+=0.3");
+        });
       },
     });
+
+    return () => {
+      observer.kill();
+      loops.forEach(({ tl }) => tl.kill());
+    };
   });
+
+  const heroText = [
+    "Zulkifli Firdausi",
+    "Frontend Developer",
+    "Creative Designer",
+  ];
+
+  const renderRail = (direction = "forward") => (
+    <div className="rail hero-text-rail" data-direction={direction}>
+      {heroText.map((text) => (
+        <h4 key={text}>{text}</h4>
+      ))}
+    </div>
+  );
 
   function horizontalLoop(items, config) {
     items = gsap.utils.toArray(items);
@@ -134,13 +168,25 @@ export default function Hero() {
     return tl;
   }
   return (
-    <Section>
-      <div className="scrolling-text">
-        <div className="rail">
-          <h4>Zulkifli Firdausi</h4>
-          <h4>Frontend Developer</h4>
-          <h4>Creative Designer</h4>
-        </div>
+    <Section className="hero-section relative isolate overflow-hidden bg-white">
+      <div className="hero-photo-frame absolute top-1/2 left-1/2 md:h-1/2 w-64 -translate-x-1/2 -translate-y-1/2 overflow-hidden md:w-96 rounded-xl shadow-2xl shadow-gray-950">
+        <img
+          src="/zulk-photo.png"
+          alt="zulkifli firdausi photo"
+          className="h-full w-full object-cover"
+        />
+      </div>
+
+      {/* Teks utama, ditumpuk di atas foto via z-index */}
+      <div className="scrolling-text hero-copy hero-copy-base">
+        {renderRail()}
+      </div>
+
+      <div
+        className="scrolling-text hero-copy hero-copy-top"
+        aria-hidden="true"
+      >
+        {renderRail("reverse")}
       </div>
     </Section>
   );

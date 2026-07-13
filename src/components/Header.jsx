@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <header className="w-full flex items-center justify-between py-5 px-6 border-b border-gray-200">
+    <header className="w-full flex items-center justify-between py-5 px-6 border-gray-200 fixed top-0 left-0 right-0 z-20">
       <a href="#" className="text-base font-semibold text-gray-900">
         Zulkifli Firdausi
       </a>
