@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.scrolling-text {
+  @apply overflow-hidden w-full h-screen flex items-center;
+}
+
+.scrolling-text .rail {
+  @apply flex gap-20;
+}
+
+.scrolling-text .rail h4 {
+  @apply whitespace-nowrap text-8xl font-black tracking-wider leading-2;
+}
