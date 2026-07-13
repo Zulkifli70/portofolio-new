@@ -9,16 +9,17 @@
 }
 
 @font-face {
-  font-family: Glitch;
+  font-family: Neuton;
   font-style: normal;
   font-weight: 200 700;
   font-display: swap;
-  src: url("/font/RubikGlitch-Regular.ttf") format("truetype");
+  src: url("/font/Neuton-Regular.ttf") format("truetype");
 }
 
 @theme {
   --font-monoton: "Monoton", cursive;
   --font-glitch: "Glitch", cursive;
+  --font-glitch: "Neuton", cursive;
 }
 
 .scrolling-text {
