@@ -169,7 +169,8 @@ export default function Hero() {
   }
   return (
     <Section className="hero-section relative isolate overflow-hidden bg-white">
-      <div className="hero-photo-frame absolute top-1/2 left-1/2 md:h-1/2 w-64 -translate-x-1/2 -translate-y-1/2 overflow-hidden md:w-96 rounded-xl shadow-2xl shadow-gray-950">
+      {/* Foto: TIDAK dibungkus lagi, cuma foto polos + frame */}
+      <div className="hero-photo-frame absolute top-1/2 left-1/2 md:h-1/2 w-64 -translate-x-1/2 -translate-y-1/2 overflow-hidden md:w-96 rounded-2xl shadow-2xl shadow-gray-950">
         <img
           src="/zulk-photo.png"
           alt="zulkifli firdausi photo"
