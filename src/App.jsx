@@ -1,8 +1,14 @@
+import Header from "./components/Header";
+import BaseLayout from "./layout/BaseSections";
+import Hero from "./sections/Hero";
+import "./App.css";
+
 function App() {
   return (
-    <>
-      <h1>PORTO GAE DEWE LOH YA</h1>
-    </>
+    <BaseLayout>
+      <Header />
+      <Hero />
+    </BaseLayout>
   );
 }
 
