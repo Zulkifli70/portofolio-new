@@ -7,56 +7,60 @@ gsap.registerPlugin(Observer);
 
 export default function Hero() {
   useGSAP(() => {
-    const loops = gsap.utils.toArray(".hero-text-rail").map((rail) => {
-      const isReverse = rail.dataset.direction === "reverse";
+    document.fonts.ready.then(() => {
+      requestAnimationFrame(() => {
+        const loops = gsap.utils.toArray(".hero-text-rail").map((rail) => {
+          const isReverse = rail.dataset.direction === "reverse";
 
-      return {
-        tl: horizontalLoop(rail.querySelectorAll("h4"), {
-          repeat: -1,
-          paddingRight: 60,
-          speed: 1.1,
-          reversed: isReverse,
-        }),
-        scrollDirection: isReverse ? -1 : 1,
-      };
-    });
-
-    const observer = Observer.create({
-      onChangeY(self) {
-        let factor = 2.5;
-        if (self.deltaY < 0) {
-          factor *= -1;
-        }
-        loops.forEach(({ tl, scrollDirection }) => {
-          const scrollFactor = factor * scrollDirection;
-
-          gsap
-            .timeline({
-              defaults: {
-                ease: "none",
-              },
-            })
-            .to(tl, {
-              timeScale: scrollFactor * 2.5,
-              duration: 0.2,
-              overwrite: true,
-            })
-            .to(tl, { timeScale: scrollFactor / 2.5, duration: 1 }, "+=0.3");
+          return {
+            tl: horizontalLoop(rail.querySelectorAll("h4"), {
+              repeat: -1,
+              paddingRight: 60,
+              speed: 1.1,
+              reversed: isReverse,
+            }),
+            scrollDirection: isReverse ? -1 : 1,
+          };
         });
-      },
-    });
 
-    return () => {
-      observer.kill();
-      loops.forEach(({ tl }) => tl.kill());
-    };
+        const observer = Observer.create({
+          onChangeY(self) {
+            let factor = 2.5;
+            if (self.deltaY < 0) {
+              factor *= -1;
+            }
+            loops.forEach(({ tl, scrollDirection }) => {
+              const scrollFactor = factor * scrollDirection;
+
+              gsap
+                .timeline({
+                  defaults: {
+                    ease: "none",
+                  },
+                })
+                .to(tl, {
+                  timeScale: scrollFactor * 2.5,
+                  duration: 0.2,
+                  overwrite: true,
+                })
+                .to(
+                  tl,
+                  { timeScale: scrollFactor / 2.5, duration: 1 },
+                  "+=0.3",
+                );
+            });
+          },
+        });
+
+        return () => {
+          observer.kill();
+          loops.forEach(({ tl }) => tl.kill());
+        };
+      });
+    });
   });
 
-  const heroText = [
-    "Zulkifli Firdausi",
-    "Frontend Developer",
-    "Creative Designer",
-  ];
+  const heroText = ["Zulkifli Firdausi", "Frontend Developer"];
 
   const renderRail = (direction = "forward") => (
     <div className="rail hero-text-rail" data-direction={direction}>
