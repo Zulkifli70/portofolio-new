@@ -19,21 +19,26 @@ export default function Hero() {
       const heroSection = sectionRef.current;
       if (!frame || !heroSection) return undefined;
 
-      const zoomTween = gsap.to(frame, {
-        width: "70vw",
-        height: "83vh",
-        borderRadius: 5,
-        ease: "none",
-        scrollTrigger: {
-          trigger: heroSection,
-          start: "top top",
-          end: "+=100%",
-          scrub: true,
-          pin: pinWrapperRef.current,
-        },
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 768px)", () => {
+        gsap.to(frame, {
+          width: "70vw",
+          height: "83vh",
+          borderRadius: 5,
+          ease: "none",
+          scrollTrigger: {
+            trigger: heroSection,
+            start: "top top",
+            end: "+=100%",
+            scrub: true,
+            pin: pinWrapperRef.current,
+            invalidateOnRefresh: true,
+          },
+        });
       });
 
-      return () => zoomTween.kill();
+      return () => mm.revert();
     },
     { scope: sectionRef, dependencies: [] },
   );
