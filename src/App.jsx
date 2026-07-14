@@ -4,15 +4,20 @@ import Hero from "./sections/Hero";
 import "./App.css";
 import About from "./sections/About";
 import Showcase from "./sections/Showcase";
+import SmoothScrollPortfolio from "./animation/SmoothScrollPortfolio";
 
 function App() {
   return (
-    <BaseLayout>
+    <>
       <Header />
-      <Hero />
-      <About />
-      <Showcase />
-    </BaseLayout>
+      <SmoothScrollPortfolio>
+        <BaseLayout>
+          <Hero />
+          <About />
+          <Showcase />
+        </BaseLayout>
+      </SmoothScrollPortfolio>
+    </>
   );
 }
 
