@@ -90,3 +90,7 @@
     --hero-text-y: 20rem;
   }
 }
+
+.showcase-wrapper {
+  @apply flex flex-nowrap relative will-change-transform;
+}
