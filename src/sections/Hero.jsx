@@ -60,7 +60,7 @@ export default function Hero() {
     });
   });
 
-  const heroText = ["Zulkifli Firdausi", "Frontend Developer"];
+  const heroText = ["Zulkifli Firdausi", "Frontend Developer", "Creative"];
 
   const renderRail = (direction = "forward") => (
     <div className="rail hero-text-rail" data-direction={direction}>
