@@ -10,6 +10,7 @@ gsap.registerPlugin(Observer, ScrollTrigger);
 export default function Hero() {
   const sectionRef = useRef(null);
   const frameRef = useRef(null);
+  const pinWrapperRef = useRef(null);
 
   // Efek zoom pada foto hero saat di-scroll.
   useGSAP(
@@ -28,9 +29,7 @@ export default function Hero() {
           start: "top top",
           end: "+=100%",
           scrub: true,
-          pin: true,
-          invalidateOnRefresh: true,
-          // markers: true,
+          pin: pinWrapperRef.current,
         },
       });
 
@@ -210,27 +209,27 @@ export default function Hero() {
       className="hero-section relative isolate overflow-hidden bg-white"
     >
       {/* Foto: TIDAK dibungkus lagi, cuma foto polos + frame */}
-      <div
-        ref={frameRef}
-        className="hero-photo-frame shadow-2xl shadow-gray-950"
-      >
-        <img
-          src="/zulk-photo.png"
-          alt="zulkifli firdausi photo"
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      {/* Teks utama, ditumpuk di atas foto via z-index */}
-      <div className="scrolling-text hero-copy hero-copy-base">
-        {renderRail()}
-      </div>
-
-      <div
-        className="scrolling-text hero-copy hero-copy-top"
-        aria-hidden="true"
-      >
-        {renderRail("reverse")}
+      <div ref={pinWrapperRef} className="hero-pin-wrapper bg-white">
+        <div
+          ref={frameRef}
+          className="hero-photo-frame shadow-2xl shadow-gray-950"
+        >
+          <img
+            src="/zulk-photo.png"
+            alt="zulkifli firdausi photo"
+            className="h-full w-full object-cover"
+          />
+        </div>
+        {/* Teks utama, ditumpuk di atas foto via z-index */}
+        <div className="scrolling-text hero-copy hero-copy-base">
+          {renderRail()}
+        </div>
+        <div
+          className="scrolling-text hero-copy hero-copy-top"
+          aria-hidden="true"
+        >
+          {renderRail("reverse")}
+        </div>
       </div>
     </Section>
   );
