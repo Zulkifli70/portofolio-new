@@ -1,11 +1,44 @@
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
 import gsap from "gsap";
 import { Observer } from "gsap/Observer";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(Observer);
+gsap.registerPlugin(Observer, ScrollTrigger);
 
 export default function Hero() {
+  const sectionRef = useRef(null);
+  const frameRef = useRef(null);
+
+  // Efek zoom pada foto hero saat di-scroll.
+  useGSAP(
+    () => {
+      const frame = frameRef.current;
+      const heroSection = sectionRef.current;
+      if (!frame || !heroSection) return undefined;
+
+      const zoomTween = gsap.to(frame, {
+        width: "70vw",
+        height: "83vh",
+        borderRadius: 5,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroSection,
+          start: "top top",
+          end: "+=100%",
+          scrub: true,
+          pin: true,
+          invalidateOnRefresh: true,
+          // markers: true,
+        },
+      });
+
+      return () => zoomTween.kill();
+    },
+    { scope: sectionRef, dependencies: [] },
+  );
+
   useGSAP(() => {
     document.fonts.ready.then(() => {
       requestAnimationFrame(() => {
@@ -172,9 +205,15 @@ export default function Hero() {
     return tl;
   }
   return (
-    <Section className="hero-section relative isolate overflow-hidden bg-white">
+    <Section
+      ref={sectionRef}
+      className="hero-section relative isolate overflow-hidden bg-white"
+    >
       {/* Foto: TIDAK dibungkus lagi, cuma foto polos + frame */}
-      <div className="hero-photo-frame absolute top-1/2 left-1/2 md:h-1/2 w-64 -translate-x-1/2 -translate-y-1/2 overflow-hidden md:w-96 rounded-2xl shadow-2xl shadow-gray-950">
+      <div
+        ref={frameRef}
+        className="hero-photo-frame shadow-2xl shadow-gray-950"
+      >
         <img
           src="/zulk-photo.png"
           alt="zulkifli firdausi photo"
