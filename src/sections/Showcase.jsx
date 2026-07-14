@@ -4,7 +4,7 @@ export default function Showcase() {
   const projects = [
     {
       name: "Project 1",
-      image: "https://assets.codepen.io/16327/portrait-image-1.jpg",
+      image: "/project/test.png",
     },
     {
       name: "Project 2",
@@ -37,7 +37,7 @@ export default function Showcase() {
         <div className="horiz-gallery-wrapper">
           <div className="horiz-gallery-strip">
             <div className="project-wrap flex justify-center items-center">
-              <h1 className="font-neuton text-5xl font-bold">
+              <h1 className="font-neuton md:text-5xl font-bold">
                 MY PROJECT SHOWCASE
               </h1>
             </div>

@@ -116,10 +116,20 @@ body {
   position: relative;
 }
 
+.horiz-gallery-wrapper {
+  min-height: 100vh;
+  align-items: center;
+  overflow: hidden;
+}
+
+.horiz-gallery-strip {
+  align-items: center;
+  gap: clamp(1rem, 5vw, 2rem);
+}
+
 .project-wrap {
-  width: 33vw;
-  padding: 2rem;
-  box-sizing: content-box;
+  width: min(78vw, 28rem);
+  box-sizing: border-box;
   flex-shrink: 0;
 }
 
@@ -128,4 +138,11 @@ body {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+}
+
+@media (min-width: 768px) {
+  .project-wrap {
+    width: 33vw;
+    max-width: 34rem;
+  }
 }
