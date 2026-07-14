@@ -4,27 +4,27 @@ export default function Showcase() {
   const projects = [
     {
       name: "Project 1",
-      image: "/project/test.png",
+      image: "/project/expense.png",
     },
     {
       name: "Project 2",
-      image: "https://assets.codepen.io/16327/portrait-image-2.jpg",
+      image: "/project/expense.png",
     },
     {
       name: "Project 3",
-      image: "https://assets.codepen.io/16327/portrait-image-3.jpg",
+      image: "/project/expense.png",
     },
     {
       name: "Project 4",
-      image: "https://assets.codepen.io/16327/portrait-image-4.jpg",
+      image: "/project/expense.png",
     },
     {
       name: "Project 5",
-      image: "https://assets.codepen.io/16327/portrait-image-5.jpg",
+      image: "/project/expense.png",
     },
     {
       name: "Project 6",
-      image: "https://assets.codepen.io/16327/portrait-image-6.jpg",
+      image: "/project/expense.png",
     },
   ];
 
