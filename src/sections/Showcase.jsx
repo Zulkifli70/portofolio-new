@@ -8,23 +8,27 @@ export default function Showcase() {
     },
     {
       name: "Project 2",
-      image: "/project/expense.png",
+      image: "/project/pokemon.png",
     },
     {
       name: "Project 3",
-      image: "/project/expense.png",
+      image: "/project/assembly.png",
     },
     {
       name: "Project 4",
-      image: "/project/expense.png",
+      image: "/project/diary.png",
     },
     {
       name: "Project 5",
-      image: "/project/expense.png",
+      image: "/project/kanban.png",
     },
     {
       name: "Project 6",
-      image: "/project/expense.png",
+      image: "/project/printforge.png",
+    },
+    {
+      name: "Project 7",
+      image: "/project/jobtracker.png",
     },
   ];
 
@@ -35,7 +39,7 @@ export default function Showcase() {
     >
       <div className="container-fluid">
         <div className="horiz-gallery-wrapper">
-          <div className="horiz-gallery-strip">
+          <div className="horiz-gallery-strip pr-10">
             <div className="project-wrap flex justify-center items-center">
               <h1 className="font-neuton md:text-5xl font-bold">
                 MY PROJECT SHOWCASE
