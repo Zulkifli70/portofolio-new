@@ -24,7 +24,7 @@ export default function About() {
         scrollTrigger: {
           trigger: ".para",
           start: "top center",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none restart",
         },
       });
 
@@ -39,7 +39,7 @@ export default function About() {
         scrollTrigger: {
           trigger: ".about",
           start: "center center",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none restart",
         },
       });
 
@@ -50,11 +50,11 @@ export default function About() {
 
   return (
     <Section ref={containerRef}>
-      <div className="w-full h-screen flex flex-col justify-around gap-15 py-20">
-        <h2 className="about font-neuton text-9xl"></h2>
-        <p className="para self-end font-neuton text-7xl w-2/3">
+      <div className="w-full h-screen flex flex-col md:justify-around gap-15 py-20">
+        <h2 className="about font-neuton md:text-9xl"></h2>
+        <p className="para self-end font-neuton md:text-7xl w-2/3">
           Hello, I'm Zulk, an indonesian frontend developer who enjoys turning
-          ideas into resfponsive interaces that feel modern and easy to use. I
+          ideas into responsive interfaces that feel modern and easy to use. I
           care about the small details that make a product smoother, from layout
           rhythm to thoughtful interactions.
         </p>
