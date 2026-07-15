@@ -130,11 +130,11 @@ export default function TechStack() {
 
   return (
     <Section className=" ">
-      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 items-center pt-35 md:py-20">
-        <h2 className="text-3xl md:text-5xl font-neuton font-black">
+      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 md:px-5">
+        <h2 className="text-3xl md:text-9xl font-neuton font-black">
           Tech Stack
         </h2>
-        <div className="stage" id="stage" ref={stageRef}>
+        <div className="stage self-center" id="stage" ref={stageRef}>
           <div className="tech-grid">
             {techStacks.map((tech) => (
               <div key={tech.name} className="tech-card" style={tech.position}>
