@@ -40,8 +40,8 @@ export default function Showcase() {
       <div className="container-fluid">
         <div className="horiz-gallery-wrapper">
           <div className="horiz-gallery-strip pr-10">
-            <div className="project-wrap flex justify-center items-center">
-              <h1 className="font-neuton md:text-5xl font-bold">
+            <div className="project-wrap flex justify-center items-center ml-5">
+              <h1 className="font-neuton text-5xl md:text-8xl font-bold">
                 MY PROJECT SHOWCASE
               </h1>
             </div>
