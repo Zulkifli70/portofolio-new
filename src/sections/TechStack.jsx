@@ -141,7 +141,7 @@ export default function TechStack() {
   return (
     <Section className=" ">
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
-        <h2 className="text-5xl md:text-9xl font-neuton font-black">
+        <h2 className="text-5xl md:text-9xl font-neuton font-black border-b border-b-gray-400">
           Tech Stack
         </h2>
         <div className="stage self-center" id="stage" ref={stageRef}>
