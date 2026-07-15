@@ -10,57 +10,57 @@ export default function TechStack() {
     {
       name: "React",
       imgPath: "/techIcons/react.png",
-      position: { "--x": "12%", "--y": "12%", "--r": "3deg" },
+      position: { "--x": "8%", "--y": "12%", "--r": "3deg" },
     },
     {
       name: "Next JS",
       imgPath: "/techIcons/Next.js.png",
-      position: { "--x": "35%", "--y": "6%", "--r": "2deg" },
+      position: { "--x": "30%", "--y": "6%", "--r": "2deg" },
     },
     {
       name: "Tailwind",
       imgPath: "/techIcons/Tailwind CSS.png",
-      position: { "--x": "59%", "--y": "12%", "--r": "-2deg" },
+      position: { "--x": "55%", "--y": "12%", "--r": "-2deg" },
     },
     {
       name: "Javascript",
       imgPath: "/techIcons/JavaScript.png",
-      position: { "--x": "82%", "--y": "8%", "--r": "4deg" },
+      position: { "--x": "79%", "--y": "8%", "--r": "4deg" },
     },
     {
       name: "Astro",
       imgPath: "/techIcons/Astro.png",
-      position: { "--x": "24%", "--y": "42%", "--r": "2deg" },
+      position: { "--x": "18%", "--y": "42%", "--r": "2deg" },
     },
     {
       name: "Vue",
       imgPath: "/techIcons/Vue.js.png",
-      position: { "--x": "47%", "--y": "45%", "--r": "-4deg" },
+      position: { "--x": "42%", "--y": "45%", "--r": "-4deg" },
     },
     {
       name: "TypeScript",
       imgPath: "/techIcons/TypeScript.png",
-      position: { "--x": "72%", "--y": "41%", "--r": "2deg" },
+      position: { "--x": "68%", "--y": "41%", "--r": "2deg" },
     },
     {
       name: "Nuxt JS",
       imgPath: "/techIcons/nuxtjs.png",
-      position: { "--x": "12%", "--y": "71%", "--r": "-4deg" },
+      position: { "--x": "7%", "--y": "71%", "--r": "-4deg" },
     },
     {
       name: "MongoDB",
       imgPath: "/techIcons/mongodb.png",
-      position: { "--x": "36%", "--y": "69%", "--r": "8deg" },
+      position: { "--x": "30%", "--y": "69%", "--r": "4deg" },
     },
     {
       name: "Figma",
       imgPath: "/techIcons/Figma.png",
-      position: { "--x": "61%", "--y": "73%", "--r": "-5deg" },
+      position: { "--x": "56%", "--y": "70%", "--r": "-2deg" },
     },
     {
       name: "Postgres",
       imgPath: "/techIcons/postgres.png",
-      position: { "--x": "82%", "--y": "69%", "--r": "-7deg" },
+      position: { "--x": "78%", "--y": "69%", "--r": "-7deg" },
     },
   ];
 
@@ -129,9 +129,9 @@ export default function TechStack() {
   );
 
   return (
-    <Section className="px-6">
-      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 items-center py-20">
-        <h2 className="text-5xl text-neuton font-bold">Tech Stack</h2>
+    <Section className=" ">
+      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 items-center pt-35 md:py-20">
+        <h2 className=" md:text-5xl text-neuton font-bold">Tech Stack</h2>
         <div className="stage" id="stage" ref={stageRef}>
           <div className="tech-grid">
             {techStacks.map((tech) => (

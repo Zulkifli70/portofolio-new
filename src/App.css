@@ -165,7 +165,7 @@ body {
 }
 
 .card-icon {
-  @apply w-30 h-30 shrink-0;
+  @apply w-8 h-8 md:w-30 md:h-30 shrink-0;
 }
 
 .card-icon img {
