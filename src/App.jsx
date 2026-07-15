@@ -5,6 +5,7 @@ import "./App.css";
 import About from "./sections/About";
 import Showcase from "./sections/Showcase";
 import SmoothScrollPortfolio from "./animation/SmoothScrollPortfolio";
+import TechStack from "./sections/TechStack";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Hero />
           <About />
           <Showcase />
+          <TechStack />
         </BaseLayout>
       </SmoothScrollPortfolio>
     </>

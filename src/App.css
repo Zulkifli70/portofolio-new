@@ -146,3 +146,28 @@ body {
     max-width: 34rem;
   }
 }
+
+.stage {
+  @apply relative w-full h-[80vh] max-w-7xl cursor-crosshair;
+}
+
+.tech-grid {
+  @apply relative w-full h-full pointer-events-none;
+}
+
+.tech-card {
+  @apply absolute flex flex-col justify-center items-center gap-2.5 pointer-events-none;
+  left: var(--x);
+  top: var(--y);
+  rotate: var(--r, 0deg);
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.card-icon {
+  @apply w-30 h-30 shrink-0;
+}
+
+.card-icon img {
+  @apply w-full h-full object-contain block;
+}
