@@ -5,8 +5,9 @@ export default function Experience() {
     {
       company: "Jalin Mayantara Indonesia",
       position: "UI UX Designer (Intership)",
-      industry: "IT Services & IT Consulting",
-      period: "September 2022 - February 2023",
+      industry: "IT Services",
+      period: "2022 - 2023",
+      location: "Malang, Indonesia",
       responsibilities: [
         "Conducted user research and stakeholder interviews to gather insights for UI/UX design decisions.",
         "Created wireframes, prototypes, and high-fidelity designs using Figma to visualize and validate user flows.",
@@ -17,12 +18,45 @@ export default function Experience() {
   ];
   return (
     <Section>
-      <div className="w-full h-full min-h-screen flex flex-col items-center px-5 py-20">
-        <h2 className="font-neuton md:text-5xl font-black">Experience</h2>
-        <div className="w-full flex-1 bg-amber-100">
+      <div className="w-full h-full min-h-screen flex flex-col gap-10 px-5 py-20 font-neuton">
+        <h2 className="text-4xl md:text-9xl font-black border-b border-b-gray-400">
+          Experience
+        </h2>
+        <div className="w-full flex-1">
           {experiences.map((exp) => (
-            <div key={exp.company} className="exp-card">
-              {exp.company}
+            <div
+              key={exp.company}
+              className="flex flex-col h-full min-h-80 gap-10"
+            >
+              <div className="w-full">
+                <h3 className="md:text-5xl font-neuton">{exp.company}</h3>
+              </div>
+              <div className="flex h-full gap-52">
+                <div className="flex flex-1">
+                  <h4 className="text-2xl">{exp.period}</h4>
+                </div>
+                <div className="flex flex-col gap-5 flex-1">
+                  <div className="flex justify-between">
+                    <h4 className="text-xl font-semibold">Position</h4>{" "}
+                    <h4 className="text-xl">{exp.position}</h4>
+                  </div>
+                  <div className="flex justify-between">
+                    <h4 className="text-xl font-semibold">Location</h4>{" "}
+                    <h4 className="text-xl">{exp.location}</h4>
+                  </div>
+                  <div className="flex justify-between">
+                    <h4 className="text-xl font-semibold">Industry</h4>{" "}
+                    <h4 className="text-xl">{exp.industry}</h4>
+                  </div>
+                </div>
+                <ul className="flex flex-col gap-5 flex-2">
+                  {exp.responsibilities.map((res, index) => (
+                    <li className="text-xl" key={index}>
+                      {res}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
