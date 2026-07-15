@@ -131,7 +131,9 @@ export default function TechStack() {
   return (
     <Section className=" ">
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 items-center pt-35 md:py-20">
-        <h2 className=" md:text-5xl text-neuton font-bold">Tech Stack</h2>
+        <h2 className="text-3xl md:text-5xl font-neuton font-black">
+          Tech Stack
+        </h2>
         <div className="stage" id="stage" ref={stageRef}>
           <div className="tech-grid">
             {techStacks.map((tech) => (
@@ -139,7 +141,9 @@ export default function TechStack() {
                 <div className="card-icon">
                   <img src={tech.imgPath} alt={tech.name} />
                 </div>
-                <span className="card-title">{tech.name}</span>
+                <span className="text-xl md:text-3xl font-neuton">
+                  {tech.name}
+                </span>
               </div>
             ))}
           </div>
