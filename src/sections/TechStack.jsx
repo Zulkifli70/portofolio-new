@@ -30,7 +30,7 @@ export default function TechStack() {
     {
       name: "GSAP",
       imgPath: "/techIcons/gsap.png",
-      position: { "--x": "1%", "--y": "41%", "--r": "-7deg" },
+      position: { "--x": "-1%", "--y": "41%", "--r": "-7deg" },
     },
     {
       name: "Astro",
