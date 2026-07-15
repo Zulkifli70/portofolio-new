@@ -10,27 +10,32 @@ export default function TechStack() {
     {
       name: "React",
       imgPath: "/techIcons/react.png",
-      position: { "--x": "8%", "--y": "12%", "--r": "3deg" },
+      position: { "--x": "3%", "--y": "12%", "--r": "3deg" },
     },
     {
       name: "Next JS",
       imgPath: "/techIcons/Next.js.png",
-      position: { "--x": "30%", "--y": "6%", "--r": "2deg" },
+      position: { "--x": "27%", "--y": "6%", "--r": "2deg" },
     },
     {
       name: "Tailwind",
       imgPath: "/techIcons/Tailwind CSS.png",
-      position: { "--x": "55%", "--y": "12%", "--r": "-2deg" },
+      position: { "--x": "52%", "--y": "12%", "--r": "-2deg" },
     },
     {
       name: "Javascript",
       imgPath: "/techIcons/JavaScript.png",
-      position: { "--x": "79%", "--y": "8%", "--r": "4deg" },
+      position: { "--x": "75%", "--y": "8%", "--r": "4deg" },
+    },
+    {
+      name: "GSAP",
+      imgPath: "/techIcons/gsap.png",
+      position: { "--x": "1%", "--y": "41%", "--r": "-7deg" },
     },
     {
       name: "Astro",
       imgPath: "/techIcons/Astro.png",
-      position: { "--x": "18%", "--y": "42%", "--r": "2deg" },
+      position: { "--x": "20%", "--y": "42%", "--r": "2deg" },
     },
     {
       name: "Vue",
@@ -40,7 +45,12 @@ export default function TechStack() {
     {
       name: "TypeScript",
       imgPath: "/techIcons/TypeScript.png",
-      position: { "--x": "68%", "--y": "41%", "--r": "2deg" },
+      position: { "--x": "62%", "--y": "41%", "--r": "2deg" },
+    },
+    {
+      name: "Github",
+      imgPath: "/techIcons/github.png",
+      position: { "--x": "88%", "--y": "41%", "--r": "2deg" },
     },
     {
       name: "Nuxt JS",
@@ -130,8 +140,8 @@ export default function TechStack() {
 
   return (
     <Section className=" ">
-      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 md:px-5">
-        <h2 className="text-3xl md:text-9xl font-neuton font-black">
+      <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
+        <h2 className="text-5xl md:text-9xl font-neuton font-black">
           Tech Stack
         </h2>
         <div className="stage self-center" id="stage" ref={stageRef}>
