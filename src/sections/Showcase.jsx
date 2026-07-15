@@ -35,7 +35,7 @@ export default function Showcase() {
   return (
     <Section
       id="projects"
-      className="showcase-section relative overflow-hidden bg-blue-200 px-0"
+      className="showcase-section relative overflow-hidden"
     >
       <div className="container-fluid">
         <div className="horiz-gallery-wrapper">
