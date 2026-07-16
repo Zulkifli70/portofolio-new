@@ -2,8 +2,11 @@ import Section from "../layout/Section";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(SplitText, ScrollTrigger, ScrambleTextPlugin);
 
 export default function TechStack() {
   const techStacks = [
@@ -75,6 +78,7 @@ export default function TechStack() {
   ];
 
   const stageRef = useRef(null);
+  const techContainerRef = useRef(null);
 
   // config, dulu ini dari slider, sekarang dijadikan konstanta aja
   const radius = 200;
@@ -124,6 +128,20 @@ export default function TechStack() {
         });
       }
 
+      let titleSplit = SplitText.create(".tech-title", { type: "chars" });
+
+      gsap.from(titleSplit.chars, {
+        duration: 1,
+        x: -100,
+        autoAlpha: 0,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: ".tech-title",
+          start: "top center",
+          toggleActions: "play none none none",
+        },
+      });
+
       stage.addEventListener("mousemove", handleMouseMove);
       stage.addEventListener("mouseleave", handleMouseLeave);
 
@@ -135,13 +153,13 @@ export default function TechStack() {
         gsap.killTweensOf(cards);
       };
     },
-    { scope: stageRef },
+    { scope: techContainerRef },
   );
 
   return (
-    <Section className=" ">
+    <Section ref={techContainerRef}>
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
-        <h2 className="text-5xl md:text-9xl font-neuton font-bold border-b border-b-gray-400">
+        <h2 className="tech-title text-5xl md:text-9xl font-neuton font-bold border-b border-b-gray-400">
           Tech Stack
         </h2>
         <div className="stage self-center" id="stage" ref={stageRef}>
