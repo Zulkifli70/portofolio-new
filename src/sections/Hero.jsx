@@ -214,6 +214,7 @@ export default function Hero() {
   }
   return (
     <Section
+      id="hero"
       ref={sectionRef}
       className="hero-section relative isolate overflow-hidden bg-white"
     >

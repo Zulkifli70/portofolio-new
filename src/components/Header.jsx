@@ -18,11 +18,20 @@ export default function Header() {
 
   return (
     <header className="header w-max-7xl flex items-center justify-between py-5 px-6 border-gray-200 fixed top-0 left-0 right-0 z-20">
-      <a href="#" className="logo text-3xl font-neuton font-bold">
-        Zulk
-      </a>
+      <div className="bg-white shadow-2xl px-10 py-3 rounded-xl">
+        <a
+          href="#hero"
+          className="logo text-3xl font-neuton font-bold"
+          onClick={handleClick}
+        >
+          Zulk
+        </a>
+      </div>
 
-      <nav ref={navRef} className="nav flex gap-6">
+      <nav
+        ref={navRef}
+        className="nav flex gap-6 bg-white shadow-2xl px-10 py-3 rounded-xl"
+      >
         <a
           href="#about"
           onClick={handleClick}
