@@ -24,7 +24,7 @@ export default function About() {
         scrollTrigger: {
           trigger: ".para",
           start: "top center",
-          toggleActions: "play none none restart",
+          toggleActions: "play none none none",
         },
       });
 
@@ -39,7 +39,7 @@ export default function About() {
         scrollTrigger: {
           trigger: ".about",
           start: "center center",
-          toggleActions: "play none none restart",
+          toggleActions: "play none none none",
         },
       });
 
