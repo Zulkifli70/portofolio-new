@@ -1,6 +1,16 @@
 import Section from "../layout/Section";
+import { useRef } from "react";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
+import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(SplitText, ScrollTrigger, ScrambleTextPlugin);
 
 export default function Experience() {
+  const expSectionRef = useRef(null);
+
   const experiences = [
     {
       company: "Jalin Mayantara Indonesia",
@@ -16,17 +26,48 @@ export default function Experience() {
       ],
     },
   ];
+
+  useGSAP(
+    () => {
+      let splitTitle = SplitText.create(".title", { type: "chars" });
+
+      gsap.from(splitTitle.chars, {
+        duration: 1,
+        x: -100,
+        autoAlpha: 0,
+        stagger: 0.05,
+        scrollTrigger: {
+          trigger: ".title",
+          start: "top center",
+          toggleActions: "play none none none",
+        },
+      });
+
+      gsap.from(".exp-card", {
+        duration: 1,
+        opacity: 0,
+        y: 100,
+        scrollTrigger: {
+          trigger: ".exp-card",
+          start: "top center",
+          toggleActions: "play none none none",
+        },
+      });
+    },
+    { scope: expSectionRef },
+  );
+
   return (
-    <Section>
+    <Section ref={expSectionRef}>
       <div className="w-full h-full min-h-screen flex flex-col gap-10 px-5 py-20 font-neuton">
-        <h2 className="text-4xl md:text-9xl font-semibold border-b border-b-gray-400">
+        <h2 className="title text-4xl md:text-9xl font-semibold border-b border-b-gray-400">
           Experience
         </h2>
         <div className="w-full flex-1 flex-col">
           {experiences.map((exp) => (
             <div
               key={exp.company}
-              className="flex flex-col h-full min-h-80 gap-10"
+              className="exp-card flex flex-col h-full min-h-80 gap-10"
             >
               <div className="w-full">
                 <h3 className="text-2xl md:text-5xl font-neuton font-bold">
