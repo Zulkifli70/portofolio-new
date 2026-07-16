@@ -22,31 +22,39 @@ export default function Experience() {
         <h2 className="text-4xl md:text-9xl font-black border-b border-b-gray-400">
           Experience
         </h2>
-        <div className="w-full flex-1">
+        <div className="w-full flex-1 flex-col">
           {experiences.map((exp) => (
             <div
               key={exp.company}
               className="flex flex-col h-full min-h-80 gap-10"
             >
               <div className="w-full">
-                <h3 className="md:text-5xl font-neuton">{exp.company}</h3>
+                <h3 className="text-2xl md:text-5xl font-neuton">
+                  {exp.company}
+                </h3>
               </div>
-              <div className="flex h-full gap-52">
+              <div className="flex flex-col md:flex-row h-full gap-5 md:gap-40">
                 <div className="flex flex-1">
-                  <h4 className="text-2xl">{exp.period}</h4>
+                  <h4 className="text-lg md:text-2xl">{exp.period}</h4>
                 </div>
                 <div className="flex flex-col gap-5 flex-1">
                   <div className="flex justify-between">
-                    <h4 className="text-xl font-semibold">Position</h4>{" "}
-                    <h4 className="text-xl">{exp.position}</h4>
+                    <h4 className="text-lg md:text-xl font-semibold">
+                      Position
+                    </h4>{" "}
+                    <h4 className="text-lg md:text-xl">{exp.position}</h4>
                   </div>
                   <div className="flex justify-between">
-                    <h4 className="text-xl font-semibold">Location</h4>{" "}
-                    <h4 className="text-xl">{exp.location}</h4>
+                    <h4 className="text-lg md:text-xl font-semibold">
+                      Location
+                    </h4>{" "}
+                    <h4 className="text-lg md:text-xl">{exp.location}</h4>
                   </div>
                   <div className="flex justify-between">
-                    <h4 className="text-xl font-semibold">Industry</h4>{" "}
-                    <h4 className="text-xl">{exp.industry}</h4>
+                    <h4 className="text-lg md:text-xl font-semibold">
+                      Industry
+                    </h4>{" "}
+                    <h4 className="text-lg md:text-xl">{exp.industry}</h4>
                   </div>
                 </div>
                 <ul className="flex flex-col gap-5 flex-2">
