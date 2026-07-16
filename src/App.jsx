@@ -7,6 +7,7 @@ import Showcase from "./sections/Showcase";
 import SmoothScrollPortfolio from "./animation/SmoothScrollPortfolio";
 import TechStack from "./sections/TechStack";
 import Experience from "./sections/Experience";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Showcase />
           <Experience />
           <TechStack />
+          <Footer />
         </BaseLayout>
       </SmoothScrollPortfolio>
     </>

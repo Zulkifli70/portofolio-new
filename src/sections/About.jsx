@@ -51,7 +51,7 @@ export default function About() {
   return (
     <Section ref={containerRef} className="overflow-x-clip px-6">
       <div className="relative w-full min-h-screen overflow-hidden flex flex-col gap-15 py-20">
-        <h2 className="about font-neuton text-6xl md:text-9xl border-b border-b-gray-400"></h2>
+        <h2 className="about font-neuton font-bold text-6xl md:text-9xl border-b border-b-gray-400"></h2>
         <p className="para md:self-end absolute top-1/3 font-neuton text-2xl md:text-7xl md:w-2/3">
           Hello, I'm Zulk, an indonesian frontend developer who enjoys turning
           ideas into responsive interfaces that feel modern and easy to use. I
