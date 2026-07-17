@@ -17,8 +17,8 @@ export default function Header() {
   };
 
   return (
-    <header className="header w-max-7xl flex items-center justify-between py-5 px-6 border-gray-200 fixed top-0 left-0 right-0 z-20">
-      <div className="bg-white shadow-2xl px-10 py-3 rounded-xl">
+    <header className="header w-max-7xl flex items-center justify-between py-5 px-6 shadow-2xl bg-white/20 backdrop-blur-sm fixed top-0 left-0 right-0 z-20">
+      <div>
         <a
           href="#hero"
           className="logo text-3xl font-neuton font-bold"
@@ -28,10 +28,7 @@ export default function Header() {
         </a>
       </div>
 
-      <nav
-        ref={navRef}
-        className="nav flex gap-6 bg-white shadow-2xl px-10 py-3 rounded-xl"
-      >
+      <nav ref={navRef} className="nav flex gap-5">
         <a
           href="#about"
           onClick={handleClick}
