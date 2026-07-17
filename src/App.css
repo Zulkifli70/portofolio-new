@@ -181,8 +181,8 @@ body {
 
 @media (min-width: 768px) {
   .project-wrap {
-    width: 33vw;
-    max-width: 34rem;
+    width: 50vw;
+    max-width: 50rem;
   }
 }
 
@@ -204,7 +204,7 @@ body {
 }
 
 .card-icon {
-  @apply w-8 h-8 md:w-30 md:h-30 shrink-0;
+  @apply w-8 h-8 md:w-15 md:h-15 lg:w-30 lg:h-30 shrink-0;
 }
 
 .card-icon img {

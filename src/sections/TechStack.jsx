@@ -159,7 +159,7 @@ export default function TechStack() {
   return (
     <Section ref={techContainerRef}>
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
-        <h2 className="tech-title text-5xl md:text-9xl font-neuton font-bold border-b border-b-gray-400">
+        <h2 className="tech-title text-5xl md:text-7xl lg:text-9xl font-neuton font-bold border-b border-b-gray-400">
           Tech Stack
         </h2>
         <div className="stage self-center" id="stage" ref={stageRef}>
@@ -169,7 +169,7 @@ export default function TechStack() {
                 <div className="card-icon">
                   <img src={tech.imgPath} alt={tech.name} />
                 </div>
-                <span className="text-xl md:text-3xl font-neuton">
+                <span className="text-xl lg:text-3xl font-neuton">
                   {tech.name}
                 </span>
               </div>

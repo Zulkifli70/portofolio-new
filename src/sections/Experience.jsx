@@ -60,7 +60,7 @@ export default function Experience() {
   return (
     <Section ref={expSectionRef}>
       <div className="w-full h-full min-h-screen flex flex-col gap-10 px-5 py-20 font-neuton">
-        <h2 className="title text-4xl md:text-9xl font-semibold border-b border-b-gray-400">
+        <h2 className="title text-4xl md:text-7xl lg:text-9xl font-semibold border-b border-b-gray-400">
           Experience
         </h2>
         <div className="w-full flex-1 flex-col">
@@ -70,37 +70,37 @@ export default function Experience() {
               className="exp-card flex flex-col h-full min-h-80 gap-10"
             >
               <div className="w-full">
-                <h3 className="text-2xl md:text-5xl font-neuton font-bold">
+                <h3 className="text-2xl lg:text-5xl font-neuton font-bold">
                   {exp.company}
                 </h3>
               </div>
-              <div className="flex flex-col md:flex-row h-full gap-5 md:gap-40">
+              <div className="flex flex-col md:flex-row h-full gap-5 lg:gap-40">
                 <div className="flex flex-1">
-                  <h4 className="text-lg md:text-2xl font-semibold">
+                  <h4 className="text-lg lg:text-2xl font-semibold">
                     {exp.period}
                   </h4>
                 </div>
-                <div className="flex flex-col gap-5 flex-1">
+                <div className="flex flex-col gap-5 flex-3">
                   <div className="flex justify-between">
-                    <h4 className="text-lg md:text-xl font-semibold">
+                    <h4 className="text-lg lg:text-xl font-semibold">
                       Position
                     </h4>{" "}
-                    <h4 className="text-lg md:text-xl">{exp.position}</h4>
+                    <h4 className="text-lg lg:text-xl">{exp.position}</h4>
                   </div>
                   <div className="flex justify-between">
-                    <h4 className="text-lg md:text-xl font-semibold">
+                    <h4 className="text-lg lg:text-xl font-semibold">
                       Location
                     </h4>{" "}
-                    <h4 className="text-lg md:text-xl">{exp.location}</h4>
+                    <h4 className="text-lg lg:text-xl">{exp.location}</h4>
                   </div>
                   <div className="flex justify-between">
-                    <h4 className="text-lg md:text-xl font-semibold">
+                    <h4 className="text-lg lg:text-xl font-semibold">
                       Industry
                     </h4>{" "}
-                    <h4 className="text-lg md:text-xl">{exp.industry}</h4>
+                    <h4 className="text-lg lg:text-xl">{exp.industry}</h4>
                   </div>
                 </div>
-                <ul className="flex flex-col gap-5 flex-2">
+                <ul className="flex flex-col gap-5 flex-4">
                   {exp.responsibilities.map((res, index) => (
                     <li className="text-xl" key={index}>
                       {res}
