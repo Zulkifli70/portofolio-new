@@ -59,6 +59,18 @@
 @theme {
   --font-monoton: "Monoton", cursive;
   --font-neuton: "Neuton", cursive;
+
+  --color-bg: #f3f2ef;
+  --color-surface: #fbfbfc;
+  --color-text-primary: #1f1f1f;
+  --color-text-secondary: #5e5e5e;
+  --color-border: #8a867e;
+  --color-hover: #ece9e3;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .logo .nav {
@@ -78,8 +90,6 @@
 }
 
 .hero-section {
-  /* HAPUS baris --header-h: 4.5rem; yang berdiri sendiri */
-
   --hero-text-y: min(17rem, calc(50vh - 3rem));
   --hero-text-top-y: max(
     -17rem,
@@ -184,6 +194,10 @@ body {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   display: block;
+}
+
+.showcase-section {
+  cursor: none;
 }
 
 @media (min-width: 768px) {

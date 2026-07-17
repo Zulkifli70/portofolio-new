@@ -60,10 +60,10 @@ export default function Experience() {
   return (
     <Section ref={expSectionRef}>
       <div className="w-full h-full min-h-screen flex flex-col gap-10 px-5 py-20 font-neuton">
-        <h2 className="title text-4xl md:text-7xl xl:text-9xl font-semibold border-b border-b-gray-400">
+        <h2 className="title text-4xl md:text-7xl xl:text-9xl font-semibold text-text-primary border-b-2 border-b-gray-400">
           Experience
         </h2>
-        <div className="w-full flex-1 flex-col">
+        <div className="w-full flex-1 flex-col text-text-secondary">
           {experiences.map((exp) => (
             <div
               key={exp.company}

@@ -34,29 +34,29 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className="header w-max-7xl flex items-center justify-between py-5 px-6 shadow-2xl bg-white/20 backdrop-blur-sm fixed top-0 left-0 right-0 z-20"
+      className="header w-max-7xl flex items-center bg-bg justify-between py-2 px-6 fixed top-0 left-0 right-0 z-20"
     >
       <div>
         <a
           href="#hero"
-          className="logo text-3xl font-neuton font-bold"
+          className="logo text-3xl font-neuton font-bold text-text-primary"
           onClick={handleClick}
         >
           Zulk
         </a>
       </div>
-      <nav ref={navRef} className="nav flex gap-5">
+      <nav ref={navRef} className="nav flex items-center gap-5">
         <a
           href="#about"
           onClick={handleClick}
-          className="text-xl text-gray-900 hover:opacity-60"
+          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl text-text-primary"
         >
           About
         </a>
         <a
           href="#projects"
           onClick={handleClick}
-          className="text-xl text-gray-900 hover:opacity-60"
+          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl text-text-primary"
         >
           Projects
         </a>

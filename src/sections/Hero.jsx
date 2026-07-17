@@ -216,10 +216,10 @@ export default function Hero() {
     <Section
       id="hero"
       ref={sectionRef}
-      className="hero-section relative isolate overflow-hidden bg-white"
+      className="hero-section relative isolate overflow-hidden "
     >
       {/* Foto: TIDAK dibungkus lagi, cuma foto polos + frame */}
-      <div ref={pinWrapperRef} className="hero-pin-wrapper bg-white">
+      <div ref={pinWrapperRef} className="hero-pin-wrapper bg-bg">
         <div
           ref={frameRef}
           className="hero-photo-frame shadow-2xl shadow-gray-950"
