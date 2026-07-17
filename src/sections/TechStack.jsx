@@ -142,6 +142,18 @@ export default function TechStack() {
         },
       });
 
+      gsap.from(".tech-grid", {
+        duration: 1,
+        opacity: 0,
+        y: 100,
+        ease: "bounce",
+        scrollTrigger: {
+          trigger: ".tech-grid",
+          start: "top center",
+          toggleActions: "play none none none",
+        },
+      });
+
       stage.addEventListener("mousemove", handleMouseMove);
       stage.addEventListener("mouseleave", handleMouseLeave);
 
