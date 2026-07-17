@@ -204,7 +204,7 @@ body {
 }
 
 .card-icon {
-  @apply w-8 h-8 md:w-15 md:h-15 lg:w-30 lg:h-30 shrink-0;
+  @apply w-8 h-8 md:w-15 md:h-15 xl:w-30 xl:h-30 shrink-0;
 }
 
 .card-icon img {
