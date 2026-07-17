@@ -1,23 +1,41 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 export default function Header() {
   const navRef = useRef(null);
+  const headerRef = useRef(null); // tambahin ref ke <header>
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const setHeaderHeight = () => {
+      document.documentElement.style.setProperty(
+        "--header-h",
+        `${header.offsetHeight}px`,
+      );
+    };
+
+    setHeaderHeight(); // set awal
+
+    const ro = new ResizeObserver(setHeaderHeight);
+    ro.observe(header);
+
+    return () => ro.disconnect();
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
-    const target = e.currentTarget.getAttribute("href"); // contoh: "#about"
-
-    // Ambil instance ScrollSmoother yang sudah aktif dari SmoothScrollPortfolio
+    const target = e.currentTarget.getAttribute("href");
     const smoother = ScrollSmoother.get();
-
-    if (smoother) {
-      smoother.scrollTo(target, true, "top top");
-    }
+    if (smoother) smoother.scrollTo(target, true, "top top");
   };
 
   return (
-    <header className="header w-max-7xl flex items-center justify-between py-5 px-6 shadow-2xl bg-white/20 backdrop-blur-sm fixed top-0 left-0 right-0 z-20">
+    <header
+      ref={headerRef}
+      className="header w-max-7xl flex items-center justify-between py-5 px-6 shadow-2xl bg-white/20 backdrop-blur-sm fixed top-0 left-0 right-0 z-20"
+    >
       <div>
         <a
           href="#hero"
@@ -27,7 +45,6 @@ export default function Header() {
           Zulk
         </a>
       </div>
-
       <nav ref={navRef} className="nav flex gap-5">
         <a
           href="#about"
