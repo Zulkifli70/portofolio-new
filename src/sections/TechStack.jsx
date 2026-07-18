@@ -137,7 +137,7 @@ export default function TechStack() {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".tech-title",
-          start: "top center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
@@ -149,7 +149,7 @@ export default function TechStack() {
         ease: "bounce",
         scrollTrigger: {
           trigger: ".tech-grid",
-          start: "top center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
