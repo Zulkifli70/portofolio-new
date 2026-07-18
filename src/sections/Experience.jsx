@@ -38,7 +38,7 @@ export default function Experience() {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".title",
-          start: "top center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
@@ -49,7 +49,7 @@ export default function Experience() {
         y: 100,
         scrollTrigger: {
           trigger: ".exp-card",
-          start: "top center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
