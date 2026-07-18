@@ -56,12 +56,13 @@ export default function Showcase() {
       gsap.from(split.words, {
         x: -150,
         opacity: 0,
-        duration: 2,
+        duration: 3.5,
         ease: "power4",
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".title-sec",
-          start: "top center",
+          start: "top bottom",
+          markers: true,
           toggleActions: "play none none none",
         },
       });
