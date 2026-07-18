@@ -62,7 +62,6 @@ export default function Showcase() {
         scrollTrigger: {
           trigger: ".title-sec",
           start: "top bottom",
-          markers: true,
           toggleActions: "play none none none",
         },
       });
