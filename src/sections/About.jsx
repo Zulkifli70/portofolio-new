@@ -23,7 +23,7 @@ export default function About() {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".para",
-          start: "top center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
@@ -38,7 +38,7 @@ export default function About() {
         },
         scrollTrigger: {
           trigger: ".about",
-          start: "center center",
+          start: "top bottom",
           toggleActions: "play none none none",
         },
       });
