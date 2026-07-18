@@ -143,10 +143,10 @@ export default function TechStack() {
       });
 
       gsap.from(".tech-grid", {
-        duration: 1,
+        duration: 2.5,
         opacity: 0,
         y: 100,
-        ease: "bounce",
+        ease: "bounce.out",
         scrollTrigger: {
           trigger: ".tech-grid",
           start: "top bottom",
