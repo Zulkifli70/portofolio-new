@@ -202,7 +202,7 @@ body {
 
 @media (min-width: 768px) {
   .project-wrap {
-    width: 50vw;
+    width: 40vw;
     max-width: 50rem;
   }
 }
