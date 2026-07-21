@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -11,6 +11,19 @@ function LoadingScreen({ children }) {
   );
   const [progress, setProgress] = useState(0);
   const overlayRef = useRef(null);
+
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto"; // atau hapus: document.body.style.removeProperty("overflow")
+    }
+
+    // cleanup, jaga-jaga kalau komponen unmount saat masih loading
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isLoading]);
 
   useGSAP(
     () => {
@@ -86,7 +99,10 @@ function LoadingScreen({ children }) {
 
       {/* overlay numpuk di atas, sampai animasi keluar selesai */}
       {isLoading && (
-        <div ref={overlayRef} className="loading-container bg-[#1a1a1a] ">
+        <div
+          ref={overlayRef}
+          className="loading-container bg-[#1a1a1a] scrollbar-none"
+        >
           <p className="progress-text absolute bottom-5 right-5 font-fraunces text-9xl font-bold text-text-white">
             {progress}%
           </p>
