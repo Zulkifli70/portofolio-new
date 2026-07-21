@@ -14,7 +14,43 @@ function LoadingScreen({ children }) {
 
   useEffect(() => {
     if (isLoading) {
+      // simpan posisi scroll saat ini
+      const scrollY = window.scrollY;
+
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
       document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden"; // kunci juga <html>
+    } else {
+      // ambil posisi scroll yang disimpan dari style "top"
+      const scrollY = document.body.style.top;
+
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+
+      // kembalikan posisi scroll seperti semula
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    }
+
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
+    const preventTouch = (e) => e.preventDefault();
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+      document.addEventListener("touchmove", preventTouch, { passive: false });
     } else {
       document.body.style.overflow = "auto"; // atau hapus: document.body.style.removeProperty("overflow")
     }
@@ -22,6 +58,7 @@ function LoadingScreen({ children }) {
     // cleanup, jaga-jaga kalau komponen unmount saat masih loading
     return () => {
       document.body.style.overflow = "auto";
+      document.removeEventListener("touchmove", preventTouch);
     };
   }, [isLoading]);
 
