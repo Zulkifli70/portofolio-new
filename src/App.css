@@ -187,6 +187,7 @@ body {
   width: min(78vw, 28rem);
   box-sizing: border-box;
   flex-shrink: 0;
+  cursor: none;
 }
 
 .project-wrap img {
@@ -243,23 +244,4 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #0f0f0f;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #333;
-  border-top: 5px solid #fff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
