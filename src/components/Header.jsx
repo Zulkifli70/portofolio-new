@@ -39,13 +39,13 @@ export default function Header() {
       <div>
         <a
           href="#hero"
-          className="logo text-3xl font-neuton font-bold text-text-primary"
+          className="logo text-3xl font-space font-bold text-text-primary"
           onClick={handleClick}
         >
           Zulk
         </a>
       </div>
-      <nav ref={navRef} className="nav flex items-center gap-5">
+      <nav ref={navRef} className="nav flex items-center gap-5 font-space">
         <a
           href="#about"
           onClick={handleClick}

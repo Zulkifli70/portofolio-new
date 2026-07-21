@@ -1,64 +1,11 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: Monoton;
-  font-style: normal;
-  font-weight: 200 700;
-  font-display: swap;
-  src: url("/font/Monoton-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: normal;
-  font-weight: 200;
-  font-display: swap;
-  src: url("/font/Neuton-ExtraLight.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url("/font/Neuton-Light.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/font/Neuton-Regular.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/font/Neuton-Italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("/font/Neuton-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: Neuton;
-  font-style: normal;
-  font-weight: 800;
-  font-display: swap;
-  src: url("/font/Neuton-ExtraBold.ttf") format("truetype");
-}
-
 @theme {
   --font-monoton: "Monoton", cursive;
   --font-neuton: "Neuton", cursive;
+  --font-fraunces: "Fraunces", cursive;
+  --font-space: "SpaceGrotesk", cursive;
+  --font-syne: "Syne", cursive;
 
   --color-bg: #f3f2ef;
   --color-surface: #fbfbfc;
@@ -66,6 +13,88 @@
   --color-text-secondary: #5e5e5e;
   --color-border: #8a867e;
   --color-hover: #ece9e3;
+}
+
+@layer base {
+  @font-face {
+    font-family: Monoton;
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url("/font/Monoton-Regular.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: normal;
+    font-weight: 200;
+    font-display: swap;
+    src: url("/font/Neuton-ExtraLight.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url("/font/Neuton-Light.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/font/Neuton-Regular.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url("/font/Neuton-Italic.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url("/font/Neuton-Bold.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Neuton;
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url("/font/Neuton-ExtraBold.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Fraunces;
+    font-style: normal;
+    font-weight: 200 900;
+    font-display: swap;
+    src: url("/font/Fraunces-VariableFont.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: Syne;
+    font-style: normal;
+    font-weight: 200 900;
+    font-display: swap;
+    src: url("/font/Syne-VariableFont.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: SpaceGrotesk;
+    font-style: normal;
+    font-weight: 200 900;
+    font-display: swap;
+    src: url("/font/SpaceGrotesk-VariableFont.ttf") format("truetype");
+  }
 }
 
 body {
@@ -86,7 +115,7 @@ body {
 }
 
 .scrolling-text .rail h4 {
-  @apply whitespace-nowrap font-monoton text-2xl md:text-3xl lg:text-5xl xl:text-7xl font-black mr-15 tracking-wide leading-1 uppercase;
+  @apply whitespace-nowrap font-fraunces text-2xl md:text-3xl lg:text-5xl xl:text-7xl font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
 .hero-section {
