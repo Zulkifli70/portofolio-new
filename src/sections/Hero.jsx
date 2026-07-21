@@ -100,7 +100,7 @@ export default function Hero() {
   const heroText = [
     "Zulkifli Firdausi",
     "Frontend Developer",
-    "Creative Developer",
+    "UI UX DESIGNER",
   ];
 
   const renderRail = (direction = "forward") => (
