@@ -49,6 +49,16 @@ function LoadingScreen({ children }) {
         });
       };
 
+      let tl = gsap.timeline({
+        defaults: { duration: 1, ease: "sine.inOut" },
+      });
+      tl.from(".para1", { xPercent: -150 })
+        .from(".para2", { xPercent: -150 })
+        .from(".para3", { xPercent: -150 })
+        .to(".para1", { xPercent: 150 })
+        .to(".para2", { xPercent: 150 })
+        .to(".para3", { xPercent: 150 });
+
       const finishLoading = () => {
         const elapsed = Date.now() - startTime;
         const remaining = Math.max(MIN_DISPLAY_TIME - elapsed, 0);
@@ -83,6 +93,17 @@ function LoadingScreen({ children }) {
           <div className="absolute top-5 left-5">
             <p className="font-fraunces text-9xl font-bold text-text-white">
               Please Wait<span className="dot"></span>
+            </p>
+          </div>
+          <div className="w-1/2">
+            <p className="para1 font-fraunces text-9xl font-bold text-text-white">
+              Zulkifli
+            </p>
+            <p className="para2 font-fraunces text-9xl text-center font-bold text-text-white">
+              Firdausi
+            </p>
+            <p className="para3 font-fraunces text-9xl text-end font-bold text-text-white">
+              Portfolio
             </p>
           </div>
         </div>
