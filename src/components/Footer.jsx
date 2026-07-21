@@ -3,7 +3,7 @@ function Footer() {
     <footer className="w-full lg:min-h-60 px-5 flex flex-col font-space">
       <div className="w-full flex flex-col flex-1 border-t-2 border-t-gray-500 gap-5 md:p-5 lg:gap-0 pt-3 lg:pt-0">
         <div className="flex lg:flex-1 justify-between lg:items-center h-2/3">
-          <h2 className="text-xl lg:text-4xl xl:text-7xl">
+          <h2 className="text-xl text-text-primary lg:text-4xl xl:text-7xl">
             Let's Get in Touch
           </h2>
           <a
@@ -14,10 +14,10 @@ function Footer() {
           </a>
         </div>
         <div className="flex lg:flex-1 justify-between items-center py-5 lg:p-2">
-          <h2 className="md:text-xl lg:text-2xl">
+          <h2 className="md:text-xl lg:text-2xl text-text-primary">
             {new Date().getFullYear()} - Zulkifli Firdausi
           </h2>
-          <div className="flex gap-3 xl:gap-10">
+          <div className="flex gap-3 xl:gap-10 text-text-primary">
             <a
               href="https://github.com/Zulkifli70"
               target="_blank"
