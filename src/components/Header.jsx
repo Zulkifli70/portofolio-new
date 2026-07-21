@@ -45,18 +45,21 @@ export default function Header() {
           Zulk
         </a>
       </div>
-      <nav ref={navRef} className="nav flex items-center gap-5 font-space">
+      <nav
+        ref={navRef}
+        className="nav text-2xl flex items-center gap-5 font-space"
+      >
         <a
           href="#about"
           onClick={handleClick}
-          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl text-text-primary"
+          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl font-semibold text-text-primary"
         >
           About
         </a>
         <a
           href="#projects"
           onClick={handleClick}
-          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl text-text-primary"
+          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl font-semibold text-text-primary"
         >
           Projects
         </a>
