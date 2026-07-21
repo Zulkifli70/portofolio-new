@@ -140,22 +140,22 @@ function LoadingScreen({ children }) {
           ref={overlayRef}
           className="loading-container bg-[#1a1a1a] scrollbar-none"
         >
-          <p className="progress-text absolute bottom-5 right-5 font-fraunces text-9xl font-bold text-text-white">
+          <p className="progress-text absolute bottom-5 right-5 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
             {progress}%
           </p>
           <div className="absolute top-5 left-5">
-            <p className="font-fraunces text-9xl font-bold text-text-white">
+            <p className="font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Please Wait<span className="dot"></span>
             </p>
           </div>
           <div className="w-1/2">
-            <p className="para1 font-fraunces text-9xl font-bold text-text-white">
+            <p className="para1 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Zulkifli
             </p>
-            <p className="para2 font-fraunces text-9xl text-center font-bold text-text-white">
+            <p className="para2 font-fraunces text-2xl md:text-5xl xl:text-9xl text-center font-bold text-text-white">
               Firdausi
             </p>
-            <p className="para3 font-fraunces text-9xl text-end font-bold text-text-white">
+            <p className="para3 font-fraunces text-2xl md:text-5xl xl:text-9xl text-end font-bold text-text-white">
               Portfolio
             </p>
           </div>
