@@ -1,33 +1,58 @@
-// components/LoadingScreen.jsx
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function LoadingScreen({ children }) {
-  // cek document.readyState LANGSUNG pas nentuin nilai awal state
   const [isLoading, setIsLoading] = useState(
     () => document.readyState !== "complete",
   );
+  const overlayRef = useRef(null);
 
-  useEffect(() => {
-    // kalau pas render pertama ternyata udah "complete",
-    // isLoading udah false dari awal, jadi gak perlu ngapa-ngapain lagi
-    if (document.readyState === "complete") return;
+  useGSAP(
+    () => {
+      const MIN_DISPLAY_TIME = 3000; // minimal loading tampil (ms)
+      const startTime = Date.now();
 
-    const handleLoad = () => setIsLoading(false);
-    window.addEventListener("load", handleLoad);
+      // animasi geser + hapus dari DOM, dipanggil kalau syarat waktu udah terpenuhi
+      const playExitAnimation = () => {
+        gsap.to(overlayRef.current, {
+          xPercent: -100,
+          duration: 1,
+          ease: "power2.inOut",
+          onComplete: () => setIsLoading(false),
+        });
+      };
 
-    return () => window.removeEventListener("load", handleLoad);
-  }, []);
+      const finishLoading = () => {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(MIN_DISPLAY_TIME - elapsed, 0);
+        setTimeout(playExitAnimation, remaining);
+      };
 
-  if (isLoading) {
-    return (
-      <div className="loading-container">
-        <div className="spinner"></div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+      if (document.readyState === "complete") {
+        finishLoading();
+      } else {
+        window.addEventListener("load", finishLoading);
+        return () => window.removeEventListener("load", finishLoading);
+      }
+    },
+    { scope: overlayRef },
+  );
 
-  return children;
+  return (
+    <>
+      {/* konten utama selalu ke-render, di "belakang" overlay */}
+      {children}
+
+      {/* overlay numpuk di atas, sampai animasi keluar selesai */}
+      {isLoading && (
+        <div ref={overlayRef} className="loading-container">
+          <div className="spinner"></div>
+          <p>Loading...</p>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default LoadingScreen;
