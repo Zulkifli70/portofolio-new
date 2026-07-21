@@ -76,13 +76,13 @@ export default function Hero() {
                   },
                 })
                 .to(tl, {
-                  timeScale: scrollFactor * 2.5,
+                  timeScale: scrollFactor * 1.5,
                   duration: 0.2,
                   overwrite: true,
                 })
                 .to(
                   tl,
-                  { timeScale: scrollFactor / 2.5, duration: 1 },
+                  { timeScale: scrollFactor / 1.5, duration: 1 },
                   "+=0.3",
                 );
             });
