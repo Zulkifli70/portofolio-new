@@ -3,6 +3,7 @@ import Section from "../layout/Section";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Observer } from "gsap/Observer";
+import { ChevronDown } from "lucide-react";
 
 /**
  * Hero — Opening section with a zoom-on-scroll photo and infinite scrolling text.
@@ -57,6 +58,15 @@ export default function Hero() {
         });
       });
 
+      gsap.to(".scroll", {
+        y: 10,
+        duration: 0.6,
+        ease: "power1.inOut",
+        repeat: -1, // -1 = ulang terus tanpa henti
+        yoyo: true, // bikin animasi bolak-balik (turun-naik-turun-naik)
+        repeatDelay: 0.2, // jeda dikit tiap siklus (opsional)
+      });
+
       return () => mm.revert();
     },
     { scope: sectionRef, dependencies: [] },
@@ -83,7 +93,7 @@ export default function Hero() {
             tl: horizontalLoop(rail.querySelectorAll("h4"), {
               repeat: -1,
               paddingRight: 60,
-              speed: 0.8,
+              speed: 0.5,
               reversed: isReverse,
             }),
             scrollDirection: isReverse ? -1 : 1,
@@ -345,6 +355,11 @@ export default function Hero() {
         {/* Bottom text rail — white text with exclusion blend for contrast */}
         <div className="scrolling-text hero-copy hero-copy-base">
           {renderRail("reverse")}
+        </div>
+
+        <div className="absolute flex flex-col items-center bottom-18 lg:bottom-5 left-1/2 -translate-x-1/2">
+          <h3 className="font-space text-md">Scroll Down</h3>
+          <ChevronDown className="scroll" />
         </div>
       </div>
     </Section>

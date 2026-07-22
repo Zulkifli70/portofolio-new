@@ -141,17 +141,31 @@ body {
 
 /* Individual text items in the rail — large, uppercase, nowrap for marquee */
 .scrolling-text .rail h4 {
-  @apply whitespace-nowrap font-fraunces text-2xl md:text-3xl lg:text-5xl xl:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
+  @apply whitespace-nowrap font-fraunces text-4xl lg:text-5xl xl:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
 /* Hero section custom properties for text vertical positioning.
    --hero-text-y:   y-offset for the bottom (white) text rail.
    --hero-text-top-y: y-offset for the top (gray) text rail (negative = offset upward). */
 .hero-section {
-  --hero-text-y: min(17rem, calc(50vh - 3rem));
+  --hero-text-y: min(16rem, calc(50vh - 3rem));
   --hero-text-top-y: max(
-    0rem,
+    -16rem,
     calc(-1 * (50vh - var(--header-h, 4.5rem) - 1rem))
+  );
+  --hero-text-mid-top-y: max(
+    -8rem,
+    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
+  );
+
+  --hero-text-mid-y: max(
+    0rem,
+    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
+  );
+
+  --hero-text-mid-bot-y: max(
+    8rem,
+    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
   );
 }
 
