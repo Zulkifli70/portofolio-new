@@ -50,15 +50,27 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
 
   useGSAP(
     () => {
-      const MIN_DISPLAY_TIME = 3000;
-      const startTime = Date.now();
-      let progressInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const pct = Math.min((elapsed / MIN_DISPLAY_TIME) * 100, 100);
-        setProgress(Math.round(pct));
-        if (pct >= 100) clearInterval(progressInterval);
-      }, 16);
+      // — Real image loading progress —
+      const imgs = [...document.querySelectorAll("img")].filter(
+        (img) => !img.closest(".loading-container"),
+      );
+      const total = imgs.length;
+      let loaded = 0;
 
+      const bump = () => {
+        loaded++;
+        if (total > 0) setProgress(Math.round((loaded / total) * 100));
+      };
+
+      imgs.forEach((img) => {
+        if (img.complete) bump();
+        else {
+          img.addEventListener("load", bump, { once: true });
+          img.addEventListener("error", bump, { once: true });
+        }
+      });
+
+      // — That triggered immediate bumps for cached images, now set up the rest —
       gsap.to(".dot", {
         duration: 2,
         text: ".....",
@@ -83,23 +95,17 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
         .from(".para2", { xPercent: -150 })
         .from(".para3", { xPercent: -150 });
 
+      // — Wait for everything to truly finish —
       const allReady = () => {
-        const elapsed = Date.now() - startTime;
-        const remaining = Math.max(MIN_DISPLAY_TIME - elapsed, 0);
-        setTimeout(() => {
-          setProgress(100);
-          setTimeout(playExit, extraHoldTime);
-        }, remaining);
+        setProgress(100); // force 100% even if an image was missed
+        setTimeout(playExit, extraHoldTime);
       };
 
-      // Wait for ALL content: images (window.load) + fonts
       const waitLoad = new Promise((resolve) => {
         if (document.readyState === "complete") resolve();
         else window.addEventListener("load", resolve, { once: true });
       });
       Promise.all([waitLoad, document.fonts.ready]).then(allReady);
-
-      return () => clearInterval(progressInterval);
     },
     { scope: overlayRef },
   );
