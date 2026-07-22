@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════
+   Theme Tokens (Tailwind v4 @theme)
+   Custom colors, fonts, and design tokens used via Tailwind utilities.
+   ═══════════════════════════════════════════════════════════════════ */
 @theme {
   --font-monoton: "Monoton", cursive;
   --font-neuton: "Neuton", cursive;
@@ -16,6 +20,12 @@
   --color-hover: #ece9e3;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   @font-face Declarations
+   Self-hosted Google Fonts loaded via local TTF files.
+   Each family/weight/style is declared separately for fine-grained
+   control over font loading order and fallback behavior.
+   ═══════════════════════════════════════════════════════════════════ */
 @layer base {
   @font-face {
     font-family: Monoton;
@@ -98,15 +108,29 @@
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   Base & Global Styles
+   ═══════════════════════════════════════════════════════════════════ */
 body {
   background: var(--color-bg);
   color: var(--color-text);
 }
 
+/* Header logo + nav use exclusion blend mode for contrast over hero image */
 .logo .nav {
   mix-blend-mode: exclusion;
 }
 
+body {
+  overflow-x: hidden;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Hero Section — Scrolling Text & Photo Frame
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Horizontal text rail container — flex row, full viewport width, overflow hidden */
 .scrolling-text {
   @apply w-full h-screen items-center min-h-1/3 flex overflow-hidden;
 }
@@ -115,10 +139,14 @@ body {
   @apply flex;
 }
 
+/* Individual text items in the rail — large, uppercase, nowrap for marquee */
 .scrolling-text .rail h4 {
   @apply whitespace-nowrap font-fraunces text-2xl md:text-3xl lg:text-5xl xl:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
+/* Hero section custom properties for text vertical positioning.
+   --hero-text-y:   y-offset for the bottom (white) text rail.
+   --hero-text-top-y: y-offset for the top (gray) text rail (negative = offset upward). */
 .hero-section {
   --hero-text-y: min(17rem, calc(50vh - 3rem));
   --hero-text-top-y: max(
@@ -127,6 +155,7 @@ body {
   );
 }
 
+/* Larger text offset on desktop (≥768px) */
 @media (min-width: 768px) {
   .hero-section {
     --hero-text-y: min(20rem, calc(50vh - 3rem));
@@ -137,10 +166,12 @@ body {
   }
 }
 
+/* Bottom text rail — positioned via --hero-text-y CSS variable */
 .hero-text-rail {
   transform: translateY(var(--hero-text-y));
 }
 
+/* Bottom text rail — white text with exclusion blend for contrast over photo */
 .hero-copy-base {
   position: relative;
   z-index: 2;
@@ -149,6 +180,7 @@ body {
   isolation: auto;
 }
 
+/* Photo frame — centered, rounded, will-change for GPU-accelerated width/height animation */
 .hero-photo-frame {
   position: absolute;
   top: 50%;
@@ -167,6 +199,7 @@ body {
   display: block;
 }
 
+/* Top text rail — gray text, offset upward, pointer-events disabled so it doesn't block clicks */
 .hero-copy-top {
   --hero-text-y: var(--hero-text-top-y);
   position: absolute;
@@ -177,23 +210,11 @@ body {
   pointer-events: none;
 }
 
-.showcase-wrapper {
-  @apply flex flex-nowrap relative will-change-transform;
-}
+/* ═══════════════════════════════════════════════════════════════════
+   Showcase — Horizontal Project Gallery
+   ═══════════════════════════════════════════════════════════════════ */
 
-body {
-  overflow-x: hidden;
-  margin: 0;
-}
-
-.container-fluid {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  margin-right: auto;
-  margin-left: auto;
-}
-
+/* Gallery wrapper — full viewport height, pins during horizontal scroll */
 .horiz-gallery-strip,
 .horiz-gallery-wrapper {
   display: flex;
@@ -208,11 +229,13 @@ body {
   overflow: hidden;
 }
 
+/* Strip — horizontal flex row with responsive gap between cards */
 .horiz-gallery-strip {
   align-items: center;
   gap: clamp(1rem, 5vw, 2rem);
 }
 
+/* Project card wrapper — fixed max width, no shrink, cursor: none for custom cursor */
 .project-wrap {
   width: min(78vw, 28rem);
   box-sizing: border-box;
@@ -227,10 +250,12 @@ body {
   display: block;
 }
 
+/* Hide default cursor on the showcase section when custom cursor is active */
 .showcase-section {
   cursor: none;
 }
 
+/* Wider cards on desktop (≥768px) */
 @media (min-width: 768px) {
   .project-wrap {
     width: 40vw;
@@ -238,14 +263,31 @@ body {
   }
 }
 
+/* Full-width fluid container for gallery content */
+.container-fluid {
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Tech Stack — Floating Icons Grid
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Stage — the interaction area for mouse-proximity scaling */
 .stage {
   @apply relative w-full h-[80vh] max-w-7xl cursor-crosshair;
 }
 
+/* Tech grid — relative container for absolutely-positioned cards */
 .tech-grid {
   @apply relative w-full h-full pointer-events-none;
 }
 
+/* Individual tech card — positioned via CSS custom properties (--x, --y, --r)
+   set inline in the React component's `style` attribute */
 .tech-card {
   @apply absolute flex flex-col justify-center items-center gap-2.5 pointer-events-none;
   left: var(--x);
@@ -255,6 +297,7 @@ body {
   will-change: transform;
 }
 
+/* Tech icon container — responsive sizing */
 .card-icon {
   @apply w-8 h-8 md:w-15 md:h-15 xl:w-30 xl:h-30 shrink-0;
 }
@@ -263,13 +306,16 @@ body {
   @apply w-full h-full object-contain block;
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   Loading Screen — Full-Screen Overlay
+   ═══════════════════════════════════════════════════════════════════ */
 .loading-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-  z-index: 9999;
+  z-index: 9999;          /* above everything including ScrollTrigger pins */
   display: flex;
   flex-direction: column;
   align-items: center;

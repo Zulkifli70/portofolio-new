@@ -4,7 +4,24 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 
+/**
+ * TechStack — Floating tech icons with mouse-proximity scaling.
+ *
+ * Layout:
+ *   - 13 technology cards positioned absolutely via CSS custom properties
+ *     (--x, --y, --r) for a scattered, non-grid layout.
+ *   - Each card shows an icon + name.
+ *
+ * Interactions:
+ *   - Mouse proximity: cards scale up (to 1.5x) as the cursor approaches,
+ *     creating a "magnetic" zoom effect. Scale is inversely proportional to
+ *     distance (closer = bigger).
+ *   - On mouse leave: all cards smoothly scale back to 1x.
+ *   - Title chars slide in from left (SplitText).
+ *   - Grid bounces in from below on scroll.
+ */
 export default function TechStack() {
+  /** Static tech stack data — name, icon path, and CSS positioning via custom properties. */
   const techStacks = [
     {
       name: "React",
@@ -73,6 +90,7 @@ export default function TechStack() {
     },
   ];
 
+  /** Ref to the stage container — event listener target for mouse proximity. */
   const stageRef = useRef(null);
 
   useGSAP(
@@ -82,16 +100,27 @@ export default function TechStack() {
 
       const cards = gsap.utils.toArray(".tech-card", stage);
 
+      /**
+       * Mouse move handler — scales each card based on distance from cursor.
+       *
+       * Uses `Math.hypot` for Euclidean distance from cursor to card center,
+       * then `gsap.utils.mapRange` to map distance (0–200px) → scale (1–1.5).
+       * Cards closer to the cursor scale up more.
+       *
+       * @param {MouseEvent} e
+       */
       function handleMouseMove(e) {
         const mx = e.clientX;
         const my = e.clientY;
 
         cards.forEach((card) => {
           const r = card.getBoundingClientRect();
+          // Euclidean distance from cursor to card center
           const d = Math.hypot(
             mx - (r.left + r.width / 2),
             my - (r.top + r.height / 2),
           );
+          // Map distance 0→200px to scale factor 1→0 (inverted: closer = bigger)
           const p = gsap.utils.clamp(
             0,
             1,
@@ -99,25 +128,27 @@ export default function TechStack() {
           );
 
           gsap.to(card, {
-            scale: 1 + (1.5 - 1) * p,
+            scale: 1 + (1.5 - 1) * p, // scale from 1.0 to 1.5 based on proximity
             duration: 0.35,
-            overwrite: true,
+            overwrite: true,           // kill previous tween for same card
             ease: "power2.out",
           });
         });
       }
 
+      /** Resets all cards back to scale 1 when the mouse leaves the stage. */
       function handleMouseLeave() {
         cards.forEach((card) => {
           gsap.to(card, {
             scale: 1,
-            duration: 0.35 * 2,
+            duration: 0.35 * 2,       // slower ease-out for smooth reset
             overwrite: true,
             ease: "power2.out",
           });
         });
       }
 
+      // ── Title character reveal ─────────────────────────────────────
       let titleSplit = SplitText.create(".tech-title", { type: "chars" });
 
       gsap.from(titleSplit.chars, {
@@ -132,6 +163,7 @@ export default function TechStack() {
         },
       });
 
+      // ── Grid bounce-in ────────────────────────────────────────────
       gsap.from(".tech-grid", {
         duration: 2.5,
         opacity: 0,
@@ -144,13 +176,15 @@ export default function TechStack() {
         },
       });
 
+      // ── Mouse listeners ────────────────────────────────────────────
       stage.addEventListener("mousemove", handleMouseMove);
       stage.addEventListener("mouseleave", handleMouseLeave);
 
+      // ── Cleanup ────────────────────────────────────────────────────
       return () => {
         stage.removeEventListener("mousemove", handleMouseMove);
         stage.removeEventListener("mouseleave", handleMouseLeave);
-        gsap.killTweensOf(cards);
+        gsap.killTweensOf(cards); // stop all card scale tweens
       };
     },
     { scope: stageRef },
@@ -162,7 +196,9 @@ export default function TechStack() {
         <h2 className="tech-title text-5xl md:text-7xl xl:text-9xl font-space text-text-primary font-bold border-b-2 border-b-gray-400">
           Tech Stack
         </h2>
+        {/* Stage: the mouse-proximity interaction area */}
         <div className="stage self-center" id="stage" ref={stageRef}>
+          {/* Tech grid: absolutely-positioned cards scattered via CSS custom properties */}
           <div className="tech-grid">
             {techStacks.map((tech) => (
               <div key={tech.name} className="tech-card" style={tech.position}>

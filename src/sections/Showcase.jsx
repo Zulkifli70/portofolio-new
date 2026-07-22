@@ -1,14 +1,31 @@
 import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
 import { useRef } from "react";
-import { createPortal } from "react-dom"; // tambahan
+import { createPortal } from "react-dom"; // renders cursor in document.body (outside scroll container)
 import { SplitText } from "gsap/SplitText";
 import { gsap } from "gsap";
 
+/**
+ * Showcase — Horizontal-scrolling project gallery with custom cursor.
+ *
+ * Layout:
+ *   - A horizontal strip (`.horiz-gallery-strip`) pinned by SmoothScrollPortfolio's
+ *     ScrollTrigger, so vertical scroll translates into horizontal movement.
+ *   - Each project is a card linking to its live demo.
+ *
+ * Interactions:
+ *   - Custom cursor (black dot) follows the mouse via `gsap.quickTo`.
+ *   - On card hover: cursor expands into a pill showing "View project".
+ *   - Title text reveals with a SplitText word animation on scroll.
+ */
 export default function Showcase() {
+  /** Ref to the section for GSAP scoping. */
   const containerShowcaseRef = useRef(null);
+
+  /** Ref to the custom cursor element (rendered via portal into document.body). */
   const cursorRef = useRef(null);
 
+  /** Static project data — name, screenshot, and live URL. */
   const projects = [
     {
       name: "Project 1",
@@ -49,6 +66,7 @@ export default function Showcase() {
 
   useGSAP(
     () => {
+      // ── Title word reveal ──────────────────────────────────────────
       const split = new SplitText(".title-sec", { type: "words" });
 
       gsap.from(split.words, {
@@ -64,19 +82,26 @@ export default function Showcase() {
         },
       });
 
+      // ── Custom cursor ──────────────────────────────────────────────
       const cursor = cursorRef.current;
+
+      /** quickTo creates an optimized tween that reuses the same tween instance
+       *  for each mouse move — much more performant than gsap.to per frame. */
       const xTo = gsap.quickTo(cursor, "x", { duration: 0.3, ease: "power3" });
       const yTo = gsap.quickTo(cursor, "y", { duration: 0.3, ease: "power3" });
 
+      /** Tracks mouse position and moves the cursor element. Offset by -8 to center. */
       const handleMouseMove = (e) => {
         xTo(e.clientX - 8);
         yTo(e.clientY - 8);
       };
       window.addEventListener("mousemove", handleMouseMove);
 
-      // hanya card project (yang punya <img>), bukan wrapper judul
+      // ── Card hover: cursor morph ───────────────────────────────────
+      // Only targets `.project-card` elements (not the title wrapper).
       const cards = gsap.utils.toArray(".project-card");
       cards.forEach((card) => {
+        /** On hover: expand cursor into a wide pill and show "View project" text. */
         card.addEventListener("mouseenter", () => {
           gsap.to(cursor, {
             width: 120,
@@ -87,6 +112,7 @@ export default function Showcase() {
           });
           cursor.textContent = "View project";
         });
+        /** On leave: shrink cursor back to a small circle and clear text. */
         card.addEventListener("mouseleave", () => {
           gsap.to(cursor, {
             width: 16,
@@ -113,7 +139,9 @@ export default function Showcase() {
       className="showcase-section relative overflow-hidden"
     >
       <div className="container-fluid">
+        {/* Horizontal gallery wrapper — pinned and translated by SmoothScrollPortfolio */}
         <div className="horiz-gallery-wrapper">
+          {/* Horizontal strip: flex row of title + project cards */}
           <div className="horiz-gallery-strip pr-10">
             <div className="project-wrap flex justify-center items-center ml-5">
               <h1 className="title-sec font-space text-5xl lg:text-6xl xl:text-8xl text-text-primary font-bold">
@@ -136,6 +164,8 @@ export default function Showcase() {
         </div>
       </div>
 
+      {/* Custom cursor portal — rendered into document.body so it's outside
+          the ScrollSmoother container and isn't affected by transform layers */}
       {createPortal(
         <div
           ref={cursorRef}

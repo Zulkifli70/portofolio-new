@@ -1,3 +1,11 @@
+/**
+ * Footer — Contact section + social links at the bottom of the page.
+ *
+ * Displays:
+ *   - "Let's Get in Touch" heading with a mailto link.
+ *   - Copyright year (auto-updated via `new Date().getFullYear()`).
+ *   - GitHub and LinkedIn icon links.
+ */
 function Footer() {
   return (
     <footer className="w-full lg:min-h-60 px-5 flex flex-col font-space">

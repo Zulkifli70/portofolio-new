@@ -4,9 +4,19 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 
+/**
+ * Experience — Work experience section with animated reveal.
+ *
+ * Animations:
+ *   1. Title characters slide in from left with staggered fade (SplitText → chars).
+ *   2. Experience cards fade up from below (y: 100 → 0).
+ *   Both trigger once when their respective elements scroll into view.
+ */
 export default function Experience() {
+  /** Ref to the section for GSAP scoping. */
   const expSectionRef = useRef(null);
 
+  /** Static experience data — company, role, period, responsibilities. */
   const experiences = [
     {
       company: "Jalin Mayantara Indonesia",
@@ -25,12 +35,14 @@ export default function Experience() {
 
   useGSAP(
     () => {
+      // Split the title into individual characters for animation
       let splitTitle = SplitText.create(".title", { type: "chars" });
 
+      // Title chars slide in from left with staggered fade
       gsap.from(splitTitle.chars, {
         duration: 1,
         x: -100,
-        autoAlpha: 0,
+        autoAlpha: 0,       // combined opacity + visibility for clean hide/show
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".title",
@@ -39,6 +51,7 @@ export default function Experience() {
         },
       });
 
+      // Experience cards fade up from below
       gsap.from(".exp-card", {
         duration: 1,
         opacity: 0,
@@ -65,11 +78,13 @@ export default function Experience() {
               key={exp.company}
               className="exp-card flex flex-col h-full min-h-80 gap-10"
             >
+              {/* Company name */}
               <div className="w-full">
                 <h3 className="text-2xl xl:text-5xl font-neuton font-bold">
                   {exp.company}
                 </h3>
               </div>
+              {/* Details row: period | position/location/industry | responsibilities */}
               <div className="flex flex-col md:flex-row h-full gap-5 xl:gap-40">
                 <div className="flex flex-1">
                   <h4 className="text-lg lg:text-2xl font-semibold">

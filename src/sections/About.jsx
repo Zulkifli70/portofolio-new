@@ -4,13 +4,24 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
 
+/**
+ * About — "About Me" section with animated text reveals.
+ *
+ * Animations:
+ *   1. Paragraph words slide in from right (x: 150 → 0) with staggered opacity.
+ *   2. Section title uses ScrambleText to reveal "About Me" with a typewriter scramble effect.
+ *   Both trigger once when the section scrolls into view.
+ */
 export default function About() {
+  /** Ref to the section container for GSAP scoping and cleanup. */
   const containerRef = useRef(null);
 
   useGSAP(
     () => {
+      // Split the paragraph into individual words for staggered animation
       const split = new SplitText(".para", { type: "words" });
 
+      // Words slide in from the right with staggered fade-in
       gsap.from(split.words, {
         x: 150,
         opacity: 0,
@@ -19,11 +30,12 @@ export default function About() {
         stagger: 0.05,
         scrollTrigger: {
           trigger: ".para",
-          start: "top bottom",
-          toggleActions: "play none none none",
+          start: "top bottom",        // trigger when top of paragraph hits bottom of viewport
+          toggleActions: "play none none none", // play once, no reverse
         },
       });
 
+      // Title text scrambles to reveal "About Me" character by character
       gsap.to(".about", {
         duration: 3,
         scrambleText: {
@@ -39,6 +51,7 @@ export default function About() {
         },
       });
 
+      // Revert SplitText on cleanup to restore original DOM
       return () => split.revert();
     },
     { scope: containerRef },

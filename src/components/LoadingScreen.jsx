@@ -2,16 +2,28 @@ import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
+/**
+ * LoadingScreen — Full-screen overlay that blocks scroll, shows real image-loading progress,
+ * then animates out once ALL resources (images + fonts) are loaded.
+ *
+ * @param {React.ReactNode} children — Page content rendered behind the overlay.
+ * @param {number} extraHoldTime — Extra milliseconds to keep overlay AFTER everything loads
+ *   (default 0). Lets you make the splash screen feel "longer" on fast connections.
+ */
 function LoadingScreen({ children, extraHoldTime = 0 }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const overlayRef = useRef(null);
+  // — State —
+  const [isLoading, setIsLoading] = useState(true); // true = overlay visible, scroll locked
+  const [progress, setProgress] = useState(0);      // 0–100 real image-loading percentage
+  const overlayRef = useRef(null);                   // Ref to the overlay DOM node for GSAP
 
+  // — Scroll-lock while loading —
+  // When isLoading=true: freezes page at current scroll position (fixed + negative top).
+  // When isLoading=false: restores original scroll position and removes touch-move blocker.
   useEffect(() => {
     if (isLoading) {
-      // simpan posisi scroll saat ini
-      const scrollY = window.scrollY;
+      const scrollY = window.scrollY; // remember where we were
 
+      // Lock body in place by fixing it and offsetting by the current scroll position
       document.body.style.position = "fixed";
       document.body.style.top = `-${scrollY}px`;
       document.body.style.left = "0";
@@ -19,13 +31,13 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
 
-      // tambahkan listener untuk touchmove
+      // Block mobile pull-to-refresh / rubber-band scrolling
       const preventTouch = (e) => e.preventDefault();
       document.addEventListener("touchmove", preventTouch, { passive: false });
     } else {
-      // ambil posisi scroll yang disimpan dari style "top"
-      const scrollY = document.body.style.top;
+      const scrollY = document.body.style.top; // retrieve saved position
 
+      // Unlock body and restore normal scrolling
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.left = "";
@@ -33,13 +45,15 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
 
+      // Restore the user's previous scroll position
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
 
-      // hapus listener untuk touchmove
+      // Remove the touch-move blocker
       const preventTouch = (e) => e.preventDefault();
       document.removeEventListener("touchmove", preventTouch);
     }
 
+    // Cleanup on unmount (safety net — always restore scroll ability)
     return () => {
       document.body.style.position = "";
       document.body.style.top = "";
@@ -48,20 +62,28 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
     };
   }, [isLoading]);
 
+  // — GSAP orchestration: real progress + exit animation —
   useGSAP(
     () => {
-      // — Real image loading progress —
+      // ======== REAL IMAGE-LOADING PROGRESS ========
+      // Collect every <img> in the document EXCEPT those inside the loading overlay itself.
+      // Count them, then track each one's load/error event.
       const imgs = [...document.querySelectorAll("img")].filter(
         (img) => !img.closest(".loading-container"),
       );
       const total = imgs.length;
       let loaded = 0;
 
+      /**
+       * Increments the loaded count and updates the progress % state.
+       * Called on each image's `load` or `error` event (or immediately if cached).
+       */
       const bump = () => {
         loaded++;
         if (total > 0) setProgress(Math.round((loaded / total) * 100));
       };
 
+      // Register listeners. Already-complete (cached) images are counted immediately.
       imgs.forEach((img) => {
         if (img.complete) bump();
         else {
@@ -70,7 +92,8 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
         }
       });
 
-      // — That triggered immediate bumps for cached images, now set up the rest —
+      // ======== DECORATIVE ANIMATIONS ========
+      // "Please Wait....." animated dots — cycles the dot count for a loading feel
       gsap.to(".dot", {
         duration: 2,
         text: ".....",
@@ -79,6 +102,10 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
         ease: "power1.out",
       });
 
+      /**
+       * Slides the entire overlay upward off-screen, then sets isLoading=false
+       * to unmount it from the DOM.
+       */
       const playExit = () => {
         gsap.to(overlayRef.current, {
           yPercent: -100,
@@ -89,46 +116,59 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
         });
       };
 
+      // Three name lines slide in from left with a staggered entrance
       gsap
         .timeline({ defaults: { duration: 2, ease: "back.inOut" } })
         .from(".para1", { xPercent: -150 })
         .from(".para2", { xPercent: -150 })
         .from(".para3", { xPercent: -150 });
 
-      // — Wait for everything to truly finish —
+      // ======== WAIT FOR EVERYTHING TO FINISH ========
+      /**
+       * Forces progress to 100%, waits `extraHoldTime` ms, then triggers exit.
+       * This is the "all resources ready" callback.
+       */
       const allReady = () => {
-        setProgress(100); // force 100% even if an image was missed
+        setProgress(100); // safety: ensure 100% even if an image was missed
         setTimeout(playExit, extraHoldTime);
       };
 
-      const waitLoad = new Promise((resolve) => {
+      // window.load = all resources (images, stylesheets, scripts) downloaded
+const waitLoad = new Promise((resolve) => {
         if (document.readyState === "complete") resolve();
         else window.addEventListener("load", resolve, { once: true });
       });
+      // document.fonts.ready = all @font-face fonts loaded & ready to render
       Promise.all([waitLoad, document.fonts.ready]).then(allReady);
     },
-    { scope: overlayRef },
+    { scope: overlayRef }, // GSAP auto-cleans selectors inside overlayRef on unmount
   );
 
+  // — Render —
   return (
     <>
-      {/* konten utama selalu ke-render, di "belakang" overlay */}
+      {/* Main page content always renders behind the overlay */}
       {children}
 
-      {/* overlay numpuk di atas, sampai animasi keluar selesai */}
+      {/* Overlay: fixed, full-screen, dark background, centered typography */}
       {isLoading && (
         <div
           ref={overlayRef}
           className="loading-container bg-[#1a1a1a] scrollbar-none"
         >
+          {/* Progress percentage (bottom-right) */}
           <p className="progress-text absolute bottom-5 right-5 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
             {progress}%
           </p>
+
+          {/* "Please Wait....." animated dots (top-left) */}
           <div className="absolute top-5 left-5">
             <p className="font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Please Wait<span className="dot"></span>
             </p>
           </div>
+
+          {/* Three name lines (center, staggered by GSAP) */}
           <div className="w-1/2">
             <p className="para1 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Zulkifli
