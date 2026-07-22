@@ -49,8 +49,8 @@ export default function Hero() {
           scrollTrigger: {
             trigger: heroSection,
             start: "top top",
-            end: "+=100%",        // pin for one full viewport of scroll
-            scrub: true,          // scroll position drives the zoom
+            end: "+=100%", // pin for one full viewport of scroll
+            scrub: true, // scroll position drives the zoom
             pin: pinWrapperRef.current,
             invalidateOnRefresh: true,
           },
@@ -108,7 +108,7 @@ export default function Hero() {
                   },
                 })
                 .to(tl, {
-                  timeScale: scrollFactor * 1.5,  // spike speed
+                  timeScale: scrollFactor * 1.5, // spike speed
                   duration: 0.2,
                   overwrite: true,
                 })
@@ -182,9 +182,9 @@ export default function Hero() {
       }),
       length = items.length,
       startX = items[0].offsetLeft,
-      times = [],       // label times for each item's start position
-      widths = [],      // measured pixel width of each item
-      xPercents = [],   // initial xPercent for each item
+      times = [], // label times for each item's start position
+      widths = [], // measured pixel width of each item
+      xPercents = [], // initial xPercent for each item
       curIndex = 0,
       pixelsPerSecond = (config.speed || 1) * 100,
       snap =
@@ -311,15 +311,39 @@ export default function Hero() {
             className="h-full w-full object-cover"
           />
         </div>
-        {/* Bottom text rail — white text with exclusion blend for contrast */}
-        <div className="scrolling-text hero-copy hero-copy-base">
-          {renderRail()}
-        </div>
         {/* Top text rail — offset upward, also exclusion blend, pointer-events disabled */}
         <div
           className="scrolling-text hero-copy hero-copy-top"
           aria-hidden="true"
         >
+          {renderRail("reverse")}
+        </div>
+        {/* Mid Top text rail — offset upward, also exclusion blend, pointer-events disabled */}
+        <div
+          className="scrolling-text hero-copy hero-copy-mid-top"
+          aria-hidden="true"
+        >
+          {renderRail()}
+        </div>
+
+        {/* Mid text rail — offset upward, also exclusion blend, pointer-events disabled */}
+        <div
+          className="scrolling-text hero-copy hero-copy-mid"
+          aria-hidden="true"
+        >
+          {renderRail("reverse")}
+        </div>
+
+        {/* Mid text rail — offset upward, also exclusion blend, pointer-events disabled */}
+        <div
+          className="scrolling-text hero-copy hero-copy-mid-bot"
+          aria-hidden="true"
+        >
+          {renderRail()}
+        </div>
+
+        {/* Bottom text rail — white text with exclusion blend for contrast */}
+        <div className="scrolling-text hero-copy hero-copy-base">
           {renderRail("reverse")}
         </div>
       </div>
