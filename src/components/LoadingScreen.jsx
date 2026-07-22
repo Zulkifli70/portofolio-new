@@ -1,14 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { TextPlugin } from "gsap/TextPlugin";
 
-gsap.registerPlugin(TextPlugin);
-
-function LoadingScreen({ children }) {
-  const [isLoading, setIsLoading] = useState(
-    () => document.readyState !== "complete",
-  );
+function LoadingScreen({ children, extraHoldTime = 0 }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const overlayRef = useRef(null);
 
@@ -22,7 +17,11 @@ function LoadingScreen({ children }) {
       document.body.style.left = "0";
       document.body.style.right = "0";
       document.body.style.overflow = "hidden";
-      document.documentElement.style.overflow = "hidden"; // kunci juga <html>
+      document.documentElement.style.overflow = "hidden";
+
+      // tambahkan listener untuk touchmove
+      const preventTouch = (e) => e.preventDefault();
+      document.addEventListener("touchmove", preventTouch, { passive: false });
     } else {
       // ambil posisi scroll yang disimpan dari style "top"
       const scrollY = document.body.style.top;
@@ -34,8 +33,11 @@ function LoadingScreen({ children }) {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
 
-      // kembalikan posisi scroll seperti semula
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+
+      // hapus listener untuk touchmove
+      const preventTouch = (e) => e.preventDefault();
+      document.removeEventListener("touchmove", preventTouch);
     }
 
     return () => {
@@ -46,39 +48,16 @@ function LoadingScreen({ children }) {
     };
   }, [isLoading]);
 
-  useEffect(() => {
-    const preventTouch = (e) => e.preventDefault();
-    if (isLoading) {
-      document.body.style.overflow = "hidden";
-      document.addEventListener("touchmove", preventTouch, { passive: false });
-    } else {
-      document.body.style.overflow = "auto"; // atau hapus: document.body.style.removeProperty("overflow")
-    }
-
-    // cleanup, jaga-jaga kalau komponen unmount saat masih loading
-    return () => {
-      document.body.style.overflow = "auto";
-      document.removeEventListener("touchmove", preventTouch);
-    };
-  }, [isLoading]);
-
   useGSAP(
     () => {
-      const MIN_DISPLAY_TIME = 3000; // minimal loading tampil (ms)
+      const MIN_DISPLAY_TIME = 3000;
       const startTime = Date.now();
-
-      // objek dummy yang nilainya kita animasikan dari 0 ke 100
-      const counter = { value: 0 };
-
-      // animasikan angka 0 -> 100 selama MIN_DISPLAY_TIME
-      const progressTween = gsap.to(counter, {
-        value: 100,
-        duration: MIN_DISPLAY_TIME / 1000, // GSAP pakai detik, bukan ms
-        ease: "power1.inOut",
-        onUpdate: () => {
-          setProgress(Math.round(counter.value));
-        },
-      });
+      let progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const pct = Math.min((elapsed / MIN_DISPLAY_TIME) * 100, 100);
+        setProgress(Math.round(pct));
+        if (pct >= 100) clearInterval(progressInterval);
+      }, 16);
 
       gsap.to(".dot", {
         duration: 2,
@@ -88,8 +67,7 @@ function LoadingScreen({ children }) {
         ease: "power1.out",
       });
 
-      // animasi geser + hapus dari DOM, dipanggil kalau syarat waktu udah terpenuhi
-      const playExitAnimation = () => {
+      const playExit = () => {
         gsap.to(overlayRef.current, {
           yPercent: -100,
           delay: 2,
@@ -99,32 +77,29 @@ function LoadingScreen({ children }) {
         });
       };
 
-      let tl = gsap.timeline({
-        defaults: { duration: 2, ease: "back.inOut" },
-      });
-      tl.from(".para1", { xPercent: -150 })
+      gsap
+        .timeline({ defaults: { duration: 2, ease: "back.inOut" } })
+        .from(".para1", { xPercent: -150 })
         .from(".para2", { xPercent: -150 })
         .from(".para3", { xPercent: -150 });
-      // .to(".para1", { xPercent: 150 })
-      // .to(".para2", { xPercent: 150 })
-      // .to(".para3", { xPercent: 150 });
 
-      const finishLoading = () => {
+      const allReady = () => {
         const elapsed = Date.now() - startTime;
         const remaining = Math.max(MIN_DISPLAY_TIME - elapsed, 0);
         setTimeout(() => {
-          // pastikan angkanya "nyampe" 100% dulu sebelum overlay geser
-          progressTween.progress(1);
-          playExitAnimation();
+          setProgress(100);
+          setTimeout(playExit, extraHoldTime);
         }, remaining);
       };
 
-      if (document.readyState === "complete") {
-        finishLoading();
-      } else {
-        window.addEventListener("load", finishLoading);
-        return () => window.removeEventListener("load", finishLoading);
-      }
+      // Wait for ALL content: images (window.load) + fonts
+      const waitLoad = new Promise((resolve) => {
+        if (document.readyState === "complete") resolve();
+        else window.addEventListener("load", resolve, { once: true });
+      });
+      Promise.all([waitLoad, document.fonts.ready]).then(allReady);
+
+      return () => clearInterval(progressInterval);
     },
     { scope: overlayRef },
   );

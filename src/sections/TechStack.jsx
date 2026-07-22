@@ -3,10 +3,6 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
-import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(SplitText, ScrollTrigger, ScrambleTextPlugin);
 
 export default function TechStack() {
   const techStacks = [
@@ -78,12 +74,6 @@ export default function TechStack() {
   ];
 
   const stageRef = useRef(null);
-  const techContainerRef = useRef(null);
-
-  // config, dulu ini dari slider, sekarang dijadikan konstanta aja
-  const radius = 200;
-  const maxScale = 1.5;
-  const dur = 0.35;
 
   useGSAP(
     () => {
@@ -105,12 +95,12 @@ export default function TechStack() {
           const p = gsap.utils.clamp(
             0,
             1,
-            gsap.utils.mapRange(0, radius, 1, 0, d),
+            gsap.utils.mapRange(0, 200, 1, 0, d),
           );
 
           gsap.to(card, {
-            scale: 1 + (maxScale - 1) * p,
-            duration: dur,
+            scale: 1 + (1.5 - 1) * p,
+            duration: 0.35,
             overwrite: true,
             ease: "power2.out",
           });
@@ -121,7 +111,7 @@ export default function TechStack() {
         cards.forEach((card) => {
           gsap.to(card, {
             scale: 1,
-            duration: dur * 2,
+            duration: 0.35 * 2,
             overwrite: true,
             ease: "power2.out",
           });
@@ -157,19 +147,17 @@ export default function TechStack() {
       stage.addEventListener("mousemove", handleMouseMove);
       stage.addEventListener("mouseleave", handleMouseLeave);
 
-      // ini penting: useGSAP nggak otomatis lepas event listener biasa,
-      // jadi kita bersihkan manual pas komponen unmount
       return () => {
         stage.removeEventListener("mousemove", handleMouseMove);
         stage.removeEventListener("mouseleave", handleMouseLeave);
         gsap.killTweensOf(cards);
       };
     },
-    { scope: techContainerRef },
+    { scope: stageRef },
   );
 
   return (
-    <Section ref={techContainerRef}>
+    <Section ref={stageRef}>
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
         <h2 className="tech-title text-5xl md:text-7xl xl:text-9xl font-space text-text-primary font-bold border-b-2 border-b-gray-400">
           Tech Stack

@@ -1,12 +1,8 @@
 import Section from "../layout/Section";
 import { useRef } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { SplitText } from "gsap/SplitText";
-import { ScrambleTextPlugin } from "gsap/ScrambleTextPlugin";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(SplitText, ScrollTrigger, ScrambleTextPlugin);
 
 export default function About() {
   const containerRef = useRef(null);

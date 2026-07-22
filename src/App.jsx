@@ -1,3 +1,4 @@
+import "./gsap-plugins";
 import Header from "./components/Header";
 import BaseLayout from "./layout/BaseSections";
 import Hero from "./sections/Hero";
@@ -13,7 +14,7 @@ import LoadingScreen from "./components/LoadingScreen";
 function App() {
   return (
     <>
-      <LoadingScreen>
+      <LoadingScreen extraHoldTime={2000}>
         <Header />
         <SmoothScrollPortfolio>
           <BaseLayout>

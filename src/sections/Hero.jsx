@@ -1,11 +1,9 @@
 import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Observer } from "gsap/Observer";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(Observer, ScrollTrigger);
 
 export default function Hero() {
   const sectionRef = useRef(null);

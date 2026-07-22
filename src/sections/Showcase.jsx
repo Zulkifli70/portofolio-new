@@ -5,8 +5,6 @@ import { createPortal } from "react-dom"; // tambahan
 import { SplitText } from "gsap/SplitText";
 import { gsap } from "gsap";
 
-gsap.registerPlugin(SplitText);
-
 export default function Showcase() {
   const containerShowcaseRef = useRef(null);
   const cursorRef = useRef(null);
