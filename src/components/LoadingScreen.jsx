@@ -100,14 +100,14 @@ function LoadingScreen({ children }) {
       };
 
       let tl = gsap.timeline({
-        defaults: { duration: 1, ease: "sine.inOut" },
+        defaults: { duration: 2, ease: "back.inOut" },
       });
       tl.from(".para1", { xPercent: -150 })
         .from(".para2", { xPercent: -150 })
-        .from(".para3", { xPercent: -150 })
-        .to(".para1", { xPercent: 150 })
-        .to(".para2", { xPercent: 150 })
-        .to(".para3", { xPercent: 150 });
+        .from(".para3", { xPercent: -150 });
+      // .to(".para1", { xPercent: 150 })
+      // .to(".para2", { xPercent: 150 })
+      // .to(".para3", { xPercent: 150 });
 
       const finishLoading = () => {
         const elapsed = Date.now() - startTime;
