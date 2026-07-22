@@ -23,37 +23,37 @@ export default function Showcase() {
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
     {
-      name: "Project 1",
+      name: "Expense Tracker",
       image: "/project/expense.png",
       link: "https://zulk-expense.vercel.app/",
     },
     {
-      name: "Project 2",
+      name: "Pokemon Memory Game",
       image: "/project/pokemon.png",
       link: "https://zulkmemorycard.netlify.app/",
     },
     {
-      name: "Project 3",
+      name: "ASsembly Word",
       image: "/project/assembly.png",
       link: "https://zulkassembly.vercel.app/",
     },
     {
-      name: "Project 4",
+      name: "Journaling Diary",
       image: "/project/diary.png",
       link: "https://zulk-diary.vercel.app/",
     },
     {
-      name: "Project 5",
+      name: "Kanban Board",
       image: "/project/kanban.png",
       link: "https://zulk-kanban.netlify.app/",
     },
     {
-      name: "Project 6",
+      name: "Print Forge",
       image: "/project/printforge.png",
       link: "https://next-project-eta-vert.vercel.app/3d-models",
     },
     {
-      name: "Project 7",
+      name: "Job Tracker",
       image: "/project/jobtracker.png",
       link: "https://zulk-jobtracker.netlify.app/",
     },
@@ -81,7 +81,10 @@ export default function Showcase() {
       // Pin the wrapper and translate the inner strip horizontally as
       // the user scrolls vertically. This logic was moved from
       // SmoothScrollPortfolio to keep component-specific logic together.
-      const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper", containerShowcaseRef.current);
+      const horizontalSections = gsap.utils.toArray(
+        ".horiz-gallery-wrapper",
+        containerShowcaseRef.current,
+      );
 
       const removeRefreshHandlers = [];
 
@@ -137,7 +140,10 @@ export default function Showcase() {
         <div className="horiz-gallery-wrapper">
           {/* Horizontal strip: flex row of title + project cards */}
           <div className="horiz-gallery-strip pr-10">
-            <div className="project-wrap flex justify-center items-center ml-5">
+            <div
+              className="project-wrap flex justify-center items-center ml-5"
+              data-cursor-target
+            >
               <h1 className="title-sec font-space text-5xl lg:text-6xl xl:text-8xl text-text-primary font-bold">
                 MY PROJECT SHOWCASE
               </h1>
@@ -149,7 +155,10 @@ export default function Showcase() {
                 rel="noopener noreferrer"
                 key={project.name}
               >
-                <div className="project-wrap project-card bg-surface rounded-2xl">
+                <div
+                  className="project-wrap project-card bg-surface rounded-2xl"
+                  data-cursor-target
+                >
                   <img src={project.image} alt={project.name} />
                 </div>
               </a>
