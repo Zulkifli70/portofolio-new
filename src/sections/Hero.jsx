@@ -93,7 +93,7 @@ export default function Hero() {
             tl: horizontalLoop(rail.querySelectorAll("h4"), {
               repeat: -1,
               paddingRight: 60,
-              speed: 0.5,
+              speed: 0.3,
               reversed: isReverse,
             }),
             scrollDirection: isReverse ? -1 : 1,
