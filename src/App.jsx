@@ -5,13 +5,15 @@
  *   1. LoadingScreen  — full-screen overlay that blocks scroll until
  *                       all images + fonts are loaded (with a 2 s hold).
  *   2. Header         — fixed top nav with ScrollSmoother-powered smooth scroll.
- *   3. SmoothScrollPortfolio — wraps all page sections in GSAP ScrollSmoother
- *                              for buttery-smooth scrolling + horizontal gallery.
- *   4. BaseLayout     — max-width centered container for content.
- *   5. Sections       — Hero → About → Showcase → Experience → TechStack → Footer.
+ *   3. CustomCursor   — global custom cursor (dot + hover expansion).
+ *   4. SmoothScrollPortfolio — wraps all page sections in GSAP ScrollSmoother
+ *                              for buttery-smooth scrolling.
+ *   5. BaseLayout     — max-width centered container for content.
+ *   6. Sections       — Hero → About → Showcase → Experience → TechStack → Footer.
  */
 import "./gsap-plugins"; // register GSAP plugins once before any component mounts
 import Header from "./components/Header";
+import CustomCursor from "./components/CustomCursor";
 import BaseLayout from "./layout/BaseSections";
 import Hero from "./sections/Hero";
 import "./App.css"; // Tailwind + custom CSS
@@ -28,6 +30,7 @@ function App() {
     <>
       <LoadingScreen extraHoldTime={2000}>
         <Header />
+        <CustomCursor />
         <SmoothScrollPortfolio>
           <BaseLayout>
             <Hero />

@@ -1,29 +1,24 @@
 import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
 import { useRef } from "react";
-import { createPortal } from "react-dom"; // renders cursor in document.body (outside scroll container)
 import { SplitText } from "gsap/SplitText";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
- * Showcase — Horizontal-scrolling project gallery with custom cursor.
+ * Showcase — Horizontal-scrolling project gallery.
  *
  * Layout:
- *   - A horizontal strip (`.horiz-gallery-strip`) pinned by SmoothScrollPortfolio's
- *     ScrollTrigger, so vertical scroll translates into horizontal movement.
- *   - Each project is a card linking to its live demo.
+ *   - A horizontal strip (`.horiz-gallery-strip`) pinned by ScrollTrigger,
+ *     so vertical scroll translates into horizontal movement.
+ *   - Title + project cards in a flex row.
  *
- * Interactions:
- *   - Custom cursor (black dot) follows the mouse via `gsap.quickTo`.
- *   - On card hover: cursor expands into a pill showing "View project".
- *   - Title text reveals with a SplitText word animation on scroll.
+ * Animations:
+ *   - Title words reveal on scroll (SplitText).
+ *   - Horizontal scroll via ScrollTrigger (pin + x translation).
  */
 export default function Showcase() {
-  /** Ref to the section for GSAP scoping. */
   const containerShowcaseRef = useRef(null);
-
-  /** Ref to the custom cursor element (rendered via portal into document.body). */
-  const cursorRef = useRef(null);
 
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
@@ -82,51 +77,50 @@ export default function Showcase() {
         },
       });
 
-      // ── Custom cursor ──────────────────────────────────────────────
-      const cursor = cursorRef.current;
+      // ── Horizontal gallery ScrollTrigger ───────────────────────────
+      // Pin the wrapper and translate the inner strip horizontally as
+      // the user scrolls vertically. This logic was moved from
+      // SmoothScrollPortfolio to keep component-specific logic together.
+      const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper", containerShowcaseRef.current);
 
-      /** quickTo creates an optimized tween that reuses the same tween instance
-       *  for each mouse move — much more performant than gsap.to per frame. */
-      const xTo = gsap.quickTo(cursor, "x", { duration: 0.3, ease: "power3" });
-      const yTo = gsap.quickTo(cursor, "y", { duration: 0.3, ease: "power3" });
+      const removeRefreshHandlers = [];
 
-      /** Tracks mouse position and moves the cursor element. Offset by -8 to center. */
-      const handleMouseMove = (e) => {
-        xTo(e.clientX - 8);
-        yTo(e.clientY - 8);
-      };
-      window.addEventListener("mousemove", handleMouseMove);
+      horizontalSections.forEach((section) => {
+        const pinWrap = section.querySelector(".horiz-gallery-strip");
+        if (!pinWrap) return;
 
-      // ── Card hover: cursor morph ───────────────────────────────────
-      // Only targets `.project-card` elements (not the title wrapper).
-      const cards = gsap.utils.toArray(".project-card");
-      cards.forEach((card) => {
-        /** On hover: expand cursor into a wide pill and show "View project" text. */
-        card.addEventListener("mouseenter", () => {
-          gsap.to(cursor, {
-            width: 120,
-            height: 40,
-            borderRadius: 10,
-            duration: 0.35,
-            ease: "back.out(1.7)",
-          });
-          cursor.textContent = "View project";
+        let pinWrapWidth = 0;
+        let horizontalScrollLength = 0;
+
+        const refresh = () => {
+          pinWrapWidth = pinWrap.scrollWidth;
+          horizontalScrollLength = pinWrapWidth - window.innerWidth;
+        };
+
+        refresh();
+
+        gsap.to(pinWrap, {
+          scrollTrigger: {
+            scrub: true,
+            trigger: section,
+            pin: section,
+            start: "center center",
+            end: () => `+=${pinWrapWidth}`,
+            invalidateOnRefresh: true,
+          },
+          x: () => -horizontalScrollLength,
+          ease: "none",
         });
-        /** On leave: shrink cursor back to a small circle and clear text. */
-        card.addEventListener("mouseleave", () => {
-          gsap.to(cursor, {
-            width: 16,
-            height: 16,
-            borderRadius: "50%",
-            duration: 0.3,
-            ease: "power2.out",
-          });
-          cursor.textContent = "";
+
+        ScrollTrigger.addEventListener("refreshInit", refresh);
+        removeRefreshHandlers.push(() => {
+          ScrollTrigger.removeEventListener("refreshInit", refresh);
         });
       });
 
+      // Return cleanup function for useGSAP
       return () => {
-        window.removeEventListener("mousemove", handleMouseMove);
+        removeRefreshHandlers.forEach((remove) => remove());
       };
     },
     { scope: containerShowcaseRef },
@@ -139,7 +133,7 @@ export default function Showcase() {
       className="showcase-section relative overflow-hidden"
     >
       <div className="container-fluid">
-        {/* Horizontal gallery wrapper — pinned and translated by SmoothScrollPortfolio */}
+        {/* Horizontal gallery wrapper — pinned and translated by ScrollTrigger */}
         <div className="horiz-gallery-wrapper">
           {/* Horizontal strip: flex row of title + project cards */}
           <div className="horiz-gallery-strip pr-10">
@@ -163,34 +157,6 @@ export default function Showcase() {
           </div>
         </div>
       </div>
-
-      {/* Custom cursor portal — rendered into document.body so it's outside
-          the ScrollSmoother container and isn't affected by transform layers */}
-      {createPortal(
-        <div
-          ref={cursorRef}
-          className="fake-cursor"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: 16,
-            height: 16,
-            borderRadius: "50%",
-            background: "black",
-            color: "white",
-            fontSize: 12,
-            fontWeight: 500,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            whiteSpace: "nowrap",
-            pointerEvents: "none",
-            zIndex: 999,
-          }}
-        />,
-        document.body,
-      )}
     </Section>
   );
 }

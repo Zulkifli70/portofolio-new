@@ -3,7 +3,6 @@ import Section from "../layout/Section";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Observer } from "gsap/Observer";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 /**
  * Hero — Opening section with a zoom-on-scroll photo and infinite scrolling text.
