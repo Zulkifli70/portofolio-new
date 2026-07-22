@@ -1,0 +1,32 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "build": {
+      "mode": "primary",
+      "model": "opencode-zen/deepseek-v4-flash-free",
+      "permission": {
+        "edit": "allow",
+        "bash": "allow"
+      }
+    },
+    "plan": {
+      "mode": "primary",
+      "model": "opencode-zen/nemotron-3-ultra-free",
+      "prompt": "You are a senior software engineer. Focus on security, performance, and maintainability.",
+      "permission": {
+        "edit": "deny",
+        "bash": "deny"
+      }
+    },
+    "code-reviewer": {
+      "description": "Reviews code for best practices and potential issues",
+      "mode": "subagent",
+      "model": "opencode-zen/deepseek-v4-flash-free",
+      "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
+      "permission": {
+        "edit": "deny"
+      }
+    }
+  },
+  "plugin": ["@dietrichgebert/ponytail"]
+}
