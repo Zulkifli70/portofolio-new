@@ -8,8 +8,8 @@ import { useGSAP } from "@gsap/react";
  *
  * Features:
  *   - Small dot by default (16px circle)
- *   - Expands to a pill with "View project" text on hover over
- *     elements with `data-cursor-target="project"` (project cards)
+ *   - Breathes (gentle scale pulse) on hover over
+ *     elements with `data-cursor-target` (project cards)
  *   - Rendered via portal into document.body to sit above all transforms
  *
  * Usage: Place once at the root of the app (e.g. in App.jsx).
@@ -33,30 +33,23 @@ export default function CustomCursor() {
       };
       window.addEventListener("mousemove", handleMouseMove);
 
-      // Find all elements that should trigger cursor expansion
-      // Using a data attribute keeps it decoupled from specific class names
-      const targets = gsap.utils.toArray("[data-cursor-target]");
+      // Find all elements that should trigger cursor breathing
+      const targets = document.querySelectorAll("[data-cursor-target]");
 
       targets.forEach((target) => {
         target.addEventListener("mouseenter", () => {
           gsap.to(cursor, {
-            width: 120,
-            height: 40,
-            borderRadius: 10,
-            duration: 0.35,
-            ease: "back.out(1.7)",
+            scale: 2,
+            duration: 0.8,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            transformOrigin: "center center",
           });
-          cursor.textContent = "View project";
         });
         target.addEventListener("mouseleave", () => {
-          gsap.to(cursor, {
-            width: 16,
-            height: 16,
-            borderRadius: "50%",
-            duration: 0.3,
-            ease: "power2.out",
-          });
-          cursor.textContent = "";
+          gsap.killTweensOf(cursor, "scale");
+          gsap.set(cursor, { scale: 1 });
         });
       });
 
@@ -64,7 +57,7 @@ export default function CustomCursor() {
         window.removeEventListener("mousemove", handleMouseMove);
       };
     },
-    { scope: cursorRef }, // auto-cleanup on unmount
+    { scope: cursorRef },
   );
 
   return createPortal(

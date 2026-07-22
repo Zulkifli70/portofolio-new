@@ -299,7 +299,7 @@ body {
   width: min(78vw, 28rem);
   box-sizing: border-box;
   flex-shrink: 0;
-  cursor: none;
+  cursor: pointer;
 }
 
 .project-wrap img {
