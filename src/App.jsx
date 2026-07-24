@@ -28,7 +28,7 @@ import LoadingScreen from "./components/LoadingScreen";
 function App() {
   return (
     <>
-      <LoadingScreen extraHoldTime={5000}>
+      <LoadingScreen extraHoldTime={2000}>
         <Header />
         <CustomCursor />
         <SmoothScrollPortfolio>
