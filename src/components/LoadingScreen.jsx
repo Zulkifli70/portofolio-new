@@ -13,8 +13,8 @@ import { useGSAP } from "@gsap/react";
 function LoadingScreen({ children, extraHoldTime = 0 }) {
   // — State —
   const [isLoading, setIsLoading] = useState(true); // true = overlay visible, scroll locked
-  const [progress, setProgress] = useState(0);      // 0–100 real image-loading percentage
-  const overlayRef = useRef(null);                   // Ref to the overlay DOM node for GSAP
+  const [progress, setProgress] = useState(0); // 0–100 real image-loading percentage
+  const overlayRef = useRef(null); // Ref to the overlay DOM node for GSAP
 
   // — Scroll-lock while loading —
   // When isLoading=true: freezes page at current scroll position (fixed + negative top).
@@ -93,35 +93,87 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
       });
 
       // ======== DECORATIVE ANIMATIONS ========
-      // "Please Wait....." animated dots — cycles the dot count for a loading feel
-      gsap.to(".dot", {
-        duration: 2,
-        text: ".....",
+      const overlay = overlayRef.current;
+
+      // "Please Wait" subtle pulse
+      gsap.to(".please-wait", {
+        opacity: 0.5,
+        duration: 1.5,
         repeat: -1,
-        repeatDelay: 0.1,
-        ease: "power1.out",
+        yoyo: true,
+        ease: "sine.inOut",
       });
 
-      /**
-       * Slides the entire overlay upward off-screen, then sets isLoading=false
-       * to unmount it from the DOM.
-       */
-      const playExit = () => {
-        gsap.to(overlayRef.current, {
-          yPercent: -100,
-          delay: 2,
-          duration: 3,
-          ease: "power2.inOut",
-          onComplete: () => setIsLoading(false),
-        });
-      };
+      // Name reveal — clip-path wipe from left, staggered per line
+      const nameTl = gsap.timeline();
+      nameTl.fromTo(
+        overlay.querySelectorAll(".name-line"),
+        { clipPath: "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.2,
+          stagger: 0.25,
+          ease: "power3.inOut",
+        },
+      );
 
-      // Three name lines slide in from left with a staggered entrance
-      gsap
-        .timeline({ defaults: { duration: 2, ease: "back.inOut" } })
-        .from(".para1", { xPercent: -150 })
-        .from(".para2", { xPercent: -150 })
-        .from(".para3", { xPercent: -150 });
+      // Subtle floating after reveal
+      nameTl.to(
+        overlay.querySelectorAll(".name-line"),
+        {
+          y: -6,
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          stagger: 0.1,
+        },
+        "+=0.3",
+      );
+
+      // "Initializing Canvas" fade in
+      gsap.from(".init-text", {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        delay: 1,
+        ease: "power2.out",
+      });
+
+      // Progress counter
+      gsap.from(".progress-text", {
+        opacity: 0,
+        scale: 0.8,
+        duration: 1,
+        delay: 1.2,
+        ease: "back.out(1.7)",
+      });
+
+      // Exit — everything fades up, then overlay slides away
+      const playExit = () => {
+        gsap
+          .timeline()
+          .to(
+            overlay.querySelectorAll(".name-line, .please-wait, .init-text, .progress-text"),
+            {
+              y: -30,
+              opacity: 0,
+              duration: 0.8,
+              stagger: 0.05,
+              ease: "power3.in",
+            },
+          )
+          .to(
+            overlay,
+            {
+              yPercent: -100,
+              duration: 1.2,
+              ease: "power4.inOut",
+              onComplete: () => setIsLoading(false),
+            },
+            "-=0.4",
+          );
+      };
 
       // ======== WAIT FOR EVERYTHING TO FINISH ========
       /**
@@ -134,7 +186,7 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
       };
 
       // window.load = all resources (images, stylesheets, scripts) downloaded
-const waitLoad = new Promise((resolve) => {
+      const waitLoad = new Promise((resolve) => {
         if (document.readyState === "complete") resolve();
         else window.addEventListener("load", resolve, { once: true });
       });
@@ -154,30 +206,35 @@ const waitLoad = new Promise((resolve) => {
       {isLoading && (
         <div
           ref={overlayRef}
-          className="loading-container bg-[#1a1a1a] scrollbar-none"
+          className="loading-container bg-text-primary scrollbar-none p-5"
         >
-          {/* Progress percentage (bottom-right) */}
-          <p className="progress-text absolute bottom-5 right-5 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
-            {progress}%
-          </p>
-
-          {/* "Please Wait....." animated dots (top-left) */}
-          <div className="absolute top-5 left-5">
-            <p className="font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
-              Please Wait<span className="dot"></span>
+          {/* "Please Wait" elegant animation (top-left) */}
+          <div className="flex w-full justify-between">
+            <p className="please-wait font-fraunces text-xl uppercase font-bold text-text-white">
+              Please Wait
+            </p>
+            <p className="font-fraunces text-xl uppercase font-bold text-text-white">
+              Personal Portfolio
             </p>
           </div>
 
-          {/* Three name lines (center, staggered by GSAP) */}
-          <div className="w-1/2">
-            <p className="para1 font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
+          {/* Name lines (center, clip-path reveal by GSAP) */}
+          <div className="text-center flex flex-col">
+            <p className="name-line font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Zulkifli
             </p>
-            <p className="para2 font-fraunces text-2xl md:text-5xl xl:text-9xl text-center font-bold text-text-white">
+            <p className="name-line font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
               Firdausi
             </p>
-            <p className="para3 font-fraunces text-2xl md:text-5xl xl:text-9xl text-end font-bold text-text-white">
-              Portfolio
+          </div>
+
+          {/* Progress percentage (bottom-right) */}
+          <div className="w-full flex justify-between">
+            <p className="init-text text-text-white uppercase text-2xl font-fraunces font-bold">
+              Initializing Canvas
+            </p>
+            <p className="progress-text font-fraunces text-2xl font-bold text-text-white">
+              {progress}%
             </p>
           </div>
         </div>
