@@ -385,3 +385,21 @@ body {
 .name-line {
   will-change: clip-path, transform;
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Section Animation Helpers
+   ═══════════════════════════════════════════════════════════════════ */
+/* Clip-path animated elements — GPU acceleration */
+.title,
+.tech-title,
+.footer-heading,
+.footer-email,
+.exp-card,
+.tech-card {
+  will-change: clip-path, transform;
+}
+
+/* Footer divider line — origin for scaleX wipe */
+.footer-divider {
+  will-change: transform;
+}

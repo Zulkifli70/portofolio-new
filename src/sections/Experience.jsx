@@ -2,15 +2,16 @@ import Section from "../layout/Section";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { SplitText } from "gsap/SplitText";
 
 /**
  * Experience — Work experience section with animated reveal.
  *
  * Animations:
- *   1. Title characters slide in from left with staggered fade (SplitText → chars).
- *   2. Experience cards fade up from below (y: 100 → 0).
- *   Both trigger once when their respective elements scroll into view.
+ *   1. Title: clip-path wipe reveal from right.
+ *   2. Cards: staggered clip-path reveal with alternating directions (right, left, bottom).
+ *   3. Card detail rows: staggered slide-in from right.
+ *   4. Responsibilities: staggered clip-path line reveal.
+ *   All trigger once when their respective elements scroll into view.
  */
 export default function Experience() {
   /** Ref to the section for GSAP scoping. */
@@ -35,33 +36,94 @@ export default function Experience() {
 
   useGSAP(
     () => {
-      // Split the title into individual characters for animation
-      let splitTitle = SplitText.create(".title", { type: "chars" });
-
-      // Title chars slide in from left with staggered fade
-      gsap.from(splitTitle.chars, {
-        duration: 1,
-        x: -100,
-        autoAlpha: 0,       // combined opacity + visibility for clean hide/show
-        stagger: 0.05,
-        scrollTrigger: {
-          trigger: ".title",
-          start: "top bottom",
-          toggleActions: "play none none none",
+      // ── Title: clip-path wipe reveal ─────────────────────────────────
+      gsap.fromTo(
+        ".title",
+        { clipPath: "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.4,
+          ease: "power3.inOut",
+          scrollTrigger: {
+            trigger: ".title",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
         },
+      );
+
+      // ── Cards: staggered clip-path reveal with alternating directions ─
+      const cards = gsap.utils.toArray(".exp-card");
+      const directions = [
+        { from: "inset(0 100% 0 0)", to: "inset(0 0% 0 0)" },   // from right
+        { from: "inset(0 0 0 100%)", to: "inset(0 0 0 0%)" },   // from left
+        { from: "inset(100% 0 0 0)", to: "inset(0% 0 0 0)" },   // from bottom
+      ];
+
+      cards.forEach((card, i) => {
+        const dir = directions[i % directions.length];
+
+        gsap.fromTo(
+          card,
+          {
+            clipPath: dir.from,
+            opacity: 0,
+          },
+          {
+            clipPath: dir.to,
+            opacity: 1,
+            duration: 1.6,
+            ease: "power3.inOut",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
       });
 
-      // Experience cards fade up from below
-      gsap.from(".exp-card", {
-        duration: 1,
-        opacity: 0,
-        y: 100,
-        scrollTrigger: {
-          trigger: ".exp-card",
-          start: "top bottom",
-          toggleActions: "play none none none",
-        },
-      });
+      // ── Card internals: staggered detail rows ────────────────────────
+      const detailRows = gsap.utils.toArray(".exp-card > div > div:last-child > div");
+      if (detailRows.length) {
+        gsap.fromTo(
+          detailRows,
+          { x: 40, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+            stagger: 0.06,
+            scrollTrigger: {
+              trigger: ".exp-card",
+              start: "top 70%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
+      }
+
+      // ── Responsibilities: staggered line reveal ──────────────────────
+      const responsibilities = gsap.utils.toArray(".exp-card li");
+      if (responsibilities.length) {
+        gsap.fromTo(
+          responsibilities,
+          { clipPath: "inset(0 100% 0 0)", y: 10 },
+          {
+            clipPath: "inset(0 0% 0 0)",
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            stagger: 0.08,
+            scrollTrigger: {
+              trigger: ".exp-card",
+              start: "top 65%",
+              toggleActions: "play none none none",
+            },
+          },
+        );
+      }
     },
     { scope: expSectionRef },
   );
