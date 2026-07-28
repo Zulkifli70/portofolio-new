@@ -158,6 +158,7 @@ export default function Showcase() {
                 <div
                   className="project-wrap project-card bg-surface rounded-2xl"
                   data-cursor-target
+                  data-cursor-label="View Project"
                 >
                   <img src={project.image} alt={project.name} />
                 </div>
