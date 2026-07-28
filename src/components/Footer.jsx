@@ -134,7 +134,7 @@ function Footer() {
             firdausi.zulkifli@gmail.com
           </a>
         </div>
-        <div className="footer-divider w-full h-px bg-gray-500 my-2" />
+
         <div className="flex lg:flex-1 justify-between items-center py-5 lg:p-2">
           <h2 className="footer-copy md:text-xl lg:text-2xl text-text-primary">
             {new Date().getFullYear()} - Zulkifli Firdausi
