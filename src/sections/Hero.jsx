@@ -6,68 +6,32 @@ import { Observer } from "gsap/Observer";
 import { ChevronDown } from "lucide-react";
 
 /**
- * Hero — Opening section with a zoom-on-scroll photo and infinite scrolling text.
+ * Hero — Opening section with infinite scrolling text rails.
  *
  * Layout:
- *   - A centered photo frame that grows wider/taller as the user scrolls down.
  *   - Two text rails ("Zulkifli Firdausi", "Frontend Developer", "UI UX DESIGNER")
  *     that loop horizontally at different speeds/directions via `horizontalLoop`.
  *   - An Observer listener that makes the text scroll speed respond to the user's
  *     scroll velocity (faster scroll → faster text).
  *
  * Responsive:
- *   - Desktop (≥768px): photo zooms to 70vw × 83vh while pinned.
- *   - Mobile: no zoom pin, text rails still loop.
+ *   - All screens: text rails loop horizontally.
  */
 export default function Hero() {
   /** Ref to the entire <Section> for ScrollTrigger scoping. */
   const sectionRef = useRef(null);
 
-  /** Ref to the photo frame <div> — animated via GSAP to grow on scroll. */
-  const frameRef = useRef(null);
-
-  /** Ref to the pin wrapper that ScrollTrigger pins during the zoom effect. */
-  const pinWrapperRef = useRef(null);
-
-  // ── Photo zoom on scroll ──────────────────────────────────────────
-  // On desktop only: pins the hero section and scrubs the photo from
-  // its initial small size to 70vw × 83vh as the user scrolls.
+  // ── Chevron bounce animation ────────────────────────────────────────
   useGSAP(
     () => {
-      const frame = frameRef.current;
-      const heroSection = sectionRef.current;
-      if (!frame || !heroSection) return undefined;
-
-      // MatchMedia ensures this only runs on desktop (≥768px)
-      const mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        gsap.to(frame, {
-          width: "70vw",
-          height: "83vh",
-          borderRadius: 5,
-          ease: "none",
-          scrollTrigger: {
-            trigger: heroSection,
-            start: "top top",
-            end: "+=100%", // pin for one full viewport of scroll
-            scrub: true, // scroll position drives the zoom
-            pin: pinWrapperRef.current,
-            invalidateOnRefresh: true,
-          },
-        });
-      });
-
       gsap.to(".scroll", {
         y: 10,
         duration: 0.6,
         ease: "power1.inOut",
-        repeat: -1, // -1 = ulang terus tanpa henti
-        yoyo: true, // bikin animasi bolak-balik (turun-naik-turun-naik)
-        repeatDelay: 0.2, // jeda dikit tiap siklus (opsional)
+        repeat: -1,
+        yoyo: true,
+        repeatDelay: 0.2,
       });
-
-      return () => mm.revert();
     },
     { scope: sectionRef, dependencies: [] },
   );
@@ -103,7 +67,7 @@ export default function Hero() {
         // Observer listens for scroll/touch/pointer Y-axis movement
         const observer = Observer.create({
           onChangeY(self) {
-            let factor = 2.5;
+            let factor = 6; // increased for faster text response on scroll
             if (self.deltaY < 0) {
               factor *= -1; // reverse speed when scrolling up
             }
@@ -309,12 +273,8 @@ export default function Hero() {
       ref={sectionRef}
       className="hero-section relative isolate overflow-hidden "
     >
-      {/* Pin wrapper — ScrollTrigger pins this div while the photo zooms */}
-      <div ref={pinWrapperRef} className="hero-pin-wrapper bg-bg">
-        <div
-          ref={frameRef}
-          className="hero-photo-frame shadow-2xl shadow-gray-950"
-        >
+      <div className="hero-pin-wrapper bg-bg">
+        <div className="hero-photo-frame shadow-2xl shadow-gray-950">
           <img
             src="/zulk-photo.png"
             alt="zulkifli firdausi photo"
