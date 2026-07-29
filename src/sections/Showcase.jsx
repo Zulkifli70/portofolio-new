@@ -22,26 +22,26 @@ export default function Showcase() {
 
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
-    {
-      name: "Expense Tracker",
-      image: "/project/expense.png",
-      link: "https://zulk-expense.vercel.app/",
-    },
+    // {
+    //   name: "Expense Tracker",
+    //   image: "/project/expense.png",
+    //   link: "https://zulk-expense.vercel.app/",
+    // },
     {
       name: "Pokemon Memory Game",
       image: "/project/pokemon.png",
       link: "https://zulkmemorycard.netlify.app/",
     },
     {
-      name: "ASsembly Word",
+      name: "Assembly Word",
       image: "/project/assembly.png",
       link: "https://zulkassembly.vercel.app/",
     },
-    {
-      name: "Journaling Diary",
-      image: "/project/diary.png",
-      link: "https://zulk-diary.vercel.app/",
-    },
+    // {
+    //   name: "Journaling Diary",
+    //   image: "/project/diary.png",
+    //   link: "https://zulk-diary.vercel.app/",
+    // },
     {
       name: "Kanban Board",
       image: "/project/kanban.png",
@@ -50,12 +50,17 @@ export default function Showcase() {
     {
       name: "Print Forge",
       image: "/project/printforge.png",
-      link: "https://next-project-eta-vert.vercel.app/3d-models",
+      link: "https://next-project-eta-vert.vercel.app/",
     },
+    // {
+    //   name: "Job Tracker",
+    //   image: "/project/jobtracker.png",
+    //   link: "https://zulk-jobtracker.netlify.app/",
+    // },
     {
-      name: "Job Tracker",
-      image: "/project/jobtracker.png",
-      link: "https://zulk-jobtracker.netlify.app/",
+      name: "Tenzies",
+      image: "/project/tenzies.png",
+      link: "https://zulktenzies.netlify.app/",
     },
   ];
 
