@@ -273,26 +273,6 @@ export default function Hero() {
       className="hero-section relative isolate overflow-hidden"
     >
       <div className="hero-pin-wrapper bg-bg">
-        {/* Top left name */}
-        <div className="absolute top-6 left-8 z-30 text-white/70 font-space text-sm mix-blend-difference">
-          Marcus
-        </div>
-
-        {/* Top right nav */}
-        <div className="absolute top-6 right-8 z-30 text-white/70 font-space text-sm flex gap-10 mix-blend-difference">
-          <span>2025</span>
-          <div className="flex flex-col leading-tight">
-            <span>Story</span>
-            <span>Jobs</span>
-            <span>Message</span>
-          </div>
-          <div className="flex flex-col leading-tight">
-            <span>Instagram</span>
-            <span>TikTok</span>
-            <span>YouTube</span>
-          </div>
-        </div>
-
         {/* Single text rail — behind the photo */}
         <div
           className="scrolling-text hero-copy hero-copy-base"

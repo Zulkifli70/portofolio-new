@@ -141,12 +141,12 @@ body {
 
 /* Individual text items in the rail — large, uppercase, nowrap for marquee */
 .scrolling-text .rail h4 {
-  @apply whitespace-nowrap font-fraunces text-4xl lg:text-5xl xl:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
+  @apply whitespace-nowrap font-fraunces text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
 /* Hero section custom properties for text vertical positioning. */
 .hero-section {
-  --hero-text-y: 1vh;
+  --hero-text-y: -20vh;
 }
 
 /* Larger text offset on desktop (≥768px) */
@@ -161,20 +161,37 @@ body {
   transform: translateY(var(--hero-text-y));
 }
 
-/* Bottom text rail — white text with exclusion blend for contrast over photo */
-
 /* Photo — full viewport, centered, no card wrapper */
 .hero-photo {
   position: absolute;
   top: 55%;
   left: 50%;
   width: auto;
-  height: 95vh;
+  height: 100vh;
   object-fit: contain;
   transform: translate(-50%, -50%);
   transform-origin: center center;
   z-index: 10;
   pointer-events: none;
+}
+
+/* Mobile: larger image, text aligned with head */
+@media (max-width: 767px) {
+  .hero-section {
+    --hero-text-y: -30vh;
+  }
+
+  .hero-photo {
+    height: 110vh;
+    top: 55%;
+  }
+}
+
+/* Tablet: match desktop behavior */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-photo {
+    height: 110vh;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════
