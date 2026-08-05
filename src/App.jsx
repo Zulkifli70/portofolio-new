@@ -30,7 +30,7 @@ function App() {
     <>
       <LoadingScreen extraHoldTime={2000}>
         <Header />
-        <CustomCursor />
+        {typeof window !== 'undefined' && window.innerWidth >= 768 && <CustomCursor />}
         <SmoothScrollPortfolio>
           <BaseLayout>
             <Hero />
