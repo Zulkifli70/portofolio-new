@@ -282,6 +282,7 @@ body {
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh; /* mobile-safe dynamic viewport height */
   z-index: 9999; /* above everything including ScrollTrigger pins */
   display: flex;
   flex-direction: column;

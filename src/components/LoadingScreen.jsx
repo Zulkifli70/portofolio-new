@@ -206,34 +206,34 @@ function LoadingScreen({ children, extraHoldTime = 0 }) {
       {isLoading && (
         <div
           ref={overlayRef}
-          className="loading-container bg-text-primary scrollbar-none p-5"
+          className="loading-container bg-text-primary scrollbar-none p-4 sm:p-5"
         >
           {/* "Please Wait" elegant animation (top-left) */}
-          <div className="flex w-full justify-between">
-            <p className="please-wait font-fraunces text-xl uppercase font-bold text-text-white">
+          <div className="flex w-full justify-between items-start gap-2">
+            <p className="please-wait font-fraunces text-sm sm:text-lg md:text-xl uppercase font-bold text-text-white">
               Please Wait
             </p>
-            <p className="font-fraunces text-xl uppercase font-bold text-text-white">
+            <p className="font-fraunces text-sm sm:text-lg md:text-xl uppercase font-bold text-text-white text-right">
               Personal Portfolio
             </p>
           </div>
 
           {/* Name lines (center, clip-path reveal by GSAP) */}
           <div className="text-center flex flex-col">
-            <p className="name-line font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
+            <p className="name-line font-fraunces text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold text-text-white">
               Zulkifli
             </p>
-            <p className="name-line font-fraunces text-2xl md:text-5xl xl:text-9xl font-bold text-text-white">
+            <p className="name-line font-fraunces text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-bold text-text-white">
               Firdausi
             </p>
           </div>
 
-          {/* Progress percentage (bottom-right) */}
-          <div className="w-full flex justify-between">
-            <p className="init-text text-text-white uppercase text-2xl font-fraunces font-bold">
+          {/* Progress percentage (bottom) */}
+          <div className="w-full flex flex-col sm:flex-row justify-between gap-2">
+            <p className="init-text text-text-white uppercase text-base sm:text-lg md:text-2xl font-fraunces font-bold">
               Initializing Canvas
             </p>
-            <p className="progress-text font-fraunces text-2xl font-bold text-text-white">
+            <p className="progress-text font-fraunces text-base sm:text-lg md:text-2xl font-bold text-text-white sm:text-right">
               {progress}%
             </p>
           </div>
