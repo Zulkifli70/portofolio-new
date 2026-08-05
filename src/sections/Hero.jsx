@@ -35,6 +35,44 @@ export default function Hero() {
     { scope: sectionRef, dependencies: [] },
   );
 
+  // ── SVG doodle decor: staggered settle-in + idle float ──────────────
+  // The hand-drawn icons from public/svg fade/bounce in, then gently
+  // bob around the portrait. Skipped for reduced-motion users.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray(".hero-decor img").forEach((img, i) => {
+          gsap.fromTo(
+            img,
+            { opacity: 0, scale: 0.4, y: 20, rotate: gsap.utils.random(-12, 12) },
+            {
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              rotate: 0,
+              duration: 0.8,
+              delay: 0.4 + i * 0.12,
+              ease: "back.out(2)",
+              onComplete: () =>
+                gsap.to(img, {
+                  y: -6,
+                  duration: 2 + Math.random(),
+                  ease: "sine.inOut",
+                  repeat: -1,
+                  yoyo: true,
+                }),
+            },
+          );
+        });
+      });
+
+      return () => mm.revert();
+    },
+    { scope: sectionRef, dependencies: [] },
+  );
+
   // ── Infinite horizontal text loops + scroll-linked speed ───────────
   // Creates looping horizontal text rails. Each rail scrolls its text
   // endlessly. An Observer makes the scroll speed respond to the user's
@@ -105,8 +143,11 @@ export default function Hero() {
   /** Text content repeated in each scrolling rail. */
   const heroText = [
     "Zulkifli Firdausi",
+    "-",
     "Frontend Developer",
+    "-",
     "UI UX DESIGNER",
+    "-",
   ];
 
   /**
@@ -278,7 +319,7 @@ export default function Hero() {
           className="scrolling-text hero-copy hero-copy-base"
           aria-hidden="true"
         >
-          {renderRail("reverse")}
+          {renderRail()}
         </div>
 
         {/* Photo — full viewport, behind text */}
@@ -287,6 +328,20 @@ export default function Hero() {
           alt="zulkifli firdausi photo"
           className="hero-photo z-10"
         />
+
+        {/* Hand-drawn SVG icons from public/svg — framed around the photo */}
+        <div className="hero-decor" aria-hidden="true">
+          <img className="decor-brain" src="/svg/cognition-svgrepo-com.svg" alt="" />
+          <img className="decor-bolt" src="/svg/lightning-svgrepo-com.svg" alt="" />
+          <img className="decor-puzzle" src="/svg/puzzle-svgrepo-com.svg" alt="" />
+          <img className="decor-crane" src="/svg/origami-crane-svgrepo-com.svg" alt="" />
+          <img className="decor-heart" src="/svg/heart-svgrepo-com.svg" alt="" />
+          <img
+            className="decor-console"
+            src="/svg/game-console-svgrepo-com.svg"
+            alt=""
+          />
+        </div>
       </div>
     </Section>
   );

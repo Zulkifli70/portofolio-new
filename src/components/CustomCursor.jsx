@@ -71,7 +71,6 @@ export default function CustomCursor() {
             scale: 1,
             width: 16,
             height: 16,
-            borderRadius: "50%",
           });
         });
       });
@@ -93,6 +92,7 @@ export default function CustomCursor() {
         left: 0,
         width: 16,
         height: 16,
+        borderRadius: 10,
         background: label ? "white" : "black",
         color: label ? "black" : "white",
         fontSize: 12,

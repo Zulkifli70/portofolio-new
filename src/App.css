@@ -141,18 +141,18 @@ body {
 
 /* Individual text items in the rail — large, uppercase, nowrap for marquee */
 .scrolling-text .rail h4 {
-  @apply whitespace-nowrap font-fraunces text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
+  @apply whitespace-nowrap font-fraunces text-6xl sm:text-[120px] md:text-[170px] lg:text-[220px] font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
 /* Hero section custom properties for text vertical positioning. */
 .hero-section {
-  --hero-text-y: -20vh;
+  --hero-text-y: -10vh;
 }
 
 /* Larger text offset on desktop (≥768px) */
-@media (min-width: 768px) {
+@media (min-width: 1280px) {
   .hero-section {
-    --hero-text-y: -25vh;
+    --hero-text-y: -18vh;
   }
 }
 
@@ -191,6 +191,85 @@ body {
 @media (min-width: 768px) and (max-width: 1023px) {
   .hero-photo {
     height: 110vh;
+  }
+}
+
+/* ── Hand-drawn SVG icon decorations (public/svg) ─────────────────── */
+.hero-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.hero-decor img {
+  position: absolute;
+  height: auto;
+}
+
+/* Placement — framed around the portrait edges */
+.decor-brain {
+  top: 18%;
+  left: 10%;
+  width: clamp(70px, 9vw, 130px);
+  opacity: 0.8;
+}
+.decor-bolt {
+  top: 14%;
+  right: 8%;
+  width: clamp(60px, 8vw, 110px);
+  opacity: 0.9;
+}
+.decor-puzzle {
+  bottom: 18%;
+  left: 12%;
+  width: clamp(56px, 7vw, 100px);
+  opacity: 0.85;
+}
+.decor-crane {
+  top: 52%;
+  right: 16%;
+  width: clamp(70px, 9vw, 130px);
+  opacity: 0.75;
+}
+.decor-heart {
+  top: 40%;
+  left: 14%;
+  width: clamp(56px, 7vw, 100px);
+  opacity: 0.85;
+}
+.decor-console {
+  bottom: 16%;
+  right: 10%;
+  width: clamp(70px, 9vw, 120px);
+  opacity: 0.9;
+}
+
+/* Mobile: tuck decorations inward so they clear the rails */
+@media (max-width: 767px) {
+  .decor-brain {
+    top: 24%;
+    left: 8%;
+  }
+  .decor-bolt {
+    top: 18%;
+    right: 6%;
+  }
+  .decor-puzzle {
+    bottom: 30%;
+    left: 8%;
+  }
+  .decor-crane {
+    top: 58%;
+    right: 10%;
+  }
+  .decor-heart {
+    top: 46%;
+    left: 10%;
+  }
+  .decor-console {
+    bottom: 26%;
+    right: 8%;
   }
 }
 
