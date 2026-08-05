@@ -3,7 +3,6 @@ import Section from "../layout/Section";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Observer } from "gsap/Observer";
-import { ChevronDown } from "lucide-react";
 
 /**
  * Hero — Opening section with infinite scrolling text rails.
@@ -271,56 +270,43 @@ export default function Hero() {
     <Section
       id="hero"
       ref={sectionRef}
-      className="hero-section relative isolate overflow-hidden "
+      className="hero-section relative isolate overflow-hidden"
     >
       <div className="hero-pin-wrapper bg-bg">
-        <div className="hero-photo-frame shadow-2xl shadow-gray-950">
-          <img
-            src="/zulk-photo.png"
-            alt="zulkifli firdausi photo"
-            className="h-full w-full object-cover"
-          />
+        {/* Top left name */}
+        <div className="absolute top-6 left-8 z-30 text-white/70 font-space text-sm mix-blend-difference">
+          Marcus
         </div>
-        {/* Top text rail — offset upward, also exclusion blend, pointer-events disabled */}
+
+        {/* Top right nav */}
+        <div className="absolute top-6 right-8 z-30 text-white/70 font-space text-sm flex gap-10 mix-blend-difference">
+          <span>2025</span>
+          <div className="flex flex-col leading-tight">
+            <span>Story</span>
+            <span>Jobs</span>
+            <span>Message</span>
+          </div>
+          <div className="flex flex-col leading-tight">
+            <span>Instagram</span>
+            <span>TikTok</span>
+            <span>YouTube</span>
+          </div>
+        </div>
+
+        {/* Single text rail — behind the photo */}
         <div
-          className="scrolling-text hero-copy hero-copy-top"
+          className="scrolling-text hero-copy hero-copy-base"
           aria-hidden="true"
         >
           {renderRail("reverse")}
         </div>
-        {/* Mid Top text rail — offset upward, also exclusion blend, pointer-events disabled */}
-        <div
-          className="scrolling-text hero-copy hero-copy-mid-top"
-          aria-hidden="true"
-        >
-          {renderRail()}
-        </div>
 
-        {/* Mid text rail — offset upward, also exclusion blend, pointer-events disabled */}
-        <div
-          className="scrolling-text hero-copy hero-copy-mid"
-          aria-hidden="true"
-        >
-          {renderRail("reverse")}
-        </div>
-
-        {/* Mid text rail — offset upward, also exclusion blend, pointer-events disabled */}
-        <div
-          className="scrolling-text hero-copy hero-copy-mid-bot"
-          aria-hidden="true"
-        >
-          {renderRail()}
-        </div>
-
-        {/* Bottom text rail — white text with exclusion blend for contrast */}
-        <div className="scrolling-text hero-copy hero-copy-base">
-          {renderRail("reverse")}
-        </div>
-
-        <div className="absolute flex flex-col items-center bottom-18 lg:bottom-5 left-1/2 -translate-x-1/2">
-          <h3 className="font-space text-md">Scroll Down</h3>
-          <ChevronDown className="scroll" />
-        </div>
+        {/* Photo — full viewport, behind text */}
+        <img
+          src="/hero.png"
+          alt="zulkifli firdausi photo"
+          className="hero-photo z-10"
+        />
       </div>
     </Section>
   );

@@ -144,54 +144,15 @@ body {
   @apply whitespace-nowrap font-fraunces text-4xl lg:text-5xl xl:text-9xl font-black mr-15 tracking-wide leading-1 uppercase;
 }
 
-/* Hero section custom properties for text vertical positioning.
-   --hero-text-y:   y-offset for the bottom (white) text rail.
-   --hero-text-top-y: y-offset for the top (gray) text rail (negative = offset upward). */
+/* Hero section custom properties for text vertical positioning. */
 .hero-section {
-  --hero-text-y: min(16rem, calc(50vh - 3rem));
-  --hero-text-top-y: max(
-    -16rem,
-    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1rem))
-  );
-  --hero-text-mid-top-y: max(
-    -8rem,
-    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-  );
-
-  --hero-text-mid-y: max(
-    0rem,
-    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-  );
-
-  --hero-text-mid-bot-y: max(
-    8rem,
-    calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-  );
+  --hero-text-y: 1vh;
 }
 
 /* Larger text offset on desktop (≥768px) */
 @media (min-width: 768px) {
   .hero-section {
-    --hero-text-y: min(20rem, calc(50vh - 3rem));
-    --hero-text-top-y: max(
-      -20rem,
-      calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-    );
-
-    --hero-text-mid-top-y: max(
-      -10rem,
-      calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-    );
-
-    --hero-text-mid-y: max(
-      -0rem,
-      calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-    );
-
-    --hero-text-mid-bot-y: max(
-      10rem,
-      calc(-1 * (50vh - var(--header-h, 4.5rem) - 1.5rem))
-    );
+    --hero-text-y: -25vh;
   }
 }
 
@@ -201,71 +162,18 @@ body {
 }
 
 /* Bottom text rail — white text with exclusion blend for contrast over photo */
-.hero-copy-base {
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-  mix-blend-mode: exclusion;
-  isolation: auto;
-}
 
-/* Photo frame — centered, rounded, will-change for GPU-accelerated width/height animation */
-.hero-photo-frame {
+/* Photo — full viewport, centered, no card wrapper */
+.hero-photo {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 50%;
-  width: min(24rem, 68vw);
-  height: min(32rem, 56vh);
-  overflow: hidden;
-  border-radius: 1rem;
+  width: auto;
+  height: 95vh;
+  object-fit: contain;
   transform: translate(-50%, -50%);
   transform-origin: center center;
-  z-index: 1;
-  will-change: width, height, border-radius;
-}
-
-.hero-photo-frame img {
-  display: block;
-}
-
-/* Top text rail — gray text, offset upward, pointer-events disabled so it doesn't block clicks */
-.hero-copy-top {
-  --hero-text-y: var(--hero-text-top-y);
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  color: #dbd8d8;
-  mix-blend-mode: exclusion;
-  pointer-events: none;
-}
-
-.hero-copy-mid {
-  --hero-text-y: var(--hero-text-mid-y);
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  color: #dbd8d8;
-  mix-blend-mode: exclusion;
-  pointer-events: none;
-}
-
-.hero-copy-mid-top {
-  --hero-text-y: var(--hero-text-mid-top-y);
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  color: #dbd8d8;
-  mix-blend-mode: exclusion;
-  pointer-events: none;
-}
-
-.hero-copy-mid-bot {
-  --hero-text-y: var(--hero-text-mid-bot-y);
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  color: #dbd8d8;
-  mix-blend-mode: exclusion;
+  z-index: 10;
   pointer-events: none;
 }
 
