@@ -320,7 +320,7 @@ body {
 /* Tablet: scatter icons around the portrait's negative space */
 @media (min-width: 768px) and (max-width: 1279px) {
   .hero-decor :where(img) {
-    width: clamp(35px, 6vw, 60px);
+    width: clamp(50px, 9vw, 70px);
   }
 
   /* Top row */
@@ -392,11 +392,11 @@ body {
   /* Bottom row */
   .decor-agreement {
     top: 88%;
-    left: 10%;
+    left: 8%;
   }
   .decor-globe {
     top: 88%;
-    right: 10%;
+    left: 80%;
   }
   .decor-ai {
     top: 92%;
@@ -404,14 +404,14 @@ body {
   }
   .decor-hand {
     top: 92%;
-    right: 35%;
+    left: 65%;
   }
 }
 
 /* Mobile: tighter corners, smaller icons, avoid portrait center */
 @media (max-width: 767px) {
   .hero-decor :where(img) {
-    width: clamp(26px, 7vw, 38px);
+    width: clamp(30px, 8vw, 50px);
   }
 
   /* Top safe zone */
@@ -483,11 +483,11 @@ body {
   }
   .decor-agreement {
     top: 90%;
-    left: 30%;
+    left: 25%;
   }
   .decor-globe {
     top: 90%;
-    right: 30%;
+    left: 70%;
   }
   .decor-ai {
     top: 88%;
