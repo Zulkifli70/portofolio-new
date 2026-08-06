@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import gsap from "gsap";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 
 /**
@@ -41,6 +42,30 @@ export default function Header() {
     return () => ro.disconnect();
   }, []);
 
+  // ── Scroll-hide: hide on scroll down, show on scroll up ────────────
+  // Uses a simple scroll threshold. At the very top the header always
+  // shows. Animates via GSAP translate so it stays GPU-friendly.
+  useEffect(() => {
+    let lastY = window.scrollY;
+    const header = headerRef.current;
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (!header) return;
+      if (y <= 40) {
+        gsap.to(header, { yPercent: 0, duration: 0.3, overwrite: true });
+      } else if (y > lastY + 4) {
+        gsap.to(header, { yPercent: -110, duration: 0.3, overwrite: true });
+      } else if (y < lastY - 4) {
+        gsap.to(header, { yPercent: 0, duration: 0.3, overwrite: true });
+      }
+      lastY = y;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // ── Smooth-scroll on nav click ────────────────────────────────────
   /**
    * Intercepts anchor clicks and uses ScrollSmoother.scrollTo() for a
@@ -58,12 +83,12 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className="header w-max-7xl flex items-center justify-between py-2 px-6 fixed top-0 left-0 right-0 z-20"
+      className="header w-max-7xl flex items-center justify-between py-1.5 px-4 md:py-2 md:px-6 fixed top-0 left-0 right-0 z-20"
     >
       <div>
         <a
           href="#hero"
-          className="logo text-3xl font-space font-bold text-text-primary"
+          className="logo text-2xl md:text-3xl font-space font-bold text-text-primary"
           onClick={handleClick}
         >
           Zulk
@@ -71,19 +96,19 @@ export default function Header() {
       </div>
       <nav
         ref={navRef}
-        className="nav text-2xl flex items-center gap-5 font-space"
+        className="nav text-2xl flex items-center gap-2 md:gap-5 font-space"
       >
         <a
           href="#about"
           onClick={handleClick}
-          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl font-semibold text-text-primary"
+          className="text-sm md:text-xl hover:bg-hover px-2 py-2 md:px-3 md:py-4 rounded-2xl font-semibold text-text-primary"
         >
           About
         </a>
         <a
           href="#projects"
           onClick={handleClick}
-          className="text-xl hover:bg-hover px-3 py-4 rounded-2xl font-semibold text-text-primary"
+          className="text-sm md:text-xl hover:bg-hover px-2 py-2 md:px-3 md:py-4 rounded-2xl font-semibold text-text-primary"
         >
           Projects
         </a>
