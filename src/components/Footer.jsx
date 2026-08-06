@@ -123,13 +123,13 @@ function Footer() {
       className="w-full lg:min-h-60 px-5 flex flex-col font-space"
     >
       <div className="w-full flex flex-col flex-1 border-t-2 border-t-gray-500 gap-5 md:p-5 lg:gap-0 pt-3 lg:pt-0">
-        <div className="flex lg:flex-1 justify-between lg:items-center h-2/3">
-          <h2 className="footer-heading text-xl text-text-primary lg:text-4xl xl:text-5xl">
+        <div className="flex lg:flex-1 justify-between items-center h-2/3">
+          <h2 className="footer-heading text-sm text-text-primary md:text-2xl lg:text-4xl xl:text-5xl">
             Let's Get in Touch
           </h2>
           <a
             href="mailto:firdausi.zulkifli@gmail.com"
-            className="footer-email text-xl lg:text-4xl xl:text-5xl border-b-2 border-b-gray-500"
+            className="footer-email text-sm md:text-2xl lg:text-4xl xl:text-5xl border-b-2 border-b-gray-500 text-"
           >
             firdausi.zulkifli@gmail.com
           </a>
