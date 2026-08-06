@@ -46,7 +46,12 @@ export default function Hero() {
         gsap.utils.toArray(".hero-decor img").forEach((img, i) => {
           gsap.fromTo(
             img,
-            { opacity: 0, scale: 0.4, y: 20, rotate: gsap.utils.random(-12, 12) },
+            {
+              opacity: 0,
+              scale: 0.4,
+              y: 20,
+              rotate: gsap.utils.random(-12, 12),
+            },
             {
               opacity: 1,
               scale: 1,
@@ -94,7 +99,7 @@ export default function Hero() {
             tl: horizontalLoop(rail.querySelectorAll("h4"), {
               repeat: -1,
               paddingRight: 60,
-              speed: 0.3,
+              speed: 0.5,
               reversed: isReverse,
             }),
             scrollDirection: isReverse ? -1 : 1,
@@ -104,7 +109,7 @@ export default function Hero() {
         // Observer listens for scroll/touch/pointer Y-axis movement
         const observer = Observer.create({
           onChangeY(self) {
-            let factor = 6; // increased for faster text response on scroll
+            let factor = 3; // increased for faster text response on scroll
             if (self.deltaY < 0) {
               factor *= -1; // reverse speed when scrolling up
             }
@@ -119,13 +124,13 @@ export default function Hero() {
                   },
                 })
                 .to(tl, {
-                  timeScale: scrollFactor * 1.5, // spike speed
+                  timeScale: scrollFactor * 1, // spike speed
                   duration: 0.2,
                   overwrite: true,
                 })
                 .to(
                   tl,
-                  { timeScale: scrollFactor / 1.5, duration: 1 }, // ease back
+                  { timeScale: scrollFactor / 1, duration: 1 }, // ease back
                   "+=0.3",
                 );
             });
@@ -329,16 +334,89 @@ export default function Hero() {
           className="hero-photo z-10"
         />
 
-        {/* Hand-drawn SVG icons from public/svg — framed around the photo */}
+        {/* Hand-drawn SVG icons from public/svg — a doodle trail flanking the photo */}
         <div className="hero-decor" aria-hidden="true">
-          <img className="decor-brain" src="/svg/cognition-svgrepo-com.svg" alt="" />
-          <img className="decor-bolt" src="/svg/lightning-svgrepo-com.svg" alt="" />
-          <img className="decor-puzzle" src="/svg/puzzle-svgrepo-com.svg" alt="" />
-          <img className="decor-crane" src="/svg/origami-crane-svgrepo-com.svg" alt="" />
-          <img className="decor-heart" src="/svg/heart-svgrepo-com.svg" alt="" />
+          <img
+            className="decor-brain"
+            src="/svg/cognition-svgrepo-com.svg"
+            alt=""
+          />
+          <img className="decor-sun" src="/svg/sun-svgrepo-com.svg" alt="" />
+          <img
+            className="decor-thinking"
+            src="/svg/thinking-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-heart"
+            src="/svg/heart-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-cat"
+            src="/svg/cat-satisfied-svgrepo-com.svg"
+            alt=""
+          />
+          <img className="decor-chat" src="/svg/chat-svgrepo-com.svg" alt="" />
+          <img
+            className="decor-puzzle"
+            src="/svg/puzzle-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-bolt"
+            src="/svg/lightning-svgrepo-com.svg"
+            alt=""
+          />
+          <img className="decor-ai" src="/svg/ai-svgrepo-com.svg" alt="" />
+          <img
+            className="decor-compass"
+            src="/svg/compass-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-desktop"
+            src="/svg/desktop-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-crane"
+            src="/svg/origami-crane-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-laptop"
+            src="/svg/laptop-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-tablet"
+            src="/svg/tablet-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-clock"
+            src="/svg/clock-svgrepo-com.svg"
+            alt=""
+          />
           <img
             className="decor-console"
             src="/svg/game-console-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-agreement"
+            src="/svg/agreement-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-globe"
+            src="/svg/globe-svgrepo-com.svg"
+            alt=""
+          />
+          <img
+            className="decor-hand"
+            src="/svg/hand-like-svgrepo-com.svg"
             alt=""
           />
         </div>
