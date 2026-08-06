@@ -317,86 +317,185 @@ body {
   opacity: 0.8;
 }
 
-/* Mobile: narrower margins, tuck inward so the trail clears the rails */
-@media (max-width: 1279px) {
-  .hero-decor img {
-    width: clamp(30px, 7vw, 70px);
+/* Tablet: scatter icons around the portrait's negative space */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .hero-decor :where(img) {
+    width: clamp(35px, 6vw, 60px);
+  }
+
+  /* Top row */
+  .decor-sun {
+    top: 4%;
+    left: 5%;
   }
   .decor-brain {
-    top: 14%;
-    left: 4%;
-  }
-  .decor-sun {
-    top: 28%;
-    left: 6%;
+    top: 4%;
+    left: 28%;
   }
   .decor-thinking {
-    top: 42%;
-    left: 3%;
-  }
-  .decor-heart {
-    top: 50%;
-    left: 6%;
-  }
-  .decor-cat {
-    top: 62%;
-    left: 4%;
+    top: 8%;
+    left: 45%;
   }
   .decor-chat {
-    top: 74%;
-    left: 6%;
-  }
-  .decor-puzzle {
-    top: 83%;
-    left: 3%;
+    top: 4%;
+    right: 28%;
   }
   .decor-bolt {
-    top: 14%;
-    right: 4%;
-  }
-  .decor-ai {
-    top: 28%;
-    right: 6%;
-  }
-  .decor-compass {
-    top: 42%;
-    right: 3%;
-  }
-  .decor-desktop {
-    top: 51%;
+    top: 4%;
     right: 5%;
   }
+
+  /* Left edge */
+  .decor-heart {
+    top: 25%;
+    left: 5%;
+  }
+  .decor-console {
+    top: 38%;
+    left: 18%;
+  }
+  .decor-puzzle {
+    top: 52%;
+    left: 5%;
+  }
+  .decor-cat {
+    top: 65%;
+    left: 18%;
+  }
+  .decor-clock {
+    top: 78%;
+    left: 5%;
+  }
+
+  /* Right edge */
+  .decor-compass {
+    top: 25%;
+    right: 5%;
+  }
+  .decor-desktop {
+    top: 38%;
+    right: 18%;
+  }
   .decor-crane {
-    top: 60%;
-    right: 3%;
+    top: 52%;
+    right: 5%;
+  }
+  .decor-laptop {
+    top: 65%;
+    right: 18%;
+  }
+  .decor-tablet {
+    top: 78%;
+    right: 5%;
+  }
+
+  /* Bottom row */
+  .decor-agreement {
+    top: 88%;
+    left: 10%;
+  }
+  .decor-globe {
+    top: 88%;
+    right: 10%;
+  }
+  .decor-ai {
+    top: 92%;
+    left: 35%;
+  }
+  .decor-hand {
+    top: 92%;
+    right: 35%;
+  }
+}
+
+/* Mobile: tighter corners, smaller icons, avoid portrait center */
+@media (max-width: 767px) {
+  .hero-decor :where(img) {
+    width: clamp(26px, 7vw, 38px);
+  }
+
+  /* Top safe zone */
+  .decor-sun {
+    top: 5%;
+    left: 5%;
+  }
+  .decor-brain {
+    top: 8%;
+    left: 25%;
+  }
+  .decor-thinking {
+    top: 12%;
+    left: 48%;
+  }
+  .decor-chat {
+    top: 5%;
+    right: 25%;
+  }
+  .decor-bolt {
+    top: 5%;
+    right: 5%;
+  }
+
+  /* Left edge */
+  .decor-heart {
+    top: 32%;
+    left: 4%;
+  }
+  .decor-console {
+    top: 45%;
+    left: 15%;
+  }
+  .decor-puzzle {
+    top: 58%;
+    left: 4%;
+  }
+  .decor-cat {
+    top: 72%;
+    left: 15%;
+  }
+
+  /* Right edge */
+  .decor-compass {
+    top: 32%;
+    right: 4%;
+  }
+  .decor-desktop {
+    top: 45%;
+    right: 15%;
+  }
+  .decor-crane {
+    top: 58%;
+    right: 4%;
   }
   .decor-laptop {
     top: 72%;
-    right: 5%;
+    right: 15%;
+  }
+
+  /* Bottom safe zone */
+  .decor-clock {
+    top: 85%;
+    left: 5%;
   }
   .decor-tablet {
-    top: 82%;
-    right: 3%;
-  }
-  .decor-clock {
-    top: 90%;
+    top: 85%;
     right: 5%;
   }
-  .decor-console {
-    top: 35%;
-    left: 8%;
-  }
-  .decor-hand {
-    top: 55%;
-    left: 2%;
+  .decor-agreement {
+    top: 90%;
+    left: 30%;
   }
   .decor-globe {
     top: 90%;
-    left: 90%;
+    right: 30%;
   }
-  .decor-agreement {
-    top: 35%;
-    left: 87%;
+  .decor-ai {
+    top: 88%;
+    left: 48%;
+  }
+  .decor-hand {
+    top: 93%;
+    left: 48%;
   }
 }
 
