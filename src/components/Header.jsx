@@ -58,7 +58,7 @@ export default function Header() {
   return (
     <header
       ref={headerRef}
-      className="header w-max-7xl flex items-center bg-bg justify-between py-2 px-6 fixed top-0 left-0 right-0 z-20"
+      className="header w-max-7xl flex items-center justify-between py-2 px-6 fixed top-0 left-0 right-0 z-20"
     >
       <div>
         <a
