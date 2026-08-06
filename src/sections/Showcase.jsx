@@ -70,7 +70,7 @@ export default function Showcase() {
       const split = new SplitText(".title-sec", { type: "words" });
 
       gsap.from(split.words, {
-        x: -150,
+        y: -150,
         opacity: 0,
         duration: 3.5,
         ease: "power4",
