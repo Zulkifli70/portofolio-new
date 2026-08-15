@@ -39,6 +39,9 @@ export default function SmoothScrollPortfolio({ children }) {
         preventDefault: true,
       });
 
+      // ponytail: expose so other components can pause/resume (e.g. modal open)
+      window.__smoother = smoother;
+
       // ── Post-load refresh ──────────────────────────────────────────
       // Images/fonts may still be loading; refresh ScrollTrigger after
       // window.load and one rAF frame to let layout settle.
@@ -49,6 +52,7 @@ export default function SmoothScrollPortfolio({ children }) {
       // ── Cleanup on unmount ──────────────────────────────────────────
       return () => {
         window.removeEventListener("load", refreshAfterAssets);
+        delete window.__smoother;
         smoother.kill();
       };
     },

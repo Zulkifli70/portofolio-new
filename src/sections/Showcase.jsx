@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { SplitText } from "gsap/SplitText";
 import { gsap } from "gsap";
@@ -22,6 +22,15 @@ export default function Showcase() {
   const containerShowcaseRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    document.body.style.overflow = selectedProject ? "hidden" : "";
+    window.__smoother?.paused(!!selectedProject);
+    return () => {
+      document.body.style.overflow = "";
+      window.__smoother?.paused(false);
+    };
+  }, [selectedProject]);
 
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
