@@ -21,12 +21,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function Showcase() {
   const containerShowcaseRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [activeImage, setActiveImage] = useState(0);
 
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
     {
       name: "Pokemon Memory Game",
       image: "/project/pokemon.png",
+      gallery: [
+        "/project/pokemon.png",
+        "/project/pokemon.png",
+        "/project/pokemon.png",
+      ],
       link: "https://zulkmemorycard.netlify.app/",
       repo: "https://github.com/zulk/pokemon-memory",
       description: "A memory card matching game featuring Pokemon characters. Flip cards to find matching pairs with score tracking and difficulty levels.",
@@ -35,6 +41,11 @@ export default function Showcase() {
     {
       name: "Assembly Word",
       image: "/project/assembly.png",
+      gallery: [
+        "/project/assembly.png",
+        "/project/assembly.png",
+        "/project/assembly.png",
+      ],
       link: "https://zulkassembly.vercel.app/",
       repo: "https://github.com/zulk/assembly-word",
       description: "Word guessing game inspired by assembly language concepts. Guess the word letter by letter with visual feedback.",
@@ -43,6 +54,11 @@ export default function Showcase() {
     {
       name: "Kanban Board",
       image: "/project/kanban.png",
+      gallery: [
+        "/project/kanban.png",
+        "/project/kanban.png",
+        "/project/kanban.png",
+      ],
       link: "https://zulk-kanban.netlify.app/",
       repo: "https://github.com/zulk/kanban-board",
       description: "Drag-and-drop kanban board for task management. Create, edit, and organize tasks across columns.",
@@ -51,6 +67,11 @@ export default function Showcase() {
     {
       name: "Print Forge",
       image: "/project/printforge.png",
+      gallery: [
+        "/project/printforge.png",
+        "/project/printforge.png",
+        "/project/printforge.png",
+      ],
       link: "https://next-project-eta-vert.vercel.app/",
       repo: "https://github.com/zulk/print-forge",
       description: "3D printing marketplace and design tool. Browse, customize, and download 3D print-ready models.",
@@ -59,6 +80,11 @@ export default function Showcase() {
     {
       name: "Tenzies",
       image: "/project/tenzies.png",
+      gallery: [
+        "/project/tenzies.png",
+        "/project/tenzies.png",
+        "/project/tenzies.png",
+      ],
       link: "https://zulktenzies.netlify.app/",
       repo: "https://github.com/zulk/tenzies",
       description: "Roll dice until all match. Click to freeze dice at their current value between rolls.",
@@ -161,7 +187,10 @@ export default function Showcase() {
                 className="project-wrap project-card bg-surface rounded-2xl cursor-pointer"
                 data-cursor-target
                 data-cursor-label="View Project"
-                onClick={() => setSelectedProject(project)}
+                onClick={() => {
+                  setSelectedProject(project);
+                  setActiveImage(0);
+                }}
               >
                 <img src={project.image} alt={project.name} />
               </div>
@@ -194,55 +223,66 @@ export default function Showcase() {
               {/* Main image */}
               <div className="flex-1 rounded-xl overflow-hidden">
                 <img
-                  src={selectedProject.image}
+                  src={selectedProject.gallery[activeImage]}
                   alt={selectedProject.name}
                   className="w-full h-full object-cover"
                 />
               </div>
               {/* Thumbnails */}
               <div className="flex flex-col gap-3 w-24">
-                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
-                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
-                </div>
-                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
-                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
-                </div>
-                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
-                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
-                </div>
+                {selectedProject.gallery.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImage(i)}
+                    className={`rounded-lg overflow-hidden aspect-square cursor-pointer ${
+                      i === activeImage
+                        ? "ring-2 ring-text-primary"
+                        : "opacity-60 hover:opacity-100 transition-opacity"
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Content section */}
             <div className="px-6 pb-6">
               {/* Tags + Links */}
-              <div className="flex items-center justify-between mt-2 mb-4">
-                <div className="flex gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mt-2 mb-4">
+                <div className="flex flex-wrap gap-2">
                   {selectedProject.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 text-xs font-medium rounded-full bg-muted text-text-secondary"
+                      className="px-3 py-1 text-xs font-medium rounded-full bg-hover border border-border/40 text-text-primary"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
-                <div className="flex gap-4 text-sm">
+                <div className="flex gap-3">
                   <a
                     href={selectedProject.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary hover:text-text-primary transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full bg-text-primary text-text-white hover:bg-text-primary/85 transition-colors"
                   >
-                    link Website
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                    </svg>
+                    Website
                   </a>
                   <a
                     href={selectedProject.repo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-text-secondary hover:text-text-primary transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-full border border-border/60 text-text-primary hover:bg-hover transition-colors"
                   >
-                    link repo
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6.01 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.93.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                    Repository
                   </a>
                 </div>
               </div>
