@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import Section from "../layout/Section";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { SplitText } from "gsap/SplitText";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,48 +20,49 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  */
 export default function Showcase() {
   const containerShowcaseRef = useRef(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
-    // {
-    //   name: "Expense Tracker",
-    //   image: "/project/expense.png",
-    //   link: "https://zulk-expense.vercel.app/",
-    // },
     {
       name: "Pokemon Memory Game",
       image: "/project/pokemon.png",
       link: "https://zulkmemorycard.netlify.app/",
+      repo: "https://github.com/zulk/pokemon-memory",
+      description: "A memory card matching game featuring Pokemon characters. Flip cards to find matching pairs with score tracking and difficulty levels.",
+      tags: ["React", "JavaScript", "CSS"],
     },
     {
       name: "Assembly Word",
       image: "/project/assembly.png",
       link: "https://zulkassembly.vercel.app/",
+      repo: "https://github.com/zulk/assembly-word",
+      description: "Word guessing game inspired by assembly language concepts. Guess the word letter by letter with visual feedback.",
+      tags: ["React", "JavaScript", "Tailwind"],
     },
-    // {
-    //   name: "Journaling Diary",
-    //   image: "/project/diary.png",
-    //   link: "https://zulk-diary.vercel.app/",
-    // },
     {
       name: "Kanban Board",
       image: "/project/kanban.png",
       link: "https://zulk-kanban.netlify.app/",
+      repo: "https://github.com/zulk/kanban-board",
+      description: "Drag-and-drop kanban board for task management. Create, edit, and organize tasks across columns.",
+      tags: ["React", "JavaScript", "DnD"],
     },
     {
       name: "Print Forge",
       image: "/project/printforge.png",
       link: "https://next-project-eta-vert.vercel.app/",
+      repo: "https://github.com/zulk/print-forge",
+      description: "3D printing marketplace and design tool. Browse, customize, and download 3D print-ready models.",
+      tags: ["Next.js", "TypeScript", "Tailwind"],
     },
-    // {
-    //   name: "Job Tracker",
-    //   image: "/project/jobtracker.png",
-    //   link: "https://zulk-jobtracker.netlify.app/",
-    // },
     {
       name: "Tenzies",
       image: "/project/tenzies.png",
       link: "https://zulktenzies.netlify.app/",
+      repo: "https://github.com/zulk/tenzies",
+      description: "Roll dice until all match. Click to freeze dice at their current value between rolls.",
+      tags: ["React", "JavaScript", "CSS"],
     },
   ];
 
@@ -154,24 +156,109 @@ export default function Showcase() {
               </h1>
             </div>
             {projects.map((project) => (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
+              <div
                 key={project.name}
+                className="project-wrap project-card bg-surface rounded-2xl cursor-pointer"
+                data-cursor-target
+                data-cursor-label="View Project"
+                onClick={() => setSelectedProject(project)}
               >
-                <div
-                  className="project-wrap project-card bg-surface rounded-2xl"
-                  data-cursor-target
-                  data-cursor-label="View Project"
-                >
-                  <img src={project.image} alt={project.name} />
-                </div>
-              </a>
+                <img src={project.image} alt={project.name} />
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Project Detail Modal */}
+      {selectedProject &&
+        createPortal(
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            onClick={() => setSelectedProject(null)}
+          >
+          <div
+            className="bg-surface rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedProject(null)}
+              className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+            >
+              ✕
+            </button>
+
+            {/* Images section */}
+            <div className="flex gap-3 p-4">
+              {/* Main image */}
+              <div className="flex-1 rounded-xl overflow-hidden">
+                <img
+                  src={selectedProject.image}
+                  alt={selectedProject.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              {/* Thumbnails */}
+              <div className="flex flex-col gap-3 w-24">
+                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
+                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
+                </div>
+                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
+                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
+                </div>
+                <div className="rounded-lg overflow-hidden bg-muted aspect-square">
+                  <img src={selectedProject.image} alt="" className="w-full h-full object-cover opacity-60" />
+                </div>
+              </div>
+            </div>
+
+            {/* Content section */}
+            <div className="px-6 pb-6">
+              {/* Tags + Links */}
+              <div className="flex items-center justify-between mt-2 mb-4">
+                <div className="flex gap-2">
+                  {selectedProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 text-xs font-medium rounded-full bg-muted text-text-secondary"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4 text-sm">
+                  <a
+                    href={selectedProject.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    link Website
+                  </a>
+                  <a
+                    href={selectedProject.repo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-text-secondary hover:text-text-primary transition-colors"
+                  >
+                    link repo
+                  </a>
+                </div>
+              </div>
+
+              {/* Title + Description */}
+              <h2 className="text-2xl font-bold text-text-primary mb-2">
+                {selectedProject.name}
+              </h2>
+              <p className="text-text-secondary leading-relaxed">
+                {selectedProject.description}
+              </p>
+            </div>
+          </div>
+          </div>,
+          document.body,
+        )}
     </Section>
   );
 }
