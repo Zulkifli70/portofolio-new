@@ -60,7 +60,7 @@ export default function Showcase() {
       repo: "https://github.com/zulk/assembly-word",
       description:
         "Word guessing game inspired by assembly language concepts. Guess the word letter by letter with visual feedback.",
-      tags: ["React", "JavaScript", "Tailwind"],
+      tags: ["React", "JavaScript", "TailwindCSS"],
     },
     {
       name: "Kanban Board",
@@ -88,7 +88,7 @@ export default function Showcase() {
       repo: "https://github.com/zulk/print-forge",
       description:
         "3D printing marketplace and design tool. Browse, customize, and download 3D print-ready models.",
-      tags: ["Next.js", "TypeScript", "Tailwind"],
+      tags: ["Next.js", "TypeScript", "TailwindCSS"],
     },
     {
       name: "Tenzies",
