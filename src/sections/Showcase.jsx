@@ -133,9 +133,9 @@ export default function Showcase() {
       name: "Assembly Word",
       image: "/project/assembly.png",
       gallery: [
-        "/project/assembly.png",
-        "/project/assembly.png",
-        "/project/assembly.png",
+        "/showcase-details/wordle/home.jpg",
+        "/showcase-details/wordle/win.jpg",
+        "/showcase-details/wordle/lose.jpg",
       ],
       link: "https://zulkassembly.vercel.app/",
       repo: "https://github.com/zulk/assembly-word",
@@ -153,9 +153,8 @@ export default function Showcase() {
       name: "Kanban Board",
       image: "/project/kanban.png",
       gallery: [
-        "/project/kanban.png",
-        "/project/kanban.png",
-        "/project/kanban.png",
+        "/showcase-details/kanban/home.jpg",
+        "/showcase-details/kanban/showcase.jpg",
       ],
       link: "https://zulk-kanban.netlify.app/",
       repo: "https://github.com/zulk/kanban-board",
@@ -173,9 +172,9 @@ export default function Showcase() {
       name: "Print Forge",
       image: "/project/printforge.png",
       gallery: [
-        "/project/printforge.png",
-        "/project/printforge.png",
-        "/project/printforge.png",
+        "/showcase-details/printforge/home.jpg",
+        "/showcase-details/printforge/about.jpg",
+        "/showcase-details/printforge/showcase.jpg",
       ],
       link: "https://next-project-eta-vert.vercel.app/",
       repo: "https://github.com/zulk/print-forge",
@@ -193,9 +192,8 @@ export default function Showcase() {
       name: "Tenzies",
       image: "/project/tenzies.png",
       gallery: [
-        "/project/tenzies.png",
-        "/project/tenzies.png",
-        "/project/tenzies.png",
+        "/showcase-details/tenzies/home.jpg",
+        "/showcase-details/tenzies/win.jpg",
       ],
       link: "https://zulktenzies.netlify.app/",
       repo: "https://github.com/zulk/tenzies",
@@ -360,7 +358,7 @@ export default function Showcase() {
                       <img
                         src={img}
                         alt=""
-                        className="w-full h-full object-cover"
+className="w-full h-full object-contain"
                       />
                     </button>
                   ))}
