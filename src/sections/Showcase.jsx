@@ -112,9 +112,10 @@ export default function Showcase() {
       name: "Pokemon Memory Game",
       image: "/project/pokemon.png",
       gallery: [
-        "/project/pokemon.png",
-        "/showcase-details/memory-game/game-board.jpg",
         "/showcase-details/memory-game/game-home.jpg",
+        "/showcase-details/memory-game/game-board.jpg",
+        "/showcase-details/memory-game/game-result.jpg",
+        "/showcase-details/memory-game/game-result2.jpg",
       ],
       link: "https://zulkmemorycard.netlify.app/",
       repo: "https://github.com/zulk/pokemon-memory",
@@ -323,7 +324,7 @@ export default function Showcase() {
           >
             <div
               ref={modalWrapRef}
-              className="bg-surface rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
+              className="bg-surface rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
@@ -337,7 +338,7 @@ export default function Showcase() {
               {/* Images section */}
               <div className="flex gap-3 p-4">
                 {/* Main image */}
-                <div className="flex-1 rounded-xl overflow-hidden">
+                <div className="flex-1 rounded-xl overflow-hidden aspect-video bg-muted">
                   <img
                     src={selectedProject.gallery[activeImage]}
                     alt={selectedProject.name}
@@ -345,7 +346,7 @@ export default function Showcase() {
                   />
                 </div>
                 {/* Thumbnails */}
-                <div className="flex flex-col justify-center gap-3 w-24">
+                <div className="flex flex-col justify-center gap-3 w-32">
                   {selectedProject.gallery.map((img, i) => (
                     <button
                       key={i}
