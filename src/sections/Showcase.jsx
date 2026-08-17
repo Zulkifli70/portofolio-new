@@ -22,6 +22,8 @@ export default function Showcase() {
   const containerShowcaseRef = useRef(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
+  const originRef = useRef(null);
+  const modalWrapRef = useRef(null);
 
   useEffect(() => {
     document.body.style.overflow = selectedProject ? "hidden" : "";
@@ -32,6 +34,78 @@ export default function Showcase() {
     };
   }, [selectedProject]);
 
+  /** Animate the modal from the clicked card's rect to center. */
+  const animateModal = (fromRect) => {
+    const targetRect = modalWrapRef.current.getBoundingClientRect();
+    const scaleX = fromRect.width / targetRect.width;
+    const scaleY = fromRect.height / targetRect.height;
+    const x =
+      fromRect.left +
+      fromRect.width / 2 -
+      (targetRect.left + targetRect.width / 2);
+    const y =
+      fromRect.top +
+      fromRect.height / 2 -
+      (targetRect.top + targetRect.height / 2);
+
+    return gsap.fromTo(
+      modalWrapRef.current,
+      { x, y, scaleX, scaleY, opacity: 0, transformOrigin: "center center" },
+      {
+        x: 0,
+        y: 0,
+        scaleX: 1,
+        scaleY: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "power3.out",
+      },
+    );
+  };
+
+  const openModal = (project, e) => {
+    originRef.current = e.currentTarget.getBoundingClientRect();
+    setSelectedProject(project);
+    setActiveImage(0);
+  };
+
+  const closeModal = () => {
+    const origin = originRef.current;
+    const targetEl = modalWrapRef.current;
+    if (origin && targetEl) {
+      const targetRect = targetEl.getBoundingClientRect();
+      const scaleX = origin.width / targetRect.width;
+      const scaleY = origin.height / targetRect.height;
+      const x =
+        origin.left +
+        origin.width / 2 -
+        (targetRect.left + targetRect.width / 2);
+      const y =
+        origin.top +
+        origin.height / 2 -
+        (targetRect.top + targetRect.height / 2);
+
+      gsap.to(modalWrapRef.current, {
+        x,
+        y,
+        scaleX,
+        scaleY,
+        opacity: 0,
+        duration: 0.4,
+        ease: "power3.in",
+        onComplete: () => setSelectedProject(null),
+      });
+    } else {
+      setSelectedProject(null);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedProject || !originRef.current || !modalWrapRef.current) return;
+    const tl = animateModal(originRef.current);
+    return () => tl.kill();
+  }, [selectedProject]);
+
   /** Static project data — name, screenshot, and live URL. */
   const projects = [
     {
@@ -39,11 +113,17 @@ export default function Showcase() {
       image: "/project/pokemon.png",
       gallery: [
         "/project/pokemon.png",
-        "/project/pokemon.png",
-        "/project/pokemon.png",
+        "/showcase-details/memory-game/game-board.jpg",
+        "/showcase-details/memory-game/game-home.jpg",
       ],
       link: "https://zulkmemorycard.netlify.app/",
       repo: "https://github.com/zulk/pokemon-memory",
+      status: "Live",
+      features: [
+        "Score tracking and best-score persistence",
+        "Multiple difficulty levels",
+        "Flip and match card animations",
+      ],
       description:
         "A memory card matching game featuring Pokemon characters. Flip cards to find matching pairs with score tracking and difficulty levels.",
       tags: ["React", "JavaScript", "CSS"],
@@ -58,6 +138,12 @@ export default function Showcase() {
       ],
       link: "https://zulkassembly.vercel.app/",
       repo: "https://github.com/zulk/assembly-word",
+      status: "Live",
+      features: [
+        "Letter-by-letter word guessing",
+        "Visual feedback for correct/incorrect letters",
+        "Hints and scoring system",
+      ],
       description:
         "Word guessing game inspired by assembly language concepts. Guess the word letter by letter with visual feedback.",
       tags: ["React", "JavaScript", "TailwindCSS"],
@@ -72,6 +158,12 @@ export default function Showcase() {
       ],
       link: "https://zulk-kanban.netlify.app/",
       repo: "https://github.com/zulk/kanban-board",
+      status: "Live",
+      features: [
+        "Drag-and-drop between columns",
+        "Create, edit, and delete tasks",
+        "Local storage persistence",
+      ],
       description:
         "Drag-and-drop kanban board for task management. Create, edit, and organize tasks across columns.",
       tags: ["React", "JavaScript", "DnD"],
@@ -86,6 +178,12 @@ export default function Showcase() {
       ],
       link: "https://next-project-eta-vert.vercel.app/",
       repo: "https://github.com/zulk/print-forge",
+      status: "On Progress",
+      features: [
+        "Browse and search 3D print models",
+        "Customize model options",
+        "Responsive marketplace layout",
+      ],
       description:
         "3D printing marketplace and design tool. Browse, customize, and download 3D print-ready models.",
       tags: ["Next.js", "TypeScript", "TailwindCSS"],
@@ -100,6 +198,12 @@ export default function Showcase() {
       ],
       link: "https://zulktenzies.netlify.app/",
       repo: "https://github.com/zulk/tenzies",
+      status: "Live",
+      features: [
+        "Roll dice until all match",
+        "Freeze dice between rolls",
+        "Roll counter and win detection",
+      ],
       description:
         "Roll dice until all match. Click to freeze dice at their current value between rolls.",
       tags: ["React", "JavaScript", "CSS"],
@@ -201,10 +305,7 @@ export default function Showcase() {
                 className="project-wrap project-card bg-surface rounded-2xl cursor-pointer"
                 data-cursor-target
                 data-cursor-label="View Project"
-                onClick={() => {
-                  setSelectedProject(project);
-                  setActiveImage(0);
-                }}
+                onClick={(e) => openModal(project, e)}
               >
                 <img src={project.image} alt={project.name} />
               </div>
@@ -218,15 +319,16 @@ export default function Showcase() {
         createPortal(
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-            onClick={() => setSelectedProject(null)}
+            onClick={closeModal}
           >
             <div
+              ref={modalWrapRef}
               className="bg-surface rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close button */}
               <button
-                onClick={() => setSelectedProject(null)}
+                onClick={closeModal}
                 className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
               >
                 ✕
@@ -317,13 +419,59 @@ export default function Showcase() {
                   </div>
                 </div>
 
-                {/* Title + Description */}
-                <h2 className="text-2xl font-bold text-text-primary mb-2">
-                  {selectedProject.name}
-                </h2>
+                {/* Title + Status */}
+                <div className="flex items-center gap-3 mb-2">
+                  <h2 className="text-2xl font-bold text-text-primary">
+                    {selectedProject.name}
+                  </h2>
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full ${
+                      selectedProject.status === "Live"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-amber-100 text-amber-700"
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        selectedProject.status === "Live"
+                          ? "bg-green-600"
+                          : "bg-amber-500 animate-pulse"
+                      }`}
+                    />
+                    {selectedProject.status}
+                  </span>
+                </div>
                 <p className="text-text-secondary leading-relaxed">
                   {selectedProject.description}
                 </p>
+
+                {/* Key Features */}
+                <div className="mt-5">
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-text-primary mb-2">
+                    Key Features
+                  </h3>
+                  <ul className="space-y-1.5">
+                    {selectedProject.features.map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-sm text-text-secondary"
+                      >
+                        <svg
+                          className="w-4 h-4 mt-0.5 shrink-0 text-text-primary"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </div>,
