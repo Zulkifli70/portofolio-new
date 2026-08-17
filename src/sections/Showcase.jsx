@@ -333,23 +333,23 @@ export default function Showcase() {
                 ✕
               </button>
 
-              {/* Images section */}
-              <div className="flex gap-3 p-4">
+{/* Images section */}
+              <div className="flex flex-col md:flex-row gap-3 p-4">
                 {/* Main image */}
-                <div className="flex-1 rounded-xl overflow-hidden aspect-video bg-muted">
+                <div className="w-full md:flex-1 rounded-xl overflow-hidden aspect-video bg-muted">
                   <img
                     src={selectedProject.gallery[activeImage]}
                     alt={selectedProject.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                   />
                 </div>
                 {/* Thumbnails */}
-                <div className="flex flex-col justify-center gap-3 w-32">
+                <div className="flex flex-row justify-center md:justify-start md:flex-col gap-3 md:w-32">
                   {selectedProject.gallery.map((img, i) => (
                     <button
                       key={i}
                       onClick={() => setActiveImage(i)}
-                      className={`rounded-lg overflow-hidden aspect-square cursor-pointer ${
+                      className={`rounded-lg overflow-hidden aspect-square w-16 md:w-full cursor-pointer ${
                         i === activeImage
                           ? "ring-2 ring-text-primary"
                           : "opacity-60 hover:opacity-100 transition-opacity"
@@ -358,7 +358,7 @@ export default function Showcase() {
                       <img
                         src={img}
                         alt=""
-className="w-full h-full object-contain"
+                        className="w-full h-full object-contain"
                       />
                     </button>
                   ))}
@@ -366,7 +366,7 @@ className="w-full h-full object-contain"
               </div>
 
               {/* Content section */}
-              <div className="px-6 pb-6">
+              <div className="px-4 sm:px-6 pb-6">
                 {/* Tags + Links */}
                 <div className="flex flex-wrap items-center justify-between gap-3 mt-2 mb-4">
                   <div className="flex flex-wrap gap-2">
@@ -419,8 +419,8 @@ className="w-full h-full object-contain"
                 </div>
 
                 {/* Title + Status */}
-                <div className="flex items-center gap-3 mb-2">
-                  <h2 className="text-2xl font-bold text-text-primary">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <h2 className="text-xl sm:text-2xl font-bold text-text-primary">
                     {selectedProject.name}
                   </h2>
                   <span
