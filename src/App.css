@@ -518,6 +518,14 @@ body {
   overflow: hidden;
 }
 
+/* Fit height to content on mobile (cards are smaller than viewport) —
+   GSAP scroll length is driven by strip width, not wrapper height. */
+@media (max-width: 1023px) {
+  .horiz-gallery-wrapper {
+    min-height: auto;
+  }
+}
+
 /* Strip — horizontal flex row with responsive gap between cards */
 .horiz-gallery-strip {
   align-items: center;
