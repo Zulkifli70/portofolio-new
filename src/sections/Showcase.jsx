@@ -118,7 +118,7 @@ export default function Showcase() {
         "/showcase-details/memory-game/game-result2.jpg",
       ],
       link: "https://zulkmemorycard.netlify.app/",
-      repo: "https://github.com/zulk/pokemon-memory",
+      repo: "https://github.com/Zulkifli70/memory-card-game",
       status: "Live",
       features: [
         "Score tracking and best-score persistence",
@@ -138,7 +138,7 @@ export default function Showcase() {
         "/showcase-details/wordle/lose.jpg",
       ],
       link: "https://zulkassembly.vercel.app/",
-      repo: "https://github.com/zulk/assembly-word",
+      repo: "https://github.com/Zulkifli70/react-ts",
       status: "Live",
       features: [
         "Letter-by-letter word guessing",
@@ -157,7 +157,7 @@ export default function Showcase() {
         "/showcase-details/kanban/showcase.jpg",
       ],
       link: "https://zulk-kanban.netlify.app/",
-      repo: "https://github.com/zulk/kanban-board",
+      repo: "https://github.com/Zulkifli70/kanban-board",
       status: "Live",
       features: [
         "Drag-and-drop between columns",
@@ -177,7 +177,7 @@ export default function Showcase() {
         "/showcase-details/printforge/showcase.jpg",
       ],
       link: "https://next-project-eta-vert.vercel.app/",
-      repo: "https://github.com/zulk/print-forge",
+      repo: "https://github.com/Zulkifli70/next-project",
       status: "On Progress",
       features: [
         "Browse and search 3D print models",
@@ -196,7 +196,7 @@ export default function Showcase() {
         "/showcase-details/tenzies/win.jpg",
       ],
       link: "https://zulktenzies.netlify.app/",
-      repo: "https://github.com/zulk/tenzies",
+      repo: "https://github.com/Zulkifli70/Tenzies",
       status: "Live",
       features: [
         "Roll dice until all match",
@@ -333,7 +333,7 @@ export default function Showcase() {
                 ✕
               </button>
 
-{/* Images section */}
+              {/* Images section */}
               <div className="flex flex-col md:flex-row gap-3 p-4">
                 {/* Main image */}
                 <div className="w-full md:flex-1 rounded-xl overflow-hidden aspect-video bg-muted">
