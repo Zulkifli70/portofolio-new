@@ -336,7 +336,7 @@ export default function Showcase() {
               {/* Images section */}
               <div className="flex flex-col md:flex-row gap-3 p-4">
                 {/* Main image */}
-                <div className="w-full md:flex-1 rounded-xl overflow-hidden aspect-video bg-muted">
+                <div className="w-full md:flex-1 border border-text-secondary rounded-xl overflow-hidden aspect-video bg-muted">
                   <img
                     src={selectedProject.gallery[activeImage]}
                     alt={selectedProject.name}
