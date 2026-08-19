@@ -214,7 +214,7 @@ export default function TechStack() {
   return (
     <Section ref={stageRef}>
       <div className="w-full h-full max-h-screen overflow-hidden flex flex-col gap-10 pt-35 md:py-20 px-5">
-        <h2 className="tech-title text-5xl md:text-7xl xl:text-9xl font-space text-text-primary font-bold border-b-2 border-b-gray-400">
+        <h2 className="tech-title text-5xl md:text-7xl xl:text-9xl font-space text-text-primary font-bold border-b-2 border-b-border-muted">
           Tech Stack
         </h2>
         {/* Stage: the mouse-proximity interaction area */}

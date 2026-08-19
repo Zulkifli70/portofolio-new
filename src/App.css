@@ -13,11 +13,21 @@
 
   --color-bg: #f7f4ed;
   --color-surface: #fbfbfc;
+  --color-muted: #ece9e3;
   --color-text-primary: #1c1c1c;
   --color-text-secondary: rgba(28, 28, 28, 0.83);
   --color-text-white: #fcfbf8;
   --color-border: rgba(28, 28, 28, 0.4);
+  --color-border-muted: #9ca3af;
+  --color-border-strong: #6b7280;
   --color-hover: #ece9e3;
+  --color-overlay: #000000;
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-success-text: #15803d;
+  --color-warning: #f59e0b;
+  --color-warning-soft: #fef3c7;
+  --color-warning-text: #b45309;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -113,7 +123,7 @@
    ═══════════════════════════════════════════════════════════════════ */
 body {
   background: var(--color-bg);
-  color: var(--color-text);
+  color: var(--color-text-primary);
 }
 
 /* Header logo + nav use exclusion blend mode for contrast over hero image */

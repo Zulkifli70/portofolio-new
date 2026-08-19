@@ -317,7 +317,7 @@ export default function Showcase() {
       {selectedProject &&
         createPortal(
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-overlay/60 backdrop-blur-sm p-4"
             onClick={closeModal}
           >
             <div
@@ -328,7 +328,7 @@ export default function Showcase() {
               {/* Close button */}
               <button
                 onClick={closeModal}
-                className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                className="absolute top-4 right-4 z-10 w-8 h-8 flex items-center justify-center rounded-full bg-overlay/50 text-text-white hover:bg-overlay/70 transition-colors"
               >
                 ✕
               </button>
@@ -426,15 +426,15 @@ export default function Showcase() {
                   <span
                     className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full ${
                       selectedProject.status === "Live"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-success-soft text-success-text"
+                        : "bg-warning-soft text-warning-text"
                     }`}
                   >
                     <span
                       className={`w-1.5 h-1.5 rounded-full ${
                         selectedProject.status === "Live"
-                          ? "bg-green-600"
-                          : "bg-amber-500 animate-pulse"
+                          ? "bg-success"
+                          : "bg-warning animate-pulse"
                       }`}
                     />
                     {selectedProject.status}
