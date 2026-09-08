@@ -1,16 +1,56 @@
-# React + Vite
+# Zulkifli Firdausi — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website showcasing frontend development and UI/UX design work.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + **Vite 8** — fast SPA with HMR
+- **Tailwind CSS v4** — utility-first styling via `@tailwindcss/vite`
+- **GSAP** — scroll-driven animations, smooth scrolling, text effects
+- **Lucide React** — icon library
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Loading screen with real image-progress tracking
+- Infinite horizontal text rails on hero section
+- Horizontal-scroll project gallery with detail modals
+- Custom cursor with contextual labels
+- Mouse-proximity scaling on tech stack icons
+- ScrollSmoother for smooth scroll experience
+- `prefers-reduced-motion` support
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+## Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start dev server |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Structure
+
+```
+src/
+  components/    — Header, Footer, CustomCursor, LoadingScreen
+  sections/      — Hero, About, Showcase, Experience, TechStack
+  layout/        — BaseSections, Section wrappers
+  animation/     — SmoothScrollPortfolio (ScrollSmoother)
+public/
+  font/          — Self-hosted Google Fonts (TTF)
+  svg/           — Hand-drawn decoration icons
+  techIcons/     — Tech stack logos
+  project/       — Project thumbnails
+  showcase-details/ — Per-project gallery images
+```
+
+## License
+
+This project is personal and not open for reuse.
