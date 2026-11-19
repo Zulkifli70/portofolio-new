@@ -1,4 +1,4 @@
-import { about } from "../data/portfolio";
+// import { about } from "../data/portfolio";
 
 const MENU = [
   { id: "about", label: "About", desc: "Who I am" },
@@ -24,7 +24,7 @@ export default function Home({ onNavigate }) {
           <br />
           <em>Firdausi</em>
         </h1>
-        <p className="home-lede">{about.text.split(". ")[0]}.</p>
+        {/* <p className="home-lede">{about.text.split(". ")[0]}.</p> */}
       </div>
 
       <nav className="home-menu" aria-label="Sections">
