@@ -1,11 +1,23 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { projects } from "../data/portfolio";
+import { projects, techStacks } from "../data/portfolio";
+import { useParams } from "react-router-dom";
 
 /** Projects — grid of cards; clicking one opens a detail dialog. */
-export default function Projects() {
+export default function Projects({ navigate }) {
   const [selected, setSelected] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
+  const { project: urlProject } = useParams();
+
+  useEffect(() => {
+    // If coming from URL param, find the project and open it
+    if (!urlProject) return;
+    const proj = projects.find((p) => p.name.toLowerCase().includes(urlProject.replace(/-/g, " ")));
+    if (proj) {
+      setSelected(proj);
+      setActiveImage(0);
+    }
+  }, [urlProject]);
 
   useEffect(() => {
     if (!selected) return;

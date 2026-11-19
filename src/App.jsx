@@ -1,10 +1,12 @@
 /**
- * App — single-screen portfolio.
+ * App — portfolio with client-side routing for direct sharing.
  *
- * One view at a time, no page scroll. The home screen lists every section;
- * each section opens full-screen with a small back control.
+ * Uses React Router v6 so URLs like /projects/pokemon-memory-game
+ * can be shared directly and the app will navigate to the right view.
+ * Keeps original UI layout (topbar with back button, app-body scroll handling).
  */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Home from "./views/Home";
 import About from "./views/About";
 import Projects from "./views/Projects";
@@ -13,42 +15,55 @@ import Tech from "./views/Tech";
 import Contact from "./views/Contact";
 import "./App.css";
 
-const VIEWS = {
-  about: { label: "About", Component: About },
-  projects: { label: "Projects", Component: Projects },
-  experience: { label: "Experience", Component: Experience },
-  tech: { label: "Tech Stack", Component: Tech },
-  contact: { label: "Contact", Component: Contact },
+const LABELS = {
+  "/about": "About",
+  "/projects": "Projects",
+  "/experience": "Experience",
+  "/tech": "Tech Stack",
+  "/contact": "Contact",
 };
 
 export default function App() {
-  const [view, setView] = useState("home");
+  const navigate = useNavigate();
+  const location = useLocation();
   const bodyRef = useRef(null);
 
-  // Each view starts at the top.
+  // Scroll to top on route change
   useEffect(() => {
     bodyRef.current?.scrollTo(0, 0);
-  }, [view]);
+  }, [location.pathname]);
 
-  const active = VIEWS[view];
+  // Home menu passes section ID (e.g., "about", "projects") → map to route path
+  const onNavigate = (id) => {
+    if (id === "home") navigate("/");
+    else navigate(`/${id}`);
+  };
+
+  const isHome = location.pathname === "/";
+  const label = LABELS[location.pathname] || (location.pathname.startsWith("/projects/") ? "Projects" : "");
 
   return (
     <div className="app">
-      {active && (
+      {!isHome && (
         <header className="topbar">
-          <button type="button" className="back" onClick={() => setView("home")}>
+          <button type="button" className="back" onClick={() => navigate("/")}>
             ← Index
           </button>
-          <span>{active.label}</span>
+          <span>{label}</span>
         </header>
       )}
 
       <div className="app-body" ref={bodyRef}>
-        {view === "home" ? (
-          <Home onNavigate={setView} />
-        ) : (
-          <active.Component />
-        )}
+        <Routes>
+          <Route path="/" element={<Home onNavigate={onNavigate} />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/tech" element={<Tech />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:project" element={<Projects />} />
+          <Route path="*" element={<Home onNavigate={onNavigate} />} />
+        </Routes>
       </div>
     </div>
   );
