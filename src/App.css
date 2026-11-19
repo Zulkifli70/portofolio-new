@@ -1,654 +1,754 @@
-@import "tailwindcss";
-
 /* ═══════════════════════════════════════════════════════════════════
-   Theme Tokens (Tailwind v4 @theme)
-   Custom colors, fonts, and design tokens used via Tailwind utilities.
+   Fonts
    ═══════════════════════════════════════════════════════════════════ */
-@theme {
-  --font-monoton: "Monoton", cursive;
-  --font-neuton: "Neuton", cursive;
-  --font-fraunces: "Fraunces", cursive;
-  --font-space: "SpaceGrotesk", cursive;
-  --font-syne: "Syne", cursive;
-
-  --color-bg: #f7f4ed;
-  --color-surface: #fbfbfc;
-  --color-muted: #ece9e3;
-  --color-text-primary: #1c1c1c;
-  --color-text-secondary: rgba(28, 28, 28, 0.83);
-  --color-text-white: #fcfbf8;
-  --color-border: rgba(28, 28, 28, 0.4);
-  --color-border-muted: #9ca3af;
-  --color-border-strong: #6b7280;
-  --color-hover: #ece9e3;
-  --color-overlay: #000000;
-  --color-success: #16a34a;
-  --color-success-soft: #dcfce7;
-  --color-success-text: #15803d;
-  --color-warning: #f59e0b;
-  --color-warning-soft: #fef3c7;
-  --color-warning-text: #b45309;
+@font-face {
+  font-family: Syne;
+  font-weight: 200 900;
+  font-display: swap;
+  src: url("/font/Syne-VariableFont.ttf") format("truetype");
+}
+@font-face {
+  font-family: SpaceGrotesk;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/font/SpaceGrotesk-VariableFont.ttf") format("truetype");
+}
+@font-face {
+  font-family: Neuton;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/font/Neuton-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: Neuton;
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/font/Neuton-Italic.ttf") format("truetype");
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   @font-face Declarations
-   Self-hosted Google Fonts loaded via local TTF files.
-   Each family/weight/style is declared separately for fine-grained
-   control over font loading order and fallback behavior.
+   Tokens
    ═══════════════════════════════════════════════════════════════════ */
-@layer base {
-  @font-face {
-    font-family: Monoton;
-    font-style: normal;
-    font-weight: 200 700;
-    font-display: swap;
-    src: url("/font/Monoton-Regular.ttf") format("truetype");
-  }
+:root {
+  --paper: #f2eee4;
+  --card: #faf8f2;
+  --ink: #171614;
+  --muted: #6f6a5f;
+  --line: rgba(23, 22, 20, 0.16);
+  --line-strong: rgba(23, 22, 20, 0.45);
+  --radius: 0.85rem;
 
-  @font-face {
-    font-family: Neuton;
-    font-style: normal;
-    font-weight: 200;
-    font-display: swap;
-    src: url("/font/Neuton-ExtraLight.ttf") format("truetype");
-  }
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-ui: "SpaceGrotesk", system-ui, sans-serif;
+  --font-body: "Neuton", Georgia, serif;
 
-  @font-face {
-    font-family: Neuton;
-    font-style: normal;
-    font-weight: 300;
-    font-display: swap;
-    src: url("/font/Neuton-Light.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Neuton;
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/font/Neuton-Regular.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Neuton;
-    font-style: italic;
-    font-weight: 400;
-    font-display: swap;
-    src: url("/font/Neuton-Italic.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Neuton;
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("/font/Neuton-Bold.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Neuton;
-    font-style: normal;
-    font-weight: 800;
-    font-display: swap;
-    src: url("/font/Neuton-ExtraBold.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Fraunces;
-    font-style: normal;
-    font-weight: 200 900;
-    font-display: swap;
-    src: url("/font/Fraunces-VariableFont.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: Syne;
-    font-style: normal;
-    font-weight: 200 900;
-    font-display: swap;
-    src: url("/font/Syne-VariableFont.ttf") format("truetype");
-  }
-
-  @font-face {
-    font-family: SpaceGrotesk;
-    font-style: normal;
-    font-weight: 200 900;
-    font-display: swap;
-    src: url("/font/SpaceGrotesk-VariableFont.ttf") format("truetype");
-  }
+  --pad: clamp(1rem, 3vw, 2.5rem);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Base & Global Styles
+   Base
    ═══════════════════════════════════════════════════════════════════ */
-body {
-  background: var(--color-bg);
-  color: var(--color-text-primary);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Header logo + nav use exclusion blend mode for contrast over hero image */
-.logo .nav {
-  mix-blend-mode: exclusion;
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
-  overflow-x: hidden;
+  margin: 0;
+  overflow: hidden; /* no page scroll — each view scrolls inside itself */
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Shell
+   ═══════════════════════════════════════════════════════════════════ */
+.app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem var(--pad);
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.back {
+  background: none;
+  border: 0;
+  padding: 0.35rem 0;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  transition: opacity 0.2s;
+}
+
+.back:hover {
+  opacity: 0.55;
+}
+
+.view {
+  padding: var(--pad);
+  min-height: 100%;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
   margin: 0;
 }
 
-/* ═══════════════════════════════════════════════════════════════════
-   Hero Section — Scrolling Text & Photo Frame
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* Horizontal text rail container — flex row, full viewport width, overflow hidden */
-.scrolling-text {
-  @apply w-full h-screen items-center min-h-1/3 flex overflow-hidden;
-}
-
-.scrolling-text .rail {
-  @apply flex;
-}
-
-/* Individual text items in the rail — large, uppercase, nowrap for marquee */
-.scrolling-text .rail h4 {
-  @apply whitespace-nowrap font-fraunces text-5xl sm:text-[100px] md:text-[110px] lg:text-[220px] font-black mr-15 tracking-wide leading-1 uppercase;
-}
-
-/* Hero section custom properties for text vertical positioning. */
-.hero-section {
-  --hero-text-y: -10vh;
-}
-
-/* Larger text offset on desktop (≥768px) */
-@media (min-width: 1280px) {
-  .hero-section {
-    --hero-text-y: -18vh;
-  }
-}
-
-/* Bottom text rail — positioned via --hero-text-y CSS variable */
-.hero-text-rail {
-  transform: translateY(var(--hero-text-y));
-}
-
-/* Photo — full viewport, centered, no card wrapper */
-.hero-photo {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  width: auto;
-  height: 100vh;
-  object-fit: contain;
-  transform: translate(-50%, -50%);
-  transform-origin: center center;
-  z-index: 10;
-  pointer-events: none;
-}
-
-/* Mobile: larger image, text aligned with head */
-@media (max-width: 767px) {
-  .hero-section {
-    --hero-text-y: -30vh;
-  }
-
-  .hero-photo {
-    height: 110vh;
-    top: 55%;
-  }
-}
-
-/* Tablet: match desktop behavior */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .hero-photo {
-    height: 110vh;
-  }
-}
-
-/* ── Hand-drawn SVG icon decorations (public/svg) ─────────────────── */
-.hero-decor {
-  position: absolute;
-  inset: 0;
-  z-index: 20;
-  pointer-events: none;
-}
-
-.hero-decor :where(img) {
-  position: absolute;
-  height: auto;
-}
-
-/* Placement — a doodle trail down the portrait's left & right margins */
-.hero-decor :where(img) {
-  width: clamp(80px, 8vw, 200px);
-}
-
-/* Left trail (top → bottom) */
-.decor-brain {
-  top: 9%;
-  left: 25%;
-  opacity: 0.8;
-}
-.decor-sun {
-  top: 8%;
-  left: 7%;
-  opacity: 0.9;
-}
-.decor-heart {
-  top: 46%;
-  left: 25%;
-  opacity: 0.85;
-}
-.decor-cat {
-  top: 72%;
-  left: 10%;
-  opacity: 0.8;
-}
-
-.decor-puzzle {
-  top: 58%;
-  left: 4%;
-  opacity: 0.75;
-}
-
-.decor-clock {
-  top: 83%;
-  left: 2%;
-  opacity: 0.85;
-}
-.decor-console {
-  top: 42%;
-  left: 10%;
-  opacity: 0.9;
-}
-
-.decor-hand {
-  top: 52%;
-  left: 17%;
-  opacity: 0.9;
-}
-
-.decor-globe {
-  top: 70%;
-  left: 23%;
-  opacity: 0.9;
-}
-
-.decor-agreement {
-  top: 82%;
-  left: 19%;
-  opacity: 0.9;
-}
-/* Right trail (top → bottom) */
-.decor-thinking {
-  top: 8%;
-  left: 58%;
-  width: clamp(60px, 6vw, 150px);
-  opacity: 0.75;
-}
-.decor-chat {
-  top: 3%;
-  left: 55%;
-  width: clamp(150px, 12vw, 350px);
-  opacity: 0.85;
-}
-.decor-bolt {
-  top: 43%;
-  right: 34%;
-  opacity: 0.9;
-}
-.decor-ai {
-  top: 8%;
-  right: 10%;
-  opacity: 0.8;
-}
-.decor-compass {
-  top: 50%;
-  right: 24%;
-  opacity: 0.8;
-}
-.decor-desktop {
-  top: 47%;
-  right: 7%;
-  opacity: 0.85;
-}
-.decor-crane {
-  top: 60%;
-  right: 14%;
-  opacity: 0.75;
-}
-.decor-laptop {
-  top: 73%;
-  right: 7%;
-  opacity: 0.8;
-}
-.decor-tablet {
-  top: 78%;
-  right: 24%;
-  opacity: 0.8;
-}
-
-/* Tablet: scatter icons around the portrait's negative space */
-@media (min-width: 768px) and (max-width: 1279px) {
-  .hero-decor :where(img) {
-    width: clamp(50px, 9vw, 70px);
-  }
-
-  /* Top row */
-  .decor-sun {
-    top: 4%;
-    left: 5%;
-  }
-  .decor-brain {
-    top: 4%;
-    left: 28%;
-  }
-  .decor-thinking {
-    top: 8%;
-    left: 45%;
-  }
-  .decor-chat {
-    top: 4%;
-    right: 28%;
-  }
-  .decor-bolt {
-    top: 4%;
-    right: 5%;
-  }
-
-  /* Left edge */
-  .decor-heart {
-    top: 25%;
-    left: 5%;
-  }
-  .decor-console {
-    top: 38%;
-    left: 18%;
-  }
-  .decor-puzzle {
-    top: 52%;
-    left: 5%;
-  }
-  .decor-cat {
-    top: 65%;
-    left: 18%;
-  }
-  .decor-clock {
-    top: 78%;
-    left: 5%;
-  }
-
-  /* Right edge */
-  .decor-compass {
-    top: 25%;
-    right: 5%;
-  }
-  .decor-desktop {
-    top: 38%;
-    right: 18%;
-  }
-  .decor-crane {
-    top: 52%;
-    right: 5%;
-  }
-  .decor-laptop {
-    top: 65%;
-    right: 18%;
-  }
-  .decor-tablet {
-    top: 78%;
-    right: 5%;
-  }
-
-  /* Bottom row */
-  .decor-agreement {
-    top: 88%;
-    left: 8%;
-  }
-  .decor-globe {
-    top: 88%;
-    left: 80%;
-  }
-  .decor-ai {
-    top: 92%;
-    left: 35%;
-  }
-  .decor-hand {
-    top: 92%;
-    left: 65%;
-  }
-}
-
-/* Mobile: tighter corners, smaller icons, avoid portrait center */
-@media (max-width: 767px) {
-  .hero-decor :where(img) {
-    width: clamp(30px, 8vw, 50px);
-  }
-
-  /* Top safe zone */
-  .decor-sun {
-    top: 5%;
-    left: 5%;
-  }
-  .decor-brain {
-    top: 8%;
-    left: 25%;
-  }
-  .decor-thinking {
-    top: 12%;
-    left: 48%;
-  }
-  .decor-chat {
-    top: 5%;
-    right: 25%;
-  }
-  .decor-bolt {
-    top: 5%;
-    right: 5%;
-  }
-
-  /* Left edge */
-  .decor-heart {
-    top: 32%;
-    left: 4%;
-  }
-  .decor-console {
-    top: 45%;
-    left: 15%;
-  }
-  .decor-puzzle {
-    top: 58%;
-    left: 4%;
-  }
-  .decor-cat {
-    top: 72%;
-    left: 15%;
-  }
-
-  /* Right edge */
-  .decor-compass {
-    top: 32%;
-    right: 4%;
-  }
-  .decor-desktop {
-    top: 45%;
-    right: 15%;
-  }
-  .decor-crane {
-    top: 58%;
-    right: 4%;
-  }
-  .decor-laptop {
-    top: 72%;
-    right: 15%;
-  }
-
-  /* Bottom safe zone */
-  .decor-clock {
-    top: 85%;
-    left: 5%;
-  }
-  .decor-tablet {
-    top: 85%;
-    right: 5%;
-  }
-  .decor-agreement {
-    top: 90%;
-    left: 25%;
-  }
-  .decor-globe {
-    top: 90%;
-    left: 70%;
-  }
-  .decor-ai {
-    top: 88%;
-    left: 48%;
-  }
-  .decor-hand {
-    top: 93%;
-    left: 48%;
-  }
+.view-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 clamp(1.5rem, 4vh, 3rem);
+  border-bottom: 1px solid var(--line-strong);
+  padding-bottom: 0.6rem;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Showcase — Horizontal Project Gallery
+   Home
    ═══════════════════════════════════════════════════════════════════ */
-
-/* Gallery wrapper — full viewport height, pins during horizontal scroll */
-.horiz-gallery-strip,
-.horiz-gallery-wrapper {
+.home {
+  height: 100%;
   display: flex;
-  flex-wrap: nowrap;
-  will-change: transform;
-  position: relative;
-}
-
-.horiz-gallery-wrapper {
-  min-height: 100vh;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 2.5vh, 2rem);
+  padding: var(--pad);
   overflow: hidden;
 }
 
-/* Fit height to content on mobile (cards are smaller than viewport) —
-   GSAP scroll length is driven by strip width, not wrapper height. */
-@media (max-width: 1023px) {
-  .horiz-gallery-wrapper {
-    min-height: auto;
-  }
+.home-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* Strip — horizontal flex row with responsive gap between cards */
-.horiz-gallery-strip {
-  align-items: center;
-  gap: clamp(1rem, 5vw, 2rem);
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.6vh, 1rem);
+  min-height: 0;
 }
 
-/* Project card wrapper — fixed max width, no shrink, cursor: none for custom cursor */
-.project-wrap {
-  width: min(78vw, 28rem);
-  box-sizing: border-box;
-  flex-shrink: 0;
+.home-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.75rem, 11vw, 10rem);
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  margin: 0;
+}
+
+.home-name em {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.home-lede {
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.home-menu {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line-strong);
+}
+
+.menu-row {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto 1.5rem;
+  align-items: baseline;
+  gap: 1rem;
+  width: 100%;
+  padding: clamp(0.45rem, 1.4vh, 0.85rem) 0.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    padding 0.2s ease,
+    background 0.2s ease;
+}
+
+.menu-row:hover,
+.menu-row:focus-visible {
+  background: rgba(23, 22, 20, 0.045);
+  padding-left: 0.8rem;
+}
+
+.menu-index {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.menu-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.3vw, 1.9rem);
+  letter-spacing: -0.02em;
+}
+
+.menu-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.menu-arrow {
+  justify-self: end;
+  font-size: 1rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   About
+   ═══════════════════════════════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.about-text {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.35rem, 3vw, 2.6rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.about-photo {
+  width: 100%;
+  max-width: 26rem;
+  justify-self: end;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  object-fit: cover;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Projects
+   ═══════════════════════════════════════════════════════════════════ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
   cursor: pointer;
 }
 
-.project-wrap img {
+.project-thumb {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--card);
+}
+
+.project-thumb img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.project-card:hover .project-thumb img {
+  transform: scale(1.04);
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+}
+
+.badge {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.65rem;
+  white-space: nowrap;
+}
+
+/* ── Modal ───────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(23, 22, 20, 0.55);
+  animation: fade 0.2s ease;
+}
+
+.modal {
+  width: min(62rem, 100%);
+  max-height: 90dvh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 1.1rem;
+  border: 1px solid var(--line);
+  padding: clamp(1rem, 2.5vw, 2rem);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.modal-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+.modal-main {
+  aspect-ratio: 16 / 9;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.modal-main img,
+.modal-thumbs img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 
-/* Hide default cursor on the showcase section when custom cursor is active */
-.showcase-section {
-  cursor: none;
+.modal-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
-/* Wider cards on desktop (≥768px) */
-@media (min-width: 768px) {
-  .project-wrap {
-    width: 40vw;
-    max-width: 50rem;
-  }
+.modal-thumb {
+  width: 4.5rem;
+  aspect-ratio: 1;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 0.5rem;
+  background: var(--card);
+  cursor: pointer;
+  opacity: 0.55;
 }
 
-/* Full-width fluid container for gallery content */
-.container-fluid {
-  width: 100%;
-  padding-right: 0;
-  padding-left: 0;
-  margin-right: auto;
-  margin-left: auto;
+.modal-thumb[aria-current="true"] {
+  opacity: 1;
+  border-color: var(--ink);
+}
+
+.modal-body {
+  margin-top: 1.5rem;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  margin: 0 0 0.35rem;
+  letter-spacing: -0.02em;
+}
+
+.modal-desc {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  line-height: 1.45;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.feature-list {
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+}
+
+.feature-list li::before {
+  content: "→ ";
+  color: var(--muted);
+}
+
+.link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--ink);
+  color: var(--paper);
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ink);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Tech Stack — Floating Icons Grid
+   Experience
    ═══════════════════════════════════════════════════════════════════ */
-
-/* Stage — the interaction area for mouse-proximity scaling */
-.stage {
-  @apply relative w-full h-[80vh] max-w-7xl cursor-crosshair;
+.exp-company {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  margin: 0 0 0.4rem;
 }
 
-/* Tech grid — relative container for absolutely-positioned cards */
+.exp-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
+}
+
+.exp-meta dt {
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+
+.exp-meta dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.exp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+  gap: 0.9rem 2rem;
+}
+
+.exp-list li {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.5rem;
+}
+
+.exp-list .num {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding-top: 0.35rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Tech stack
+   ═══════════════════════════════════════════════════════════════════ */
 .tech-grid {
-  @apply relative w-full h-full pointer-events-none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+  gap: clamp(0.6rem, 1.5vw, 1rem);
 }
 
-/* Individual tech card — positioned via CSS custom properties (--x, --y, --r)
-   set inline in the React component's `style` attribute */
-.tech-card {
-  @apply absolute flex flex-col justify-center items-center gap-2.5 pointer-events-none;
-  left: var(--x);
-  top: var(--y);
-  rotate: var(--r, 0deg);
-  transform-origin: center center;
-  will-change: transform;
-}
-
-/* Tech icon container — responsive sizing */
-.card-icon {
-  @apply w-8 h-8 md:w-15 md:h-15 xl:w-30 xl:h-30 shrink-0;
-}
-
-.card-icon img {
-  @apply w-full h-full object-contain block;
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   Loading Screen — Full-Screen Overlay
-   ═══════════════════════════════════════════════════════════════════ */
-.loading-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh; /* mobile-safe dynamic viewport height */
-  z-index: 9999; /* above everything including ScrollTrigger pins */
+.tech-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease;
 }
 
-/* Name lines — clip-path reveal animation */
-.name-line {
-  will-change: clip-path, transform;
+.tech-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+}
+
+.tech-item img {
+  width: 2.25rem;
+  height: 2.25rem;
+  object-fit: contain;
+}
+
+.tech-item span {
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   Section Animation Helpers
+   Contact
    ═══════════════════════════════════════════════════════════════════ */
-/* Clip-path animated elements — GPU acceleration */
-.title,
-.tech-title,
-.footer-heading,
-.footer-email,
-.exp-card,
-.tech-card {
-  will-change: clip-path, transform;
+.contact {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(1.5rem, 5vh, 3rem);
 }
 
-/* Footer divider line — origin for scaleX wipe */
-.footer-divider {
-  will-change: transform;
+.contact-email {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.35rem, 4.6vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  text-decoration: none;
+  border-bottom: 2px solid var(--ink);
+  align-self: flex-start;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.contact-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--line);
+  padding-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.socials {
+  display: flex;
+  gap: 1rem;
+}
+
+.socials a {
+  text-decoration: none;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.socials a:hover {
+  opacity: 0.6;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Entry animation + responsive
+   ═══════════════════════════════════════════════════════════════════ */
+.app-body > * {
+  animation: rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-body > *,
+  .modal-backdrop {
+    animation: none;
+  }
+  .project-card:hover .project-thumb img {
+    transform: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .menu-row {
+    grid-template-columns: 2rem 1fr 1.25rem;
+  }
+  .menu-desc {
+    display: none;
+  }
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-photo {
+    justify-self: start;
+    max-width: 18rem;
+    order: -1;
+  }
+  .exp-meta {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
 }

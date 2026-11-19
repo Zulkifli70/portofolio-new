@@ -1,49 +1,55 @@
 /**
- * App — Root component and page composition.
+ * App — single-screen portfolio.
  *
- * Renders the full single-page portfolio in this layering order:
- *   1. LoadingScreen  — full-screen overlay that blocks scroll until
- *                       all images + fonts are loaded (with a 2 s hold).
- *   2. Header         — fixed top nav with ScrollSmoother-powered smooth scroll.
- *   3. CustomCursor   — global custom cursor (dot + hover expansion).
- *   4. SmoothScrollPortfolio — wraps all page sections in GSAP ScrollSmoother
- *                              for buttery-smooth scrolling.
- *   5. BaseLayout     — max-width centered container for content.
- *   6. Sections       — Hero → About → Showcase → Experience → TechStack → Footer.
+ * One view at a time, no page scroll. The home screen lists every section;
+ * each section opens full-screen with a small back control.
  */
-import "./gsap-plugins"; // register GSAP plugins once before any component mounts
-import Header from "./components/Header";
-import CustomCursor from "./components/CustomCursor";
-import BaseLayout from "./layout/BaseSections";
-import Hero from "./sections/Hero";
-import "./App.css"; // Tailwind + custom CSS
-import About from "./sections/About";
-import Showcase from "./sections/Showcase";
-import SmoothScrollPortfolio from "./animation/SmoothScrollPortfolio";
-import TechStack from "./sections/TechStack";
-import Experience from "./sections/Experience";
-import Footer from "./components/Footer";
-import LoadingScreen from "./components/LoadingScreen";
+import { useEffect, useRef, useState } from "react";
+import Home from "./views/Home";
+import About from "./views/About";
+import Projects from "./views/Projects";
+import Experience from "./views/Experience";
+import Tech from "./views/Tech";
+import Contact from "./views/Contact";
+import "./App.css";
 
-function App() {
+const VIEWS = {
+  about: { label: "About", Component: About },
+  projects: { label: "Projects", Component: Projects },
+  experience: { label: "Experience", Component: Experience },
+  tech: { label: "Tech Stack", Component: Tech },
+  contact: { label: "Contact", Component: Contact },
+};
+
+export default function App() {
+  const [view, setView] = useState("home");
+  const bodyRef = useRef(null);
+
+  // Each view starts at the top.
+  useEffect(() => {
+    bodyRef.current?.scrollTo(0, 0);
+  }, [view]);
+
+  const active = VIEWS[view];
+
   return (
-    <>
-      <LoadingScreen extraHoldTime={2000}>
-        <Header />
-        {typeof window !== 'undefined' && window.innerWidth >= 768 && <CustomCursor />}
-        <SmoothScrollPortfolio>
-          <BaseLayout>
-            <Hero />
-            <About />
-            <Showcase />
-            <Experience />
-            <TechStack />
-            <Footer />
-          </BaseLayout>
-        </SmoothScrollPortfolio>
-      </LoadingScreen>
-    </>
+    <div className="app">
+      {active && (
+        <header className="topbar">
+          <button type="button" className="back" onClick={() => setView("home")}>
+            ← Index
+          </button>
+          <span>{active.label}</span>
+        </header>
+      )}
+
+      <div className="app-body" ref={bodyRef}>
+        {view === "home" ? (
+          <Home onNavigate={setView} />
+        ) : (
+          <active.Component />
+        )}
+      </div>
+    </div>
   );
 }
-
-export default App;
