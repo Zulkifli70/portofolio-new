@@ -105,6 +105,7 @@ a {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   overscroll-behavior: contain;
   padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
 }
@@ -197,7 +198,6 @@ a {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   gap: clamp(0.75rem, 2.5vh, 2rem);
   padding: var(--pad);
   overflow: hidden;
@@ -214,8 +214,10 @@ a {
 }
 
 .home-main {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: clamp(0.5rem, 1.6vh, 1rem);
   min-height: 0;
 }
