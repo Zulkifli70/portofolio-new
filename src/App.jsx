@@ -3,10 +3,10 @@
  *
  * Uses React Router v6 so URLs like /projects/pokemon-memory-game
  * can be shared directly and the app will navigate to the right view.
- * Keeps original UI layout (topbar with back button, app-body scroll handling).
+ * Keeps original UI layout (floating bottom nav, app-body scroll handling).
  */
 import { useEffect, useRef } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation, NavLink } from "react-router-dom";
 import Home from "./views/Home";
 import About from "./views/About";
 import Projects from "./views/Projects";
@@ -15,13 +15,14 @@ import Tech from "./views/Tech";
 import Contact from "./views/Contact";
 import "./App.css";
 
-const LABELS = {
-  "/about": "About",
-  "/projects": "Projects",
-  "/experience": "Experience",
-  "/tech": "Tech Stack",
-  "/contact": "Contact",
-};
+const NAV = [
+  { to: "/", label: "Index", end: true },
+  { to: "/about", label: "About" },
+  { to: "/projects", label: "Projects" },
+  { to: "/experience", label: "Experience" },
+  { to: "/tech", label: "Tech" },
+  { to: "/contact", label: "Contact" },
+];
 
 export default function App() {
   const navigate = useNavigate();
@@ -39,20 +40,8 @@ export default function App() {
     else navigate(`/${id}`);
   };
 
-  const isHome = location.pathname === "/";
-  const label = LABELS[location.pathname] || (location.pathname.startsWith("/projects/") ? "Projects" : "");
-
   return (
     <div className="app">
-      {!isHome && (
-        <header className="topbar">
-          <button type="button" className="back" onClick={() => navigate("/")}>
-            ← Index
-          </button>
-          <span>{label}</span>
-        </header>
-      )}
-
       <div className="app-body" ref={bodyRef}>
         <Routes>
           <Route path="/" element={<Home onNavigate={onNavigate} />} />
@@ -65,6 +54,19 @@ export default function App() {
           <Route path="*" element={<Home onNavigate={onNavigate} />} />
         </Routes>
       </div>
+
+      <nav className="dock" aria-label="Pages">
+        {NAV.map((item) => (
+          <NavLink
+            key={item.to}
+            to={item.to}
+            end={item.end}
+            className={({ isActive }) => (isActive ? "dock-link is-active" : "dock-link")}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </nav>
     </div>
   );
 }
