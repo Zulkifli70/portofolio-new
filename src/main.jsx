@@ -40,8 +40,14 @@ mount(document.querySelector('[data-barba="container"]'));
 
 barba.init({
   preventRunning: true,
-  // Active link: change history only, no swap.
-  prevent: ({ el }) => el.origin === location.origin && normalize(el.pathname) === normalize(location.pathname),
+  // Active link: swallow the click (Barba only preventDefaults links it handles,
+  // so leaving this to the browser would reload the page).
+  prevent: ({ el, event }) => {
+    if (event?.metaKey || event?.ctrlKey || event?.shiftKey || event?.altKey || event?.button > 0) return false;
+    const same = el?.origin === location.origin && normalize(el.pathname) === normalize(location.pathname);
+    if (same) event?.preventDefault();
+    return same;
+  },
   transitions: [
     {
       name: "horizontal",
