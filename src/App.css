@@ -161,14 +161,6 @@ a {
   color: var(--paper);
 }
 
-@media (max-width: 380px) {
-  .dock-link {
-    padding: 0.45rem 0.45rem;
-    font-size: 0.62rem;
-    letter-spacing: 0.04em;
-  }
-}
-
 .view {
   padding: var(--pad);
   min-height: 100%;
@@ -875,5 +867,25 @@ a {
   .exp-meta {
     grid-template-columns: 1fr;
     gap: 0.75rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-body {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
+  .dock {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.2rem;
+    width: calc(100vw - 1.5rem);
+    padding: 0.35rem;
+    border-radius: 1.25rem;
+  }
+  .dock-link {
+    padding: 0.5rem 0.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-align: center;
   }
 }
