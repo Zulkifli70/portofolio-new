@@ -110,6 +110,16 @@ a {
   padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
 }
 
+/* Showcase drives the scroll with Lenis; hide the native bar */
+.app-body.is-showcase {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.app-body.is-showcase::-webkit-scrollbar {
+  display: none;
+}
+
 /* Floating bottom navigation */
 .dock {
   position: fixed;
@@ -395,6 +405,46 @@ a {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+.projects-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.projects-horizontal {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 4rem,
+    #000 calc(100% - 4rem),
+    transparent
+  );
+}
+
+.projects-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 1.6rem);
+  will-change: transform;
+}
+
+.projects-track .project-card {
+  flex: 0 0 auto;
+  width: min(72vw, 30rem, 70dvh);
 }
 
 .project-card {
@@ -782,6 +832,9 @@ a {
 @media (prefers-reduced-motion: reduce) {
   .page-transition {
     display: none;
+  }
+  .projects-horizontal {
+    overflow-x: auto;
   }
   .app-body > *,
   .modal-backdrop {
