@@ -743,40 +743,59 @@ a {
 /* ═══════════════════════════════════════════════════════════════════
    Tech stack
    ═══════════════════════════════════════════════════════════════════ */
-.tech-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
-  gap: clamp(0.6rem, 1.5vw, 1rem);
+.tech-title {
+  margin-bottom: 0.4rem;
 }
 
-.tech-item {
+.tech-hint {
+  margin: 0 0 clamp(1rem, 2.5vh, 1.75rem);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.tech-stage {
+  --bubble: clamp(6rem, 13vw, 9rem);
+  position: relative;
+  min-height: clamp(32rem, 72vh, 48rem);
+}
+
+.tech-bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--bubble);
+  height: var(--bubble);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  padding: 1rem 0.5rem;
-  background: var(--card);
+  gap: 0.4rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, #fff 0, var(--card) 60%);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
+  box-shadow: 0 10px 24px rgba(23, 22, 20, 0.08);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.tech-item:hover {
-  transform: translateY(-3px);
+.tech-bubble:hover {
   border-color: var(--line-strong);
+  box-shadow: 0 14px 30px rgba(23, 22, 20, 0.14);
 }
 
-.tech-item img {
-  width: 2.25rem;
-  height: 2.25rem;
+.tech-bubble img {
+  width: 2.4rem;
+  height: 2.4rem;
   object-fit: contain;
+  pointer-events: none;
 }
 
-.tech-item span {
+.tech-bubble span {
   font-size: 0.78rem;
+  line-height: 1.1;
   color: var(--muted);
   text-align: center;
 }
