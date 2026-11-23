@@ -72,7 +72,11 @@ export default function Projects() {
             0,
             1 - Math.abs(metrics.centers[i] + shift - center) / (metrics.width / 2),
           );
-          gsap.set(card, { scale: 0.8 + closeness * 0.35, opacity: 0.6 + closeness * 0.4 });
+          gsap.set(card, {
+            scale: 0.72 + closeness * 0.48,
+            opacity: 0.55 + closeness * 0.45,
+            filter: `brightness(${1 + closeness * 0.15}) drop-shadow(0 ${8 + closeness * 14}px ${24 + closeness * 40}px rgba(0,0,0,${0.25 + closeness * 0.25}))`,
+          });
         });
       };
 
@@ -112,8 +116,8 @@ export default function Projects() {
         gsap.ticker.lagSmoothing(500, 33);
         lenis.destroy();
         scroller.classList.remove("is-showcase");
-        gsap.set(track.current, { clearProps: "transform" });
-        gsap.set(cards, { clearProps: "transform,opacity" });
+        gsap.set(track.current, { clearProps: "transform,filter" });
+        gsap.set(cards, { clearProps: "transform,opacity,filter" });
       };
     },
     { scope: root },
