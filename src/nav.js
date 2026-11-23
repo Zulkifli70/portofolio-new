@@ -1,4 +1,4 @@
-/** Dock order — also drives page transition direction. */
+/** Dock order. */
 export const NAV = [
   { to: "/", label: "Index", end: true },
   { to: "/about", label: "About" },
