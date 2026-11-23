@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Lenis from "lenis";
 import { projects } from "../data/portfolio";
+import ProjectCard from "../components/ProjectCard";
+import "../components/ProjectCard.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -70,7 +72,7 @@ export default function Projects() {
             0,
             1 - Math.abs(metrics.centers[i] + shift - center) / (metrics.width / 2),
           );
-          gsap.set(card, { scale: 0.92 + closeness * 0.08, opacity: 0.6 + closeness * 0.4 });
+          gsap.set(card, { scale: 0.8 + closeness * 0.35, opacity: 0.6 + closeness * 0.4 });
         });
       };
 
@@ -136,24 +138,13 @@ export default function Projects() {
         <div className="projects-track" ref={track}>
           {Array.from({ length: COPIES }).flatMap((_, copy) =>
             projects.map((project, i) => (
-              <button
+              <ProjectCard
                 key={`${project.name}-${copy}`}
-                type="button"
-                className="project-card"
+                project={project}
+                index={i}
+                copy={copy}
                 onClick={() => open(project)}
-                aria-hidden={copy > 0 || undefined}
-                tabIndex={copy > 0 ? -1 : undefined}
-              >
-                <span className="project-thumb">
-                  <img src={project.image} alt={project.name} loading="lazy" />
-                </span>
-                <span className="project-meta">
-                  <span className="project-name">{project.name}</span>
-                  <span>
-                    0{i + 1} · {project.status}
-                  </span>
-                </span>
-              </button>
+              />
             )),
           )}
         </div>
