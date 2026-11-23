@@ -148,6 +148,7 @@ a {
 }
 
 .dock-link {
+  position: relative;
   padding: 0.45rem 0.7rem;
   border-radius: 999px;
   font-size: 0.68rem;
@@ -158,16 +159,30 @@ a {
   white-space: nowrap;
   transition:
     color 0.2s,
-    background 0.2s;
-}
-
-.dock-link:hover {
-  color: var(--ink);
+    background-color 0.2s;
 }
 
 .dock-link.is-active {
-  background: var(--ink);
+  color: var(--ink);
+}
+
+.dock-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.28rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: translateX(-50%);
+}
+
+.dock-link:hover,
+.dock-link:focus-visible,
+.dock-menu:not(:hover):not(:focus-within) .dock-link.is-active {
   color: var(--paper);
+  background: var(--ink);
 }
 
 .view {
@@ -840,7 +855,8 @@ a {
   .modal-backdrop {
     animation: none;
   }
-  .project-card:hover .project-thumb img {
+  .project-card:hover .project-thumb img,
+  .dock-toggle:hover {
     transform: none;
   }
 }
@@ -912,7 +928,13 @@ a {
     -webkit-backdrop-filter: blur(12px);
     box-shadow: 0 8px 24px rgba(23, 22, 20, 0.15);
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .dock-toggle:hover {
+    transform: scale(1.06);
   }
 
   .dock-toggle:active {
@@ -925,7 +947,9 @@ a {
     height: 1.5px;
     background-color: var(--ink);
     border-radius: 1px;
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+    transition:
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.2s ease;
   }
 
   .dock.is-open .burger-line:nth-child(1) {
@@ -954,7 +978,10 @@ a {
     visibility: hidden;
     transform: translateY(10px) scale(0.95);
     pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0.25s;
   }
 
   .dock-link {

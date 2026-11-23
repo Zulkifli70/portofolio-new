@@ -1,6 +1,6 @@
 /** Dock order. */
 export const NAV = [
-  { to: "/", label: "Index", end: true },
+  { to: "/", label: "Home", end: true },
   { to: "/about", label: "About" },
   { to: "/projects", label: "Projects" },
   { to: "/experience", label: "Experience" },
