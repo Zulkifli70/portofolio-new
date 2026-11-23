@@ -3,6 +3,17 @@
    Matches portfolio color palette (--paper, --card, --ink, --muted, --line)
    ═══════════════════════════════════════════════════════════════════ */
 
+.projects-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.project-nav {
+  display: none;
+}
+
 /* Container perspective */
 .projects-horizontal {
   perspective: 1200px;
@@ -197,4 +208,45 @@
   transform: scale(1.1) rotate(-15deg);
   background: #ffffff;
   color: var(--ink);
+}
+
+/* Mobile-only carousel helpers */
+@media (max-width: 640px) {
+  .project-nav {
+    display: flex;
+    position: absolute;
+    inset: 50% 0.35rem auto;
+    transform: translateY(-50%);
+    justify-content: space-between;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .project-nav button {
+    pointer-events: auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 6px 18px rgba(23, 22, 20, 0.18);
+    color: var(--ink);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  .project-nav button:active {
+    transform: scale(0.94);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-nav {
+    display: none;
+  }
 }

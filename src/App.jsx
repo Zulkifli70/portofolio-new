@@ -32,12 +32,25 @@ const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matc
 
 export default function App() {
   const [path, setPath] = useState(readPath);
+  const [navOpen, setNavOpen] = useState(false);
   const bodyRef = useRef(null);
   const overlayRef = useRef(null);
   const timelineRef = useRef(null);
   const busyRef = useRef(false);
+  const dockRef = useRef(null);
 
   useEffect(() => () => timelineRef.current?.kill(), []);
+
+  useEffect(() => {
+    if (!navOpen) return;
+    const onClickOutside = (e) => {
+      if (dockRef.current && !dockRef.current.contains(e.target)) {
+        setNavOpen(false);
+      }
+    };
+    window.addEventListener("pointerdown", onClickOutside);
+    return () => window.removeEventListener("pointerdown", onClickOutside);
+  }, [navOpen]);
 
   // Panels wipe up right-to-left, swap the page while covered, then wipe out.
   const transitionTo = (apply) => {
@@ -105,21 +118,42 @@ export default function App() {
         <View />
       </div>
 
-      <nav className="dock" aria-label="Pages">
-        {NAV.map((item) => {
-          const isActive = item.end ? path === "/" : path === item.to || path.startsWith(`${item.to}/`);
-          return (
-            <a
-              key={item.to}
-              href={item.to}
-              onClick={(event) => navigate(event, item.to)}
-              className={isActive ? "dock-link is-active" : "dock-link"}
-              aria-current={isActive ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          );
-        })}
+      <nav
+        className={navOpen ? "dock is-open" : "dock"}
+        aria-label="Pages"
+        ref={dockRef}
+      >
+        <div className="dock-menu">
+          {NAV.map((item) => {
+            const isActive = item.end ? path === "/" : path === item.to || path.startsWith(`${item.to}/`);
+            return (
+              <a
+                key={item.to}
+                href={item.to}
+                onClick={(event) => {
+                  setNavOpen(false);
+                  navigate(event, item.to);
+                }}
+                className={isActive ? "dock-link is-active" : "dock-link"}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          className="dock-toggle"
+          onClick={() => setNavOpen((v) => !v)}
+          aria-label={navOpen ? "Close menu" : "Open menu"}
+          aria-expanded={navOpen}
+        >
+          <span className="burger-line" />
+          <span className="burger-line" />
+          <span className="burger-line" />
+        </button>
       </nav>
 
       <div className="page-transition" ref={overlayRef} aria-hidden="true">
