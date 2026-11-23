@@ -17,6 +17,8 @@ const CYCLES = HALF_CYCLES * 2;
 const reducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+const isMobile = () => window.matchMedia("(max-width: 640px)").matches;
+
 /** Projects — looping horizontal showcase with Lenis smooth scroll. */
 export default function Projects() {
   const root = useRef(null);
@@ -99,8 +101,8 @@ export default function Projects() {
 
       const render = (self) => {
         // Wraps both ways because every copy is identical.
-        const shift =
-          -metrics.cycle + metrics.align + ((self.progress * metrics.total) % metrics.cycle);
+        const phase = (self.progress * metrics.total) % metrics.cycle;
+        const shift = -metrics.cycle + metrics.align + (isMobile() ? phase : -phase);
         gsap.set(track.current, { x: shift });
 
         const center = metrics.width / 2;
@@ -218,8 +220,9 @@ export default function Projects() {
     const cards = track.current?.querySelectorAll(".project-card");
     if (!lenis || !cards || cards.length < 2) return;
     const distance = cards[1].offsetLeft - cards[0].offsetLeft;
-    // Scroll advance moves track right, so arrow direction maps to inverse scroll.
-    lenis.scrollTo(lenis.scroll - dir * distance, { duration: 0.7 });
+    // Mobile arrows map to inverse scroll; desktop keeps original mapping.
+    const scrollDir = isMobile() ? -dir : dir;
+    lenis.scrollTo(lenis.scroll + scrollDir * distance, { duration: 0.7 });
   };
 
   return (
