@@ -8,7 +8,6 @@
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Home from "./views/Home";
-import About from "./views/About";
 import Projects from "./views/Projects";
 import Experience from "./views/Experience";
 import Tech from "./views/Tech";
@@ -18,7 +17,6 @@ import "./App.css";
 
 const PAGES = {
   "/": Home,
-  "/about": About,
   "/projects": Projects,
   "/experience": Experience,
   "/tech": Tech,

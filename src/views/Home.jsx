@@ -1,4 +1,4 @@
-// import { about } from "../data/portfolio";
+import { about } from "../data/portfolio";
 import { useRef } from "react";
 import gsap from "gsap";
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
@@ -6,7 +6,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(DrawSVGPlugin, useGSAP);
 
-/** Home — single screen: name, short intro, section menu. No scroll. */
+/** Home — name and About side by side. Stacks and scrolls on small screens. */
 export default function Home() {
   const root = useRef(null);
 
@@ -58,38 +58,53 @@ export default function Home() {
       </div>
 
       <div className="home-main">
-        <p className="eyebrow">Frontend Developer / UI UX Designer</p>
-        <h1 className="home-name">
-          <span className="name-line">
-            Zulkifli
-            <svg
-              className="doodle doodle--h1"
-              viewBox="0 0 300 12"
-              fill="none"
-              strokeWidth="1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M3 7 C 50 3 90 3 120 7 S 190 11 220 7 S 275 3 297 6" />
-            </svg>
-          </span>
-          <br />
-          <em>
-            Firdausi
-            <svg
-              className="doodle doodle--em"
-              viewBox="0 0 220 12"
-              fill="none"
-              strokeWidth="1"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M4 7 C 35 3 70 4 95 8 C 112 11 108 13 92 11 C 72 9 82 4 112 6 C 145 9 170 4 216 7" />
-            </svg>
-          </em>
-        </h1>
+        <div className="home-identity">
+          <p className="eyebrow">Frontend Developer / UI UX Designer</p>
+          <h1 className="home-name">
+            <span className="name-line">
+              Zulkifli
+              <svg
+                className="doodle doodle--h1"
+                viewBox="0 0 300 12"
+                fill="none"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M3 7 C 50 3 90 3 120 7 S 190 11 220 7 S 275 3 297 6" />
+              </svg>
+            </span>
+            <br />
+            <em>
+              Firdausi
+              <svg
+                className="doodle doodle--em"
+                viewBox="0 0 220 12"
+                fill="none"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M4 7 C 35 3 70 4 95 8 C 112 11 108 13 92 11 C 72 9 82 4 112 6 C 145 9 170 4 216 7" />
+              </svg>
+            </em>
+          </h1>
+        </div>
+
+        <section className="home-about" aria-labelledby="home-about-title">
+          <h2 className="home-about-title" id="home-about-title">
+            About
+          </h2>
+          <p className="about-text">{about.text}</p>
+          <img
+            className="about-photo"
+            src="/aboutme.png"
+            alt="Zulkifli Firdausi"
+            loading="lazy"
+          />
+        </section>
       </div>
     </div>
   );
