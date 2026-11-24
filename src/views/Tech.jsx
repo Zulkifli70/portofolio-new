@@ -157,7 +157,8 @@ export default function Tech() {
             const centerX = -rect.width / 2 + offset + cellW * (col + 0.5);
             const centerY = -rect.height / 2 + cellH * (row + 0.5);
             d.x = centerX - bases[i].x + (random(i * 2) - 0.5) * 2 * spreadX;
-            d.y = centerY - bases[i].y + (random(i * 2 + 1) - 0.5) * 2 * spreadY;
+            d.y =
+              centerY - bases[i].y + (random(i * 2 + 1) - 0.5) * 2 * spreadY;
           }
           place(i);
         });
@@ -180,7 +181,9 @@ export default function Tech() {
   return (
     <div className="view">
       <h1 className="view-title tech-title">Tech Stack</h1>
-      <p className="tech-hint">Drag the bubbles around — flick one to play with it.</p>
+      <p className="tech-hint">
+        Drag the circles around — flick one to play with it.
+      </p>
       <div className="tech-stage" ref={stage}>
         {techStacks.map((tech) => (
           <div key={tech.name} className="tech-bubble">
