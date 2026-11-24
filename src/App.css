@@ -938,11 +938,12 @@ a {
 }
 
 .contact-copy-status {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
+  font-family: var(--font-ui);
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
   white-space: nowrap;
 }
 

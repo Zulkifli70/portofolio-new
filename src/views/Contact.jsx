@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { contact } from "../data/portfolio";
 
+const COPY_FEEDBACK_MS = 500;
+
 export default function Contact() {
   const [copied, setCopied] = useState(false);
   const timerRef = useRef(null);
@@ -12,7 +14,10 @@ export default function Contact() {
       await navigator.clipboard.writeText(contact.email);
       setCopied(true);
       window.clearTimeout(timerRef.current);
-      timerRef.current = window.setTimeout(() => setCopied(false), 2000);
+      timerRef.current = window.setTimeout(
+        () => setCopied(false),
+        COPY_FEEDBACK_MS,
+      );
     } catch {
       setCopied(false);
     }
@@ -68,7 +73,7 @@ export default function Contact() {
             </svg>
           )}
           <span className="contact-copy-status" role="status">
-            {copied ? "Email copied to clipboard" : ""}
+            {copied ? "Copied" : ""}
           </span>
         </button>
 

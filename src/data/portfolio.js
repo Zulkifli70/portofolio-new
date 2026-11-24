@@ -119,19 +119,6 @@ export const experiences = [
       "Developed and maintained design systems to ensure consistency and serve as guidelines for developers.",
     ],
   },
-  {
-    company: "Jalin Mayantara Indonesia",
-    position: "UI UX Designer (Intership)",
-    industry: "IT Services",
-    period: "2022 - 2023",
-    location: "Malang, Indonesia",
-    responsibilities: [
-      "Conducted user research and stakeholder interviews to gather insights for UI/UX design decisions.",
-      "Created wireframes, prototypes, and high-fidelity designs using Figma to visualize and validate user flows.",
-      "Collaborated with cross-functional teams to define features and translate them into intuitive user experiences.",
-      "Developed and maintained design systems to ensure consistency and serve as guidelines for developers.",
-    ],
-  },
 ];
 
 export const techStacks = [
