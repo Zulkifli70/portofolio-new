@@ -152,7 +152,9 @@ export const techStacks = [
 
 export const about = {
   heading: "About Me",
-  text: "Hello, I'm Zulk, an indonesian frontend developer who enjoys turning ideas into responsive interfaces that feel modern and easy to use. I care about the small details that make a product smoother, from layout rhythm to thoughtful interactions.",
+  text: "I care about the small details that make a product smoother, from layout rhythm to thoughtful interactions.",
+  short:
+    "Frontend developer turning ideas into responsive interfaces. I care about layout rhythm, small details, and interactions that feel natural.",
 };
 
 export const contact = {
