@@ -34,13 +34,13 @@
    Tokens
    ═══════════════════════════════════════════════════════════════════ */
 :root {
-  --paper: #f2eee4;
-  --card: #faf8f2;
-  --ink: #171614;
-  --muted: #6f6a5f;
-  --line: rgba(23, 22, 20, 0.16);
-  --line-strong: rgba(23, 22, 20, 0.45);
-  --radius: 0.85rem;
+  --paper: #ededed;
+  --card: #f5f5f5;
+  --ink: #262626;
+  --muted: #5f5f5f;
+  --line: #7f7f7f;
+  --line-strong: #5f5f5f;
+  --radius: 0.25rem;
 
   --font-display: "Syne", system-ui, sans-serif;
   --font-ui: "SpaceGrotesk", system-ui, sans-serif;
@@ -76,10 +76,16 @@ body {
 button {
   font: inherit;
   color: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }
 
 a {
   color: inherit;
+  cursor: pointer;
 }
 
 ::selection {
@@ -120,7 +126,7 @@ a {
   display: none;
 }
 
-/* Floating bottom navigation */
+/* Quiet bottom navigation */
 .dock {
   position: fixed;
   left: 50%;
@@ -128,13 +134,11 @@ a {
   z-index: 40;
   display: flex;
   gap: 0.15rem;
-  padding: 0.4rem;
+  padding: 0.25rem;
   transform: translateX(-50%);
-  border: 1px solid var(--line-strong);
-  border-radius: 999px;
-  background: color-mix(in srgb, var(--card) 82%, transparent);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(23, 22, 20, 0.12);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
   max-width: calc(100vw - 1.5rem);
 }
 
@@ -149,11 +153,14 @@ a {
 
 .dock-link {
   position: relative;
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
   text-decoration: none;
   color: var(--muted);
   white-space: nowrap;
@@ -164,25 +171,28 @@ a {
 
 .dock-link.is-active {
   color: var(--ink);
+  font-weight: 600;
 }
 
 .dock-link.is-active::after {
   content: "";
   position: absolute;
-  left: 50%;
-  bottom: 0.28rem;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: 0.4rem;
+  height: 1px;
   background: currentColor;
-  transform: translateX(-50%);
 }
 
 .dock-link:hover,
-.dock-link:focus-visible,
-.dock-menu:not(:hover):not(:focus-within) .dock-link.is-active {
+.dock-link:focus-visible {
   color: var(--paper);
   background: var(--ink);
+}
+
+.dock-link.is-active:hover::after,
+.dock-link.is-active:focus-visible::after {
+  background: var(--paper);
 }
 
 .view {
@@ -214,12 +224,11 @@ a {
   position: relative;
   z-index: 1;
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(2.4rem, 8vw, 7rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
   color: var(--paper);
-  text-transform: uppercase;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -228,15 +237,14 @@ a {
 
 .eyebrow {
   margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
   color: var(--muted);
 }
 
 .display {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin: 0;
@@ -244,7 +252,7 @@ a {
 
 .view-title {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(2.2rem, 6vw, 5.5rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
@@ -270,8 +278,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
   color: var(--muted);
 }
 
@@ -286,7 +293,7 @@ a {
 
 .home-name {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(2.75rem, 11vw, 10rem);
   line-height: 0.85;
   letter-spacing: -0.045em;
@@ -366,7 +373,7 @@ a {
 
 .menu-row:hover,
 .menu-row:focus-visible {
-  background: rgba(23, 22, 20, 0.045);
+  background: rgba(38, 38, 38, 0.06);
   padding-left: 0.8rem;
 }
 
@@ -416,6 +423,7 @@ a {
 .about-photo {
   width: 100%;
   max-width: 26rem;
+  aspect-ratio: 4 / 5;
   justify-self: end;
   border-radius: var(--radius);
   border: 1px solid var(--line);
@@ -524,7 +532,7 @@ a {
 
 .badge {
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 0.15rem 0.6rem;
   font-size: 0.65rem;
   white-space: nowrap;
@@ -538,7 +546,7 @@ a {
   display: grid;
   place-items: center;
   padding: 1rem;
-  background: rgba(23, 22, 20, 0.55);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .modal {
@@ -546,7 +554,7 @@ a {
   max-height: 90dvh;
   overflow-y: auto;
   background: var(--paper);
-  border-radius: 1.1rem;
+  border-radius: var(--radius);
   border: 1px solid var(--line);
   padding: clamp(1rem, 2.5vw, 2rem);
   position: relative;
@@ -558,7 +566,7 @@ a {
   right: 0.8rem;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: 999px;
+  border-radius: var(--radius);
   border: 1px solid var(--line);
   background: var(--card);
   cursor: pointer;
@@ -579,10 +587,18 @@ a {
   overflow: hidden;
 }
 
-.modal-main img,
+.modal-main img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  display: block;
+}
+
 .modal-thumbs img {
   width: 100%;
   height: 100%;
+  aspect-ratio: 1;
   object-fit: contain;
   display: block;
 }
@@ -599,7 +615,7 @@ a {
   padding: 0;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 0.5rem;
+  border-radius: var(--radius);
   background: var(--card);
   cursor: pointer;
   opacity: 0.55;
@@ -616,7 +632,7 @@ a {
 
 .modal-title {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(1.5rem, 3vw, 2.4rem);
   margin: 0 0 0.35rem;
   letter-spacing: -0.02em;
@@ -638,7 +654,7 @@ a {
 
 .tag {
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 0.2rem 0.7rem;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
@@ -671,23 +687,30 @@ a {
   align-items: center;
   gap: 0.45rem;
   padding: 0.6rem 1.1rem;
-  border-radius: 999px;
+  border-radius: var(--radius);
   border: 1px solid var(--ink);
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
   background: var(--ink);
   color: var(--paper);
-  transition: opacity 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 .btn:hover {
-  opacity: 0.8;
+  background: var(--line-strong);
 }
 
 .btn--ghost {
   background: transparent;
   color: var(--ink);
+}
+
+.btn--ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -706,10 +729,12 @@ a {
   display: flex;
   flex-direction: column;
   gap: clamp(1rem, 2.5vh, 1.5rem);
-  padding: clamp(1.25rem, 3vw, 2rem);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--card);
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.exp-card:last-child {
+  border-bottom: 1px solid var(--line);
 }
 
 .exp-head {
@@ -729,7 +754,7 @@ a {
 .exp-company {
   flex: 1 1 auto;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(1.3rem, 2.6vw, 1.9rem);
   line-height: 1.1;
   margin: 0;
@@ -738,12 +763,9 @@ a {
 .exp-period {
   font-family: var(--font-ui);
   font-size: 0.7rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.2rem 0.65rem;
   white-space: nowrap;
 }
 
@@ -828,18 +850,20 @@ a {
   gap: 0.4rem;
   padding: 0.5rem;
   border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #fff 0, var(--card) 60%);
+  background: var(--card);
   border: 1px solid var(--line);
-  box-shadow: 0 10px 24px rgba(23, 22, 20, 0.08);
   cursor: grab;
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
 }
 
 .tech-bubble:hover {
+  background: #e6e6e6;
   border-color: var(--line-strong);
-  box-shadow: 0 14px 30px rgba(23, 22, 20, 0.14);
 }
 
 .tech-bubble img {
@@ -869,7 +893,7 @@ a {
 
 .contact-email {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: 600;
   font-size: clamp(1.35rem, 4.6vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
@@ -905,7 +929,8 @@ a {
 }
 
 .socials a:hover {
-  opacity: 0.6;
+  color: var(--muted);
+  border-bottom-color: var(--ink);
 }
 
 /* Entry animation removed — page wipe handles navigation */
@@ -930,8 +955,7 @@ a {
   .modal-backdrop {
     animation: none;
   }
-  .project-card:hover .project-thumb img,
-  .dock-toggle:hover {
+  .project-card-3d:hover .project-card-bg img {
     transform: none;
   }
 }
@@ -977,8 +1001,6 @@ a {
   .dock {
     border: none;
     background: transparent;
-    backdrop-filter: none;
-    box-shadow: none;
     padding: 0;
     max-width: none;
     display: flex;
@@ -996,24 +1018,18 @@ a {
     width: 2.75rem;
     height: 2.75rem;
     padding: 0;
-    border: 1px solid var(--line-strong);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--card) 88%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 8px 24px rgba(23, 22, 20, 0.15);
-    cursor: pointer;
-    transition:
-      transform 0.2s ease,
-      background 0.2s ease;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    transition: background-color 0.2s ease;
   }
 
   .dock-toggle:hover {
-    transform: scale(1.06);
+    background: #e6e6e6;
   }
 
   .dock-toggle:active {
-    transform: scale(0.94);
+    background: var(--line);
   }
 
   .burger-line {
@@ -1042,13 +1058,10 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.2rem;
     width: calc(100vw - 1.5rem);
-    padding: 0.4rem;
-    border: 1px solid var(--line-strong);
-    border-radius: 1.25rem;
-    background: color-mix(in srgb, var(--card) 85%, transparent);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 12px 32px rgba(23, 22, 20, 0.18);
+    padding: 0.25rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px) scale(0.95);
@@ -1060,10 +1073,16 @@ a {
   }
 
   .dock-link {
+    min-height: 44px;
     padding: 0.5rem 0.2rem;
     font-size: 0.65rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     text-align: center;
+  }
+
+  .dock-link.is-active::after {
+    left: 0.4rem;
+    right: 0.4rem;
   }
 
   .dock.is-open .dock-menu {

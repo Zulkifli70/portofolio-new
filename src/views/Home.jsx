@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <div className="home" ref={root}>
       <div className="home-top">
-        <span>Portfolio — {new Date().getFullYear()}</span>
+        <span>Portfolio / {new Date().getFullYear()}</span>
         <span>Based in Indonesia</span>
       </div>
 

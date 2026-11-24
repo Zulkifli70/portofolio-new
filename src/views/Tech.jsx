@@ -182,7 +182,7 @@ export default function Tech() {
     <div className="view">
       <h1 className="view-title tech-title">Tech Stack</h1>
       <p className="tech-hint">
-        Drag the circles around — flick one to play with it.
+        Drag the circles around, flick one to play with it.
       </p>
       <div className="tech-stage" ref={stage}>
         {techStacks.map((tech) => (
