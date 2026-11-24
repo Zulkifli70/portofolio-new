@@ -3,13 +3,15 @@ import { experiences } from "../data/portfolio";
 export default function Experience() {
   return (
     <div className="view">
-      <h1 className="view-title">Experience</h1>
+      {/* <h1 className="view-title">Experience</h1> */}
 
       <ol className="exp-timeline">
         {experiences.map((exp, index) => (
           <li key={`${exp.company}-${index}`} className="exp-card">
             <div className="exp-head">
-              <span className="exp-index">{String(index + 1).padStart(2, "0")}</span>
+              <span className="exp-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               <h2 className="exp-company">{exp.company}</h2>
               <span className="exp-period">{exp.period}</span>
             </div>

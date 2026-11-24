@@ -32,7 +32,11 @@ export default function Projects() {
   const [selected, setSelected] = useState(() => {
     const slug = window.location.pathname.split("/")[2];
     if (!slug) return null;
-    return projects.find((p) => p.name.toLowerCase().includes(slug.replace(/-/g, " "))) ?? null;
+    return (
+      projects.find((p) =>
+        p.name.toLowerCase().includes(slug.replace(/-/g, " ")),
+      ) ?? null
+    );
   });
   const [activeImage, setActiveImage] = useState(0);
   const [closing, setClosing] = useState(false);
@@ -84,7 +88,9 @@ export default function Projects() {
         metrics.cycle = cards[projects.length].offsetLeft - cards[0].offsetLeft;
         metrics.total = metrics.cycle * CYCLES;
         metrics.width = wrapper.current.clientWidth;
-        metrics.centers = cards.map((card) => card.offsetLeft + card.offsetWidth / 2);
+        metrics.centers = cards.map(
+          (card) => card.offsetLeft + card.offsetWidth / 2,
+        );
 
         // Center one card in the viewport at rest; the loop offsets from there.
         const base = -metrics.cycle;
@@ -103,14 +109,17 @@ export default function Projects() {
       const render = (self) => {
         // Wraps both ways because every copy is identical.
         const phase = (self.progress * metrics.total) % metrics.cycle;
-        const shift = -metrics.cycle + metrics.align + (isMobile() ? phase : -phase);
+        const shift =
+          -metrics.cycle + metrics.align + (isMobile() ? phase : -phase);
         gsap.set(track.current, { x: shift });
 
         const center = metrics.width / 2;
         cards.forEach((card, i) => {
           const closeness = Math.max(
             0,
-            1 - Math.abs(metrics.centers[i] + shift - center) / (metrics.width / 2),
+            1 -
+              Math.abs(metrics.centers[i] + shift - center) /
+                (metrics.width / 2),
           );
           // Transform + opacity only: a per-frame filter (blur/drop-shadow)
           // re-rasterizes every card each scroll tick.
@@ -138,7 +147,10 @@ export default function Projects() {
         onUpdate: render,
       });
 
-      const lenis = new Lenis({ wrapper: scroller, content: scroller.firstElementChild });
+      const lenis = new Lenis({
+        wrapper: scroller,
+        content: scroller.firstElementChild,
+      });
       lenisRef.current = lenis;
       lenis.on("scroll", ScrollTrigger.update);
       const raf = (time) => lenis.raf(time * 1000);
@@ -175,14 +187,18 @@ export default function Projects() {
       if (!selected || !modalRef.current || !backdropRef.current) return;
 
       if (reducedMotion()) {
-        gsap.set([modalRef.current, backdropRef.current], { clearProps: "all" });
+        gsap.set([modalRef.current, backdropRef.current], {
+          clearProps: "all",
+        });
         return;
       }
 
       const modal = modalRef.current;
       const backdrop = backdropRef.current;
       // Keep the main image visible for continuity; fade the rest in/out.
-      const chrome = modal.querySelectorAll(".modal-body, .modal-thumbs, .modal-close");
+      const chrome = modal.querySelectorAll(
+        ".modal-body, .modal-thumbs, .modal-close",
+      );
       const to = modal.getBoundingClientRect();
       const from = originRect;
 
@@ -205,8 +221,23 @@ export default function Projects() {
         gsap
           .timeline()
           .to(backdrop, { opacity: 1, duration: 0.24, ease: "none" }, 0)
-          .to(modal, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: 0.52, ease: "power3.out" }, 0)
-          .to(chrome, { opacity: 1, duration: 0.28, ease: "power2.out", stagger: 0.03 }, 0.16);
+          .to(
+            modal,
+            {
+              x: 0,
+              y: 0,
+              scaleX: 1,
+              scaleY: 1,
+              duration: 0.52,
+              ease: "power3.out",
+            },
+            0,
+          )
+          .to(
+            chrome,
+            { opacity: 1, duration: 0.28, ease: "power2.out", stagger: 0.03 },
+            0.16,
+          );
         return;
       }
 
@@ -216,7 +247,10 @@ export default function Projects() {
         .to(modal, { ...flip, duration: 0.42, ease: "power3.inOut" }, 0)
         .to(backdrop, { opacity: 0, duration: 0.3, ease: "power1.in" }, 0.06);
     },
-    { dependencies: [selected, closing, originRect, finishClose], revertOnUpdate: true },
+    {
+      dependencies: [selected, closing, originRect, finishClose],
+      revertOnUpdate: true,
+    },
   );
 
   const nudge = (dir) => {
@@ -231,7 +265,7 @@ export default function Projects() {
 
   return (
     <div className="view projects-view" ref={root}>
-      <h1 className="view-title">Projects</h1>
+      {/* <h1 className="view-title">Projects</h1> */}
       <div className="projects-stage">
         <div className="projects-horizontal" ref={wrapper}>
           <div className="projects-track" ref={track}>
@@ -250,10 +284,18 @@ export default function Projects() {
         </div>
 
         <div className="project-nav">
-          <button type="button" onClick={() => nudge(-1)} aria-label="Previous project">
+          <button
+            type="button"
+            onClick={() => nudge(-1)}
+            aria-label="Previous project"
+          >
             ←
           </button>
-          <button type="button" onClick={() => nudge(1)} aria-label="Next project">
+          <button
+            type="button"
+            onClick={() => nudge(1)}
+            aria-label="Next project"
+          >
             →
           </button>
         </div>
@@ -286,7 +328,10 @@ export default function Projects() {
 
               <div className="modal-gallery">
                 <div className="modal-main">
-                  <img src={selected.gallery[activeImage]} alt={selected.name} />
+                  <img
+                    src={selected.gallery[activeImage]}
+                    alt={selected.name}
+                  />
                 </div>
                 <div className="modal-thumbs">
                   {selected.gallery.map((img, i) => (

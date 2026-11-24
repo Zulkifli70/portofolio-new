@@ -4,9 +4,9 @@ export default function Contact() {
   return (
     <div className="view contact">
       <div>
-        <p className="eyebrow">Contact</p>
+        {/* <p className="eyebrow">Contact</p> */}
         <h1 className="view-title" style={{ borderBottom: 0, marginBottom: 0 }}>
-          Let's build something.
+          Let's Connect!.
         </h1>
       </div>
 

@@ -180,7 +180,7 @@ export default function Tech() {
 
   return (
     <div className="view">
-      <h1 className="view-title tech-title">Tech Stack</h1>
+      {/* <h1 className="view-title tech-title">Tech Stack</h1> */}
       <p className="tech-hint">
         Drag the circles around, flick one to play with it.
       </p>
