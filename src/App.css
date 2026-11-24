@@ -700,7 +700,6 @@ a {
   gap: clamp(1rem, 2.5vh, 1.5rem);
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--ink);
   border-radius: var(--radius);
   background: var(--card);
 }
@@ -710,8 +709,6 @@ a {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 0.35rem 0.75rem;
-  padding-bottom: clamp(0.75rem, 2vh, 1rem);
-  border-bottom: 1px solid var(--line);
 }
 
 .exp-index {
@@ -743,49 +740,52 @@ a {
 }
 
 .exp-meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
-.exp-meta dt {
+.exp-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.exp-meta-label {
   font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
-  margin-bottom: 0.3rem;
 }
 
-.exp-meta dd {
-  margin: 0;
+.exp-meta-value {
   font-size: 1rem;
+  color: var(--ink);
 }
 
 .exp-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
-  gap: 0.9rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .exp-list li {
   font-family: var(--font-body);
   font-size: 1.15rem;
   line-height: 1.4;
-  display: grid;
-  grid-template-columns: 1.5rem 1fr;
-  gap: 0.5rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: baseline;
 }
 
 .exp-list .num {
   font-family: var(--font-ui);
   font-size: 0.7rem;
   color: var(--muted);
-  padding-top: 0.35rem;
+  flex-shrink: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════════

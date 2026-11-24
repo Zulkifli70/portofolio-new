@@ -14,20 +14,20 @@ export default function Experience() {
               <span className="exp-period">{exp.period}</span>
             </div>
 
-            <dl className="exp-meta">
-              <div>
-                <dt>Position</dt>
-                <dd>{exp.position}</dd>
+            <div className="exp-meta">
+              <div className="exp-meta-item">
+                <span className="exp-meta-label">Position</span>
+                <span className="exp-meta-value">{exp.position}</span>
               </div>
-              <div>
-                <dt>Industry</dt>
-                <dd>{exp.industry}</dd>
+              <div className="exp-meta-item">
+                <span className="exp-meta-label">Industry</span>
+                <span className="exp-meta-value">{exp.industry}</span>
               </div>
-              <div>
-                <dt>Location</dt>
-                <dd>{exp.location}</dd>
+              <div className="exp-meta-item">
+                <span className="exp-meta-label">Location</span>
+                <span className="exp-meta-value">{exp.location}</span>
               </div>
-            </dl>
+            </div>
 
             <ul className="exp-list">
               {exp.responsibilities.map((item, i) => (
