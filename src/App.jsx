@@ -24,9 +24,12 @@ const PAGES = {
 };
 
 const readPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
-const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const reduced = () =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const labelFor = (to) =>
-  NAV.find((n) => (n.end ? to === "/" : to === n.to || to.startsWith(`${n.to}/`)))?.label ?? "Home";
+  NAV.find((n) =>
+    n.end ? to === "/" : to === n.to || to.startsWith(`${n.to}/`),
+  )?.label ?? "Home";
 
 const CELL = 72;
 const INK = "#171614";
@@ -43,7 +46,8 @@ function buildGrid(w, h) {
   }
   const thresholds = new Float32Array(total);
   const denom = Math.max(total - 1, 1);
-  for (let rank = 0; rank < total; rank++) thresholds[order[rank]] = rank / denom;
+  for (let rank = 0; rank < total; rank++)
+    thresholds[order[rank]] = rank / denom;
   return { cols, rows, size, thresholds, total, w, h };
 }
 
@@ -135,7 +139,12 @@ export default function App() {
         },
       })
       .set(overlay, { autoAlpha: 1, pointerEvents: "auto" })
-      .to(state, { p: 1, duration: 0.55, ease: "power2.inOut", onUpdate: render })
+      .to(state, {
+        p: 1,
+        duration: 0.55,
+        ease: "power2.inOut",
+        onUpdate: render,
+      })
       .add(() => {
         apply();
         bodyRef.current?.scrollTo(0, 0);
@@ -144,11 +153,22 @@ export default function App() {
       .to(labelEl, { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out" })
       .to({}, { duration: 0.22 })
       .to(labelEl, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power2.in" })
-      .to(state, { p: 0, duration: 0.55, ease: "power2.inOut", onUpdate: render }, "<");
+      .to(
+        state,
+        { p: 0, duration: 0.55, ease: "power2.inOut", onUpdate: render },
+        "<",
+      );
   };
 
   const navigate = (event, to) => {
-    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button > 0) return;
+    if (
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      event.button > 0
+    )
+      return;
     event.preventDefault();
     if (to === path || busyRef.current) return;
     transitionTo(() => {
@@ -188,15 +208,6 @@ export default function App() {
         <View />
       </div>
 
-      <a
-        className="site-mark"
-        href="/"
-        aria-label="Home"
-        onClick={(event) => navigate(event, "/")}
-      >
-        zf
-      </a>
-
       <nav
         className={navOpen ? "dock is-open" : "dock"}
         aria-label="Pages"
@@ -204,7 +215,9 @@ export default function App() {
       >
         <div className="dock-menu">
           {NAV.map((item) => {
-            const isActive = item.end ? path === "/" : path === item.to || path.startsWith(`${item.to}/`);
+            const isActive = item.end
+              ? path === "/"
+              : path === item.to || path.startsWith(`${item.to}/`);
             return (
               <a
                 key={item.to}
