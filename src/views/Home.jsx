@@ -18,8 +18,6 @@ export default function Home() {
       </header>
 
       <main className="home-main">
-        <p className="home-hello">Hi there</p>
-
         <div className="home-intro">
           {/* Sparkle marks the greeting as an aside, not a live status. */}
           <svg className="home-star" viewBox="0 0 16 16" aria-hidden="true">
