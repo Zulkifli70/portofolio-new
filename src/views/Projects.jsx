@@ -77,6 +77,7 @@ export default function Projects() {
       }
 
       const cards = [...track.current.querySelectorAll(".project-card")];
+      const lastCloseness = cards.map(() => -1);
       const metrics = { cycle: 0, total: 0, width: 0, centers: [], align: 0 };
 
       const measure = () => {
@@ -111,10 +112,13 @@ export default function Projects() {
             0,
             1 - Math.abs(metrics.centers[i] + shift - center) / (metrics.width / 2),
           );
+          // Transform + opacity only: a per-frame filter (blur/drop-shadow)
+          // re-rasterizes every card each scroll tick.
+          if (Math.abs(closeness - lastCloseness[i]) < 0.004) return;
+          lastCloseness[i] = closeness;
           gsap.set(card, {
-            scale: 0.72 + closeness * 0.48,
-            opacity: 0.55 + closeness * 0.45,
-            filter: `brightness(${1 + closeness * 0.15}) drop-shadow(0 ${8 + closeness * 14}px ${24 + closeness * 40}px rgba(0,0,0,${0.25 + closeness * 0.25}))`,
+            scale: 0.84 + closeness * 0.24,
+            opacity: 0.6 + closeness * 0.4,
           });
         });
       };
@@ -139,7 +143,8 @@ export default function Projects() {
       lenis.on("scroll", ScrollTrigger.update);
       const raf = (time) => lenis.raf(time * 1000);
       gsap.ticker.add(raf);
-      gsap.ticker.lagSmoothing(0);
+      // lagSmoothing left at its default: with it off, the mount stall makes
+      // the page-transition timeline jump ahead and look rushed.
 
       // Start mid-runway so both scroll directions loop. Deferred a frame so
       // the route change's scroll reset cannot overwrite it.
@@ -153,12 +158,11 @@ export default function Projects() {
         cancelAnimationFrame(startId);
         trigger.kill();
         gsap.ticker.remove(raf);
-        gsap.ticker.lagSmoothing(500, 33);
         lenis.destroy();
         lenisRef.current = null;
         scroller.classList.remove("is-showcase");
-        gsap.set(track.current, { clearProps: "transform,filter" });
-        gsap.set(cards, { clearProps: "transform,opacity,filter" });
+        gsap.set(track.current, { clearProps: "transform" });
+        gsap.set(cards, { clearProps: "transform,opacity" });
       };
     },
     { scope: root },
