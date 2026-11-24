@@ -303,10 +303,15 @@ a {
 }
 
 .home-top {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 1rem;
+  padding: var(--pad) var(--pad) 0;
+  padding-top: calc(var(--pad) + env(safe-area-inset-top));
+  padding-right: calc(var(--pad) + env(safe-area-inset-right));
+  padding-left: calc(var(--pad) + env(safe-area-inset-left));
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--muted);
@@ -325,7 +330,9 @@ a {
 }
 
 .home-meta {
+  flex: 0 0 auto;
   text-align: right;
+  white-space: nowrap;
 }
 
 .home-main {

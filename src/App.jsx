@@ -204,6 +204,19 @@ export default function App() {
 
   return (
     <div className="app">
+      <header className="home-top">
+        <div className="home-signature">
+          <span className="home-signature-name">Zulkifli Firdausi</span>
+          <span className="home-signature-role">
+            Frontend Developer / UI UX Designer
+          </span>
+        </div>
+
+        <div className="home-meta">
+          <span>Portfolio / {new Date().getFullYear()}</span>
+          <span>Based in Indonesia</span>
+        </div>
+      </header>
       <div className="app-body" ref={bodyRef}>
         <View />
       </div>

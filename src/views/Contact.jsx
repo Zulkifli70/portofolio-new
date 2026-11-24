@@ -28,7 +28,7 @@ export default function Contact() {
       <div>
         {/* <p className="eyebrow">Contact</p> */}
         <h1 className="view-title" style={{ borderBottom: 0, marginBottom: 0 }}>
-          Let's Connect!.
+          Let's Connect!
         </h1>
       </div>
 
@@ -95,9 +95,9 @@ export default function Contact() {
         </a>
       </div>
 
-      <div className="contact-row">
+      {/* <div className="contact-row">
         <span>© {new Date().getFullYear()} Zulkifli Firdausi</span>
-      </div>
+      </div> */}
     </div>
   );
 }

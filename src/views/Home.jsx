@@ -3,7 +3,7 @@ import { about } from "../data/portfolio";
 export default function Home() {
   return (
     <div className="home">
-      <header className="home-top">
+      {/* <header className="home-top">
         <div className="home-signature">
           <span className="home-signature-name">Zulkifli Firdausi</span>
           <span className="home-signature-role">
@@ -15,7 +15,7 @@ export default function Home() {
           <span>Portfolio / {new Date().getFullYear()}</span>
           <span>Based in Indonesia</span>
         </div>
-      </header>
+      </header> */}
 
       <main className="home-main">
         <div className="home-intro">
