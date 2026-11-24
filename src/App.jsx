@@ -48,7 +48,7 @@ function buildGrid(w, h) {
 }
 
 function drawGrid(ctx, grid, p) {
-  const { cols, rows, size, thresholds, total, w, h } = grid;
+  const { cols, size, thresholds, total, w, h } = grid;
   ctx.clearRect(0, 0, w, h);
   if (p <= 0) return;
   ctx.fillStyle = INK;
@@ -86,8 +86,15 @@ export default function App() {
         setNavOpen(false);
       }
     };
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setNavOpen(false);
+    };
     window.addEventListener("pointerdown", onClickOutside);
-    return () => window.removeEventListener("pointerdown", onClickOutside);
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", onClickOutside);
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [navOpen]);
 
   // Pixel/grid dissolve: random matrix covers screen, swap page, show target name, dissolve out.
@@ -180,6 +187,15 @@ export default function App() {
       <div className="app-body" ref={bodyRef}>
         <View />
       </div>
+
+      <a
+        className="site-mark"
+        href="/"
+        aria-label="Home"
+        onClick={(event) => navigate(event, "/")}
+      >
+        zf
+      </a>
 
       <nav
         className={navOpen ? "dock is-open" : "dock"}
