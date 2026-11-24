@@ -26,15 +26,55 @@ const PAGES = {
 };
 
 const readPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
-
-const PANELS = 6;
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const labelFor = (to) =>
+  NAV.find((n) => (n.end ? to === "/" : to === n.to || to.startsWith(`${n.to}/`)))?.label ?? "Home";
+
+const CELL = 72;
+const INK = "#171614";
+
+function buildGrid(w, h) {
+  const size = Math.max(44, Math.min(CELL, Math.floor(Math.min(w, h) / 10)));
+  const cols = Math.ceil(w / size);
+  const rows = Math.ceil(h / size);
+  const total = cols * rows;
+  const order = Array.from({ length: total }, (_, i) => i);
+  for (let i = total - 1; i > 0; i--) {
+    const j = (Math.random() * (i + 1)) | 0;
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  const thresholds = new Float32Array(total);
+  const denom = Math.max(total - 1, 1);
+  for (let rank = 0; rank < total; rank++) thresholds[order[rank]] = rank / denom;
+  return { cols, rows, size, thresholds, total, w, h };
+}
+
+function drawGrid(ctx, grid, p) {
+  const { cols, rows, size, thresholds, total, w, h } = grid;
+  ctx.clearRect(0, 0, w, h);
+  if (p <= 0) return;
+  ctx.fillStyle = INK;
+  // 70% of timeline spreads cell starts, 30% fades each cell in.
+  const spread = 0.72;
+  const fade = 1 - spread;
+  for (let i = 0; i < total; i++) {
+    const local = Math.min(Math.max((p - thresholds[i] * spread) / fade, 0), 1);
+    if (local <= 0) continue;
+    ctx.globalAlpha = local;
+    const x = (i % cols) * size;
+    const y = ((i / cols) | 0) * size;
+    ctx.fillRect(x, y, size + 1, size + 1);
+  }
+  ctx.globalAlpha = 1;
+}
 
 export default function App() {
   const [path, setPath] = useState(readPath);
   const [navOpen, setNavOpen] = useState(false);
   const bodyRef = useRef(null);
   const overlayRef = useRef(null);
+  const canvasRef = useRef(null);
+  const labelRef = useRef(null);
   const timelineRef = useRef(null);
   const busyRef = useRef(false);
   const dockRef = useRef(null);
@@ -52,38 +92,54 @@ export default function App() {
     return () => window.removeEventListener("pointerdown", onClickOutside);
   }, [navOpen]);
 
-  // Panels wipe up right-to-left, swap the page while covered, then wipe out.
-  const transitionTo = (apply) => {
+  // Pixel/grid dissolve: random matrix covers screen, swap page, show target name, dissolve out.
+  const transitionTo = (apply, label) => {
     if (reduced()) {
       apply();
       return;
     }
 
     const overlay = overlayRef.current;
-    const panels = overlay.querySelectorAll(".page-transition-panel");
-    const stagger = { each: 0.045, from: "end" };
+    const canvas = canvasRef.current;
+    const labelEl = labelRef.current;
+    const ctx = canvas.getContext("2d");
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    canvas.width = Math.floor(w * dpr);
+    canvas.height = Math.floor(h * dpr);
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    let grid = buildGrid(w, h);
+    const state = { p: 0 };
+    const render = () => drawGrid(ctx, grid, state.p);
 
     timelineRef.current?.kill();
     busyRef.current = true;
+    labelEl.textContent = label;
+    gsap.set(labelEl, { autoAlpha: 0, y: 12 });
+
     timelineRef.current = gsap
       .timeline({
         onComplete: () => {
           busyRef.current = false;
+          ctx.clearRect(0, 0, w, h);
           gsap.set(overlay, { autoAlpha: 0, pointerEvents: "none" });
-          gsap.set(panels, { yPercent: 100 });
         },
       })
       .set(overlay, { autoAlpha: 1, pointerEvents: "auto" })
-      .fromTo(
-        panels,
-        { yPercent: 100 },
-        { yPercent: 0, duration: 0.42, ease: "power3.inOut", stagger },
-      )
+      .to(state, { p: 1, duration: 0.55, ease: "power2.inOut", onUpdate: render })
       .add(() => {
         apply();
         bodyRef.current?.scrollTo(0, 0);
+        grid = buildGrid(w, h); // reshuffle for non-linear dissolve out
       })
-      .to(panels, { yPercent: -100, duration: 0.42, ease: "power3.inOut", stagger });
+      .to(labelEl, { autoAlpha: 1, y: 0, duration: 0.28, ease: "power2.out" })
+      .to({}, { duration: 0.22 })
+      .to(labelEl, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power2.in" })
+      .to(state, { p: 0, duration: 0.55, ease: "power2.inOut", onUpdate: render }, "<");
   };
 
   const navigate = (event, to) => {
@@ -93,18 +149,27 @@ export default function App() {
     transitionTo(() => {
       history.pushState(null, "", to);
       setPath(to);
-    });
+    }, labelFor(to));
   };
 
   useEffect(() => {
     const onPop = () => {
-      // Kill any in-flight click transition so history wins.
+      const to = readPath();
       if (busyRef.current) {
         timelineRef.current?.kill();
         busyRef.current = false;
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext("2d");
+        if (ctx) {
+          ctx.save();
+          ctx.setTransform(1, 0, 0, 1, 0, 0);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.restore();
+        }
         gsap.set(overlayRef.current, { autoAlpha: 0, pointerEvents: "none" });
+        gsap.set(labelRef.current, { autoAlpha: 0 });
       }
-      transitionTo(() => setPath(readPath()));
+      transitionTo(() => setPath(to), labelFor(to));
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
@@ -157,9 +222,8 @@ export default function App() {
       </nav>
 
       <div className="page-transition" ref={overlayRef} aria-hidden="true">
-        {Array.from({ length: PANELS }, (_, i) => (
-          <div className="page-transition-panel" key={i} />
-        ))}
+        <canvas className="page-transition-canvas" ref={canvasRef} />
+        <div className="page-transition-label" ref={labelRef} />
       </div>
     </div>
   );
