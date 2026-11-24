@@ -894,17 +894,56 @@ a {
   gap: clamp(1.5rem, 5vh, 3rem);
 }
 
-.contact-email {
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  border-bottom: 2px solid var(--ink);
+  background: none;
+  color: var(--ink);
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(1.35rem, 4.6vw, 4rem);
   letter-spacing: -0.03em;
   line-height: 1.05;
+  text-align: left;
   text-decoration: none;
-  border-bottom: 2px solid var(--ink);
-  align-self: flex-start;
-  max-width: 100%;
+}
+
+.contact-link:hover {
+  color: var(--muted);
+  border-bottom-color: var(--muted);
+}
+
+.contact-link-text {
+  min-width: 0;
   overflow-wrap: anywhere;
+}
+
+.contact-link-icon {
+  flex: 0 0 auto;
+  width: 0.5em;
+  height: 0.5em;
+  color: var(--muted);
+}
+
+.contact-copy-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .contact-row {
@@ -917,23 +956,6 @@ a {
   padding-top: 1.25rem;
   font-size: 0.85rem;
   color: var(--muted);
-}
-
-.socials {
-  display: flex;
-  gap: 1rem;
-}
-
-.socials a {
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--ink);
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.socials a:hover {
-  color: var(--muted);
-  border-bottom-color: var(--ink);
 }
 
 /* Entry animation removed — page wipe handles navigation */
