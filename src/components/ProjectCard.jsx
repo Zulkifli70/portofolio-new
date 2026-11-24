@@ -18,7 +18,6 @@ export default function ProjectCard({ project, index, copy, onClick }) {
         {/* Background Image */}
         <div className="project-card-bg">
           <img src={project.image} alt={project.name} loading="lazy" />
-          <div className="project-card-overlay" />
         </div>
 
         {/* Card Header / Badge */}
