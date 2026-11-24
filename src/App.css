@@ -1043,13 +1043,16 @@ a {
   }
 
   .dock {
+    left: auto;
+    right: calc(var(--pad) + env(safe-area-inset-right));
+    transform: none;
     border: none;
     background: transparent;
     padding: 0;
     max-width: none;
     display: flex;
     flex-direction: column-reverse;
-    align-items: center;
+    align-items: flex-end;
     gap: 0.5rem;
   }
 
