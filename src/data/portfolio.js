@@ -6,7 +6,7 @@
 export const projects = [
   {
     name: "Pokemon Memory Game",
-    image: "/project/pokemon.png",
+    image: "/project/opt/pokemon.jpg",
     gallery: [
       "/showcase-details/memory-game/game-home.jpg",
       "/showcase-details/memory-game/game-board.jpg",
@@ -27,7 +27,7 @@ export const projects = [
   },
   {
     name: "Assembly Word",
-    image: "/project/assembly.png",
+    image: "/project/opt/assembly.jpg",
     gallery: [
       "/showcase-details/wordle/home.jpg",
       "/showcase-details/wordle/win.jpg",
@@ -47,7 +47,7 @@ export const projects = [
   },
   {
     name: "Kanban Board",
-    image: "/project/kanban.png",
+    image: "/project/opt/kanban.jpg",
     gallery: [
       "/showcase-details/kanban/home.jpg",
       "/showcase-details/kanban/showcase.jpg",
@@ -66,7 +66,7 @@ export const projects = [
   },
   {
     name: "Print Forge",
-    image: "/project/printforge.png",
+    image: "/project/opt/printforge.jpg",
     gallery: [
       "/showcase-details/printforge/home.jpg",
       "/showcase-details/printforge/about.jpg",
@@ -86,7 +86,7 @@ export const projects = [
   },
   {
     name: "Tenzies",
-    image: "/project/tenzies.png",
+    image: "/project/opt/tenzies.jpg",
     gallery: [
       "/showcase-details/tenzies/home.jpg",
       "/showcase-details/tenzies/win.jpg",
