@@ -12,6 +12,7 @@ import Projects from "./views/Projects";
 import Experience from "./views/Experience";
 import Tech from "./views/Tech";
 import Contact from "./views/Contact";
+import LoadingOverlay from "./components/LoadingOverlay";
 import { NAV } from "./nav";
 import "./App.css";
 
@@ -73,6 +74,7 @@ function drawGrid(ctx, grid, p) {
 export default function App() {
   const [path, setPath] = useState(readPath);
   const [navOpen, setNavOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const bodyRef = useRef(null);
   const overlayRef = useRef(null);
   const canvasRef = useRef(null);
@@ -80,6 +82,22 @@ export default function App() {
   const timelineRef = useRef(null);
   const busyRef = useRef(false);
   const dockRef = useRef(null);
+
+  useEffect(() => {
+    if (!loading) return;
+
+    const image = new Image();
+    const preload = new Promise((resolve) => {
+      image.onload = image.onerror = () => resolve();
+      image.src = "/aboutme.png";
+    });
+    const min = new Promise((resolve) => setTimeout(resolve, 2000));
+    const safety = new Promise((resolve) => setTimeout(resolve, 2300));
+
+    Promise.race([Promise.all([document.fonts.ready, preload, min]), safety]).then(() => {
+      setLoading(false);
+    });
+  }, [loading]);
 
   useEffect(() => () => timelineRef.current?.kill(), []);
 
@@ -203,7 +221,13 @@ export default function App() {
   const View = PAGES[path] ?? (path.startsWith("/projects/") ? Projects : Home);
 
   return (
-    <div className="app">
+    <>
+      {loading && <LoadingOverlay />}
+      <div
+        className="app"
+        aria-hidden={loading || undefined}
+        inert={loading || undefined}
+      >
       <header className="home-top">
         <div className="home-signature">
           <span className="home-signature-name">Zulkifli Firdausi</span>
@@ -217,7 +241,7 @@ export default function App() {
           <span>Based in Indonesia</span>
         </div>
       </header>
-      <div className="app-body" ref={bodyRef}>
+      <div className="app-body" ref={bodyRef} aria-busy={loading || undefined}>
         <View />
       </div>
 
@@ -265,6 +289,7 @@ export default function App() {
         <canvas className="page-transition-canvas" ref={canvasRef} />
         <div className="page-transition-label" ref={labelRef} />
       </div>
-    </div>
+      </div>
+    </>
   );
 }
