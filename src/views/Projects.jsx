@@ -265,6 +265,15 @@ export default function Projects() {
 
   return (
     <div className="view projects-view" ref={root}>
+      <style>{`
+        .projects-view {
+          height: 100%;
+          min-height: 0;
+        }
+        .projects-view .projects-track .project-card {
+          width: min(92vw, 48rem, 80dvh);
+        }
+      `}</style>
       {/* <h1 className="view-title">Projects</h1> */}
       <div className="projects-stage">
         <div className="projects-horizontal" ref={wrapper}>
