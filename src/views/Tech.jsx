@@ -15,7 +15,6 @@ export default function Tech() {
 
   useGSAP(
     () => {
-      const seed = Date.now() % 1000;
       const bubbles = [...stage.current.querySelectorAll(".tech-bubble")];
       if (!bubbles.length) return;
 
@@ -55,11 +54,6 @@ export default function Tech() {
           resolve();
         },
       });
-
-      const random = (n) => {
-        const value = Math.sin((n + seed) * 12.9898) * 43758.5453;
-        return value - Math.floor(value);
-      };
 
       function measure() {
         const rect = stage.current.getBoundingClientRect();
@@ -144,8 +138,6 @@ export default function Tech() {
         const rect = stage.current.getBoundingClientRect();
         const cellW = rect.width / cols;
         const cellH = rect.height / rows;
-        const spreadX = Math.max(0, (cellW - size - gap) / 2);
-        const spreadY = Math.max(0, (cellH - size - gap) / 2);
 
         bubbles.forEach((_, i) => {
           const d = draggables[i];
@@ -156,9 +148,8 @@ export default function Tech() {
             const offset = ((cols - rowItems) * cellW) / 2;
             const centerX = -rect.width / 2 + offset + cellW * (col + 0.5);
             const centerY = -rect.height / 2 + cellH * (row + 0.5);
-            d.x = centerX - bases[i].x + (random(i * 2) - 0.5) * 2 * spreadX;
-            d.y =
-              centerY - bases[i].y + (random(i * 2 + 1) - 0.5) * 2 * spreadY;
+            d.x = centerX - bases[i].x;
+            d.y = centerY - bases[i].y;
           }
           place(i);
         });
