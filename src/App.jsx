@@ -12,7 +12,7 @@ import Projects from "./views/Projects";
 import Experience from "./views/Experience";
 import Tech from "./views/Tech";
 import Contact from "./views/Contact";
-import LoadingScreen from "./components/LoadingScreen";
+import LoadingScreen, { LOADING_DURATION } from "./components/LoadingScreen";
 import { NAV } from "./nav";
 import "./App.css";
 
@@ -91,8 +91,10 @@ export default function App() {
       image.onload = image.onerror = () => resolve();
       image.src = "/aboutme.png";
     });
-    const min = new Promise((resolve) => setTimeout(resolve, 3700));
-    const cap = new Promise((resolve) => setTimeout(resolve, 4000));
+    const min = new Promise((resolve) => setTimeout(resolve, LOADING_DURATION * 1000));
+    const cap = new Promise((resolve) =>
+      setTimeout(resolve, LOADING_DURATION * 1000 + 200),
+    );
 
     Promise.race([Promise.all([document.fonts.ready, preload, min]), cap]).then(() => {
       setLoading(false);

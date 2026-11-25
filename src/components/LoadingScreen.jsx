@@ -4,6 +4,11 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 
+// App waits this long before unmounting, so the lift must finish by then.
+export const LOADING_DURATION = 4.5;
+const LIFT_DURATION = 1.1;
+const LIFT_AT = LOADING_DURATION - LIFT_DURATION;
+
 const Letters = ({ word }) =>
   [...word].map((char, i) => (
     <span className="loading-letter" key={i} aria-hidden="true">
@@ -24,7 +29,11 @@ export default function LoadingScreen() {
           autoAlpha: 1,
         });
         gsap.set(q(".loading-rule-fill"), { scaleX: 1 });
-        gsap.to(root.current, { autoAlpha: 0, duration: 0.2, delay: 3.5 });
+        gsap.to(root.current, {
+          autoAlpha: 0,
+          duration: 0.2,
+          delay: LOADING_DURATION - 0.2,
+        });
         return;
       }
 
@@ -67,11 +76,19 @@ export default function LoadingScreen() {
         )
         .to(
           q(".loading-wordmark"),
-          { y: -12, autoAlpha: 0, duration: 0.25, ease: "power2.in" },
-          3.2,
+          { y: -20, autoAlpha: 0, duration: 0.7, ease: "power2.inOut" },
+          LIFT_AT,
         )
-        .to(q(".loading-meta, .loading-rule"), { autoAlpha: 0, duration: 0.25 }, 3.2)
-        .to(root.current, { yPercent: -100, duration: 0.45, ease: "power2.inOut" }, 3.25);
+        .to(
+          q(".loading-meta, .loading-rule"),
+          { autoAlpha: 0, duration: 0.7 },
+          LIFT_AT,
+        )
+        .to(
+          root.current,
+          { yPercent: -100, duration: LIFT_DURATION, ease: "power2.inOut" },
+          LIFT_AT,
+        );
     },
     { scope: root },
   );
