@@ -30,6 +30,13 @@
   src: url("/font/Neuton-Italic.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: Fraunces;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/font/Fraunces-VariableFont.ttf") format("truetype");
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    Tokens
    ═══════════════════════════════════════════════════════════════════ */
@@ -228,6 +235,75 @@ a {
 .view {
   padding: var(--pad);
   min-height: 100%;
+}
+
+/* Entry loader — GSAP type stagger */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 1rem;
+  padding: var(--pad);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.loading-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  opacity: 0;
+}
+
+.loading-wordmark {
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  line-height: 0.82;
+  font-size: clamp(3rem, 11vw, 9.5rem);
+  letter-spacing: -0.06em;
+}
+
+.loading-line {
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.loading-letter {
+  display: inline-block;
+  opacity: 0;
+}
+
+.loading-line--solid {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.loading-line--outline {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.loading-rule {
+  height: 1px;
+  background: var(--line);
+  opacity: 0;
+}
+
+.loading-rule-fill {
+  height: 100%;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
 /* Page transition — pixel/grid dissolve (random matrix) */

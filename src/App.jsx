@@ -12,6 +12,7 @@ import Projects from "./views/Projects";
 import Experience from "./views/Experience";
 import Tech from "./views/Tech";
 import Contact from "./views/Contact";
+import LoadingScreen from "./components/LoadingScreen";
 import { NAV } from "./nav";
 import "./App.css";
 
@@ -73,6 +74,7 @@ function drawGrid(ctx, grid, p) {
 export default function App() {
   const [path, setPath] = useState(readPath);
   const [navOpen, setNavOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const bodyRef = useRef(null);
   const overlayRef = useRef(null);
   const canvasRef = useRef(null);
@@ -80,6 +82,22 @@ export default function App() {
   const timelineRef = useRef(null);
   const busyRef = useRef(false);
   const dockRef = useRef(null);
+
+  useEffect(() => {
+    if (!loading) return;
+
+    const image = new Image();
+    const preload = new Promise((resolve) => {
+      image.onload = image.onerror = () => resolve();
+      image.src = "/aboutme.png";
+    });
+    const min = new Promise((resolve) => setTimeout(resolve, 3700));
+    const cap = new Promise((resolve) => setTimeout(resolve, 4000));
+
+    Promise.race([Promise.all([document.fonts.ready, preload, min]), cap]).then(() => {
+      setLoading(false);
+    });
+  }, [loading]);
 
   useEffect(() => () => timelineRef.current?.kill(), []);
 
@@ -203,68 +221,76 @@ export default function App() {
   const View = PAGES[path] ?? (path.startsWith("/projects/") ? Projects : Home);
 
   return (
-    <div className="app">
-      <header className="home-top">
-        <div className="home-signature">
-          <span className="home-signature-name">Zulkifli Firdausi</span>
-          <span className="home-signature-role">
-            Frontend Developer / UI UX Designer
-          </span>
-        </div>
-
-        <div className="home-meta">
-          <span>Portfolio / {new Date().getFullYear()}</span>
-          <span>Based in Indonesia</span>
-        </div>
-      </header>
-      <div className="app-body" ref={bodyRef}>
-        <View />
-      </div>
-
-      <nav
-        className={navOpen ? "dock is-open" : "dock"}
-        aria-label="Pages"
-        ref={dockRef}
+    <>
+      {loading && <LoadingScreen />}
+      <div
+        className="app"
+        aria-hidden={loading || undefined}
+        inert={loading}
       >
-        <div className="dock-menu">
-          {NAV.map((item) => {
-            const isActive = item.end
-              ? path === "/"
-              : path === item.to || path.startsWith(`${item.to}/`);
-            return (
-              <a
-                key={item.to}
-                href={item.to}
-                onClick={(event) => {
-                  setNavOpen(false);
-                  navigate(event, item.to);
-                }}
-                className={isActive ? "dock-link is-active" : "dock-link"}
-                aria-current={isActive ? "page" : undefined}
-              >
-                {item.label}
-              </a>
-            );
-          })}
+        <header className="home-top">
+          <div className="home-signature">
+            <span className="home-signature-name">Zulkifli Firdausi</span>
+            <span className="home-signature-role">
+              Frontend Developer / UI UX Designer
+            </span>
+          </div>
+
+          <div className="home-meta">
+            <span>Portfolio / {new Date().getFullYear()}</span>
+            <span>Based in Indonesia</span>
+          </div>
+        </header>
+
+        <div className="app-body" ref={bodyRef} aria-busy={loading || undefined}>
+          <View />
         </div>
 
-        <button
-          type="button"
-          className="dock-toggle"
-          onClick={() => setNavOpen((v) => !v)}
-          aria-label={navOpen ? "Close menu" : "Open menu"}
-          aria-expanded={navOpen}
+        <nav
+          className={navOpen ? "dock is-open" : "dock"}
+          aria-label="Pages"
+          ref={dockRef}
         >
-          <span className="burger-line" />
-          <span className="burger-line" />
-          <span className="burger-line" />
-        </button>
-      </nav>
+          <div className="dock-menu">
+            {NAV.map((item) => {
+              const isActive = item.end
+                ? path === "/"
+                : path === item.to || path.startsWith(`${item.to}/`);
+              return (
+                <a
+                  key={item.to}
+                  href={item.to}
+                  onClick={(event) => {
+                    setNavOpen(false);
+                    navigate(event, item.to);
+                  }}
+                  className={isActive ? "dock-link is-active" : "dock-link"}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </div>
 
-      <div className="page-transition" ref={overlayRef} aria-hidden="true">
-        <canvas className="page-transition-canvas" ref={canvasRef} />
-        <div className="page-transition-label" ref={labelRef} />
+          <button
+            type="button"
+            className="dock-toggle"
+            onClick={() => setNavOpen((v) => !v)}
+            aria-label={navOpen ? "Close menu" : "Open menu"}
+            aria-expanded={navOpen}
+          >
+            <span className="burger-line" />
+            <span className="burger-line" />
+            <span className="burger-line" />
+          </button>
+        </nav>
+
+        <div className="page-transition" ref={overlayRef} aria-hidden="true">
+          <canvas className="page-transition-canvas" ref={canvasRef} />
+          <div className="page-transition-label" ref={labelRef} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
