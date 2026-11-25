@@ -22,7 +22,7 @@
 
 .projects-track .project-card-3d {
   flex: 0 0 auto;
-  width: min(76vw, 32rem, 72dvh);
+  width: min(90vw, 45rem, 80dvh);
   padding: 0;
   border: 0;
   background: none;
@@ -160,6 +160,13 @@
 
   .project-nav button:active {
     background: #e6e6e6;
+  }
+}
+
+@media (min-width: 641px) {
+  .project-card-bg,
+  .project-card-bg img {
+    aspect-ratio: 2 / 1;
   }
 }
 
