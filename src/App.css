@@ -941,10 +941,17 @@ a {
   font-size: 0.9rem;
 }
 
+.tech-view {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .tech-stage {
   --bubble: clamp(6rem, 13vw, 9rem);
   position: relative;
-  min-height: clamp(32rem, 72vh, 48rem);
+  flex: 1;
+  min-height: 0;
 }
 
 .tech-bubble {

@@ -123,16 +123,12 @@ export default function Tech() {
       }
 
       function layout() {
-        stage.current.style.height = "";
         const initial = stage.current.getBoundingClientRect();
         const size = bubbles[0].offsetWidth;
         const gap = Math.max(12, size * 0.2);
         const cell = size + gap;
         const cols = Math.max(1, Math.floor(initial.width / cell));
         const rows = Math.ceil(bubbles.length / cols);
-        const minH = parseFloat(getComputedStyle(stage.current).minHeight) || 0;
-
-        if (rows * cell > minH) stage.current.style.height = `${rows * cell}px`;
         measure();
 
         const rect = stage.current.getBoundingClientRect();
@@ -170,7 +166,7 @@ export default function Tech() {
   );
 
   return (
-    <div className="view">
+    <div className="view tech-view">
       {/* <h1 className="view-title tech-title">Tech Stack</h1> */}
       <p className="tech-hint">
         Drag the circles around, flick one to play with it.
