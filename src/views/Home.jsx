@@ -4,6 +4,16 @@ export default function Home() {
   return (
     <div className="home">
       <main className="home-main">
+        <div className="home-name">
+          <h1 className="home-display">
+            <span className="home-display-line">ZULKIFLI</span>
+            <span className="home-display-line home-display-line--outline">
+              FIRDAUSI
+            </span>
+          </h1>
+          {/* 1px pencil rule sits above the name stage — conveyed by CSS background */}
+        </div>
+
         <div className="home-intro">
           {/* Sparkle marks the greeting as an aside, not a live status. */}
           <svg
@@ -18,16 +28,6 @@ export default function Home() {
           <p className="about-text">
             {about.text}
           </p>
-        </div>
-
-        <div className="home-stage">
-          <h1 className="home-display">
-            <span className="home-display-line">ZULKIFLI</span>
-            <span className="home-display-line home-display-line--outline">
-              FIRDAUSI
-            </span>
-          </h1>
-          {/* 1px pencil rule sits above the name stage — conveyed by CSS background */}
         </div>
       </main>
     </div>
