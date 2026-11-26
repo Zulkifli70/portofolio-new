@@ -1,0 +1,216 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-26T13:33:38.071Z",
+  "title": "Design System: Zulkifli Firdausi Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Newsprint Gray",
+        "canonical": "#ededed",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "Soft Paper",
+        "canonical": "#f5f5f5",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      },
+      "ink": {
+        "role": "primary",
+        "displayName": "Graphite Ink",
+        "canonical": "#262626",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      },
+      "ink-deep": {
+        "role": "primary",
+        "displayName": "Transition Ink",
+        "canonical": "#171614",
+        "tonalRamp": ["#292724", "#47443e", "#68635a", "#868074", "#a29e95", "#bdb9b3", "#d9d7d3", "#f3f3f1"]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Faded Graphite",
+        "canonical": "#5f5f5f",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Pencil Rule",
+        "canonical": "#7f7f7f",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Strong Pencil Rule",
+        "canonical": "#5f5f5f",
+        "tonalRamp": ["#262626", "#424242", "#616161", "#7d7d7d", "#9c9c9c", "#b8b8b8", "#d6d6d6", "#f2f2f2"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Home name and loading wordmark only; poster scale."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "View titles and the page-transition label."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project card titles, modal titles, experience companies."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading copy in Neuton: descriptions, responsibilities, features."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Indexes, status, metadata labels, tags; uppercase and tracked."
+      },
+      "ui": {
+        "displayName": "UI",
+        "purpose": "Dock links, hints, and interface copy in Space Grotesk."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "state-fast", "value": "0.2s ease", "purpose": "Color, border, and background changes on hover and focus." },
+      { "name": "menu-pop", "value": "0.25s cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Mobile dock menu open and close." },
+      { "name": "image-zoom", "value": "0.45s ease", "purpose": "Project thumbnail scale on card hover." },
+      { "name": "page-wipe-in-out", "value": "0.55s power2.inOut", "purpose": "Pixel-grid page transition in and out." },
+      { "name": "modal-open", "value": "0.52s power3.out", "purpose": "Project card FLIP into the detail modal." },
+      { "name": "modal-close", "value": "0.42s power3.inOut", "purpose": "Detail modal FLIP back to its card." },
+      { "name": "loader-letter-stagger", "value": "0.045s", "purpose": "Entry wordmark letter stagger." },
+      { "name": "loader-lift", "value": "1.1s power2.inOut", "purpose": "Entry screen lift at 3.4s of the 4.5s hold." }
+    ],
+    "breakpoints": [
+      { "name": "compact-name", "value": "520px" },
+      { "name": "mobile", "value": "640px" },
+      { "name": "stack", "value": "860px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Ink-filled action used for outbound project links.",
+      "html": "<button class=\"ds-btn-primary\">Visit website ↗</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border-radius: var(--radius, 4px); border: 1px solid var(--ink, #262626); background: var(--ink, #262626); color: var(--paper, #ededed); font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.85rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s; } .ds-btn-primary:hover { background: var(--line-strong, #5f5f5f); } .ds-btn-primary:focus-visible { outline: 2px solid var(--ink, #262626); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Outlined secondary action that inverts on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Repository ↗</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.6rem 1.1rem; border-radius: var(--radius, 4px); border: 1px solid var(--ink, #262626); background: transparent; color: var(--ink, #262626); font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.85rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: background-color 0.2s, color 0.2s; } .ds-btn-ghost:hover { background: var(--ink, #262626); color: var(--paper, #ededed); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--ink, #262626); outline-offset: 3px; }"
+    },
+    {
+      "name": "Dock Navigation",
+      "kind": "nav",
+      "refersTo": "dock",
+      "description": "Floating bottom navigation; active page is underlined, hover inverts.",
+      "html": "<nav class=\"ds-dock\"><a class=\"ds-dock-link is-active\" href=\"#\">Home</a><a class=\"ds-dock-link\" href=\"#\">Projects</a><a class=\"ds-dock-link\" href=\"#\">Contact</a></nav>",
+      "css": ".ds-dock { display: inline-flex; gap: 0.15rem; padding: 0.25rem; border: 1px solid var(--line, #7f7f7f); border-radius: var(--radius, 4px); background: var(--card, #f5f5f5); } .ds-dock-link { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.5rem 0.85rem; border-radius: var(--radius, 4px); font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.72rem; letter-spacing: 0.04em; text-decoration: none; color: var(--muted, #5f5f5f); white-space: nowrap; transition: color 0.2s, background-color 0.2s; } .ds-dock-link.is-active { color: var(--ink, #262626); font-weight: 600; } .ds-dock-link.is-active::after { content: \"\"; position: absolute; left: 0.85rem; right: 0.85rem; bottom: 0.4rem; height: 1px; background: currentColor; } .ds-dock-link:hover, .ds-dock-link:focus-visible { color: var(--paper, #ededed); background: var(--ink, #262626); } .ds-dock-link.is-active:hover::after, .ds-dock-link.is-active:focus-visible::after { background: var(--paper, #ededed); } .ds-dock-link:focus-visible { outline: 2px solid var(--ink, #262626); outline-offset: 3px; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Outlined technology tag used on project cards and in the modal.",
+      "html": "<span class=\"ds-tag\">React</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; border: 1px solid var(--line, #7f7f7f); border-radius: var(--radius, 4px); padding: 0.2rem 0.7rem; font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--ink, #262626); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "Soft paper card with an image plate, index, status, title, tags, and arrow.",
+      "html": "<button class=\"ds-project-card\"><div class=\"ds-project-card-media\"></div><div class=\"ds-project-card-head\"><span class=\"ds-project-card-index\">01</span><span class=\"ds-project-card-status\">LIVE</span></div><div class=\"ds-project-card-foot\"><div><h3 class=\"ds-project-card-title\">Pokemon Memory Game</h3><p class=\"ds-project-card-subtitle\">React · JavaScript</p></div><span class=\"ds-project-card-action\">→</span></div></button>",
+      "css": ".ds-project-card { display: flex; flex-direction: column; gap: clamp(0.65rem, 1.2vw, 0.9rem); width: min(92vw, 22rem); padding: clamp(0.6rem, 1.2vw, 0.85rem); border: 1px solid var(--line, #7f7f7f); border-radius: var(--radius, 4px); background: var(--card, #f5f5f5); color: var(--ink, #262626); text-align: left; cursor: pointer; transition: border-color 0.2s ease; } .ds-project-card:hover, .ds-project-card:focus-visible { border-color: var(--ink, #262626); } .ds-project-card-media { aspect-ratio: 16 / 10; border: 1px solid var(--line, #7f7f7f); border-radius: var(--radius, 4px); background: var(--paper, #ededed); } .ds-project-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; padding: 0 0.15rem; } .ds-project-card-index, .ds-project-card-status { font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.08em; color: var(--muted, #5f5f5f); } .ds-project-card-status { text-transform: uppercase; color: var(--ink, #262626); } .ds-project-card-foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; padding: 0 0.15rem 0.15rem; } .ds-project-card-title { margin: 0 0 0.25rem; font-family: \"Syne\", system-ui, sans-serif; font-size: clamp(1.05rem, 1.8vw, 1.35rem); font-weight: 600; line-height: 1.15; } .ds-project-card-subtitle { margin: 0; font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted, #5f5f5f); } .ds-project-card-action { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; transition: transform 0.2s ease; } .ds-project-card:hover .ds-project-card-action { transform: translateX(2px); }"
+    },
+    {
+      "name": "Tech Bubble",
+      "kind": "custom",
+      "refersTo": "tech-bubble",
+      "description": "Circular draggable tile holding a technology mark and name.",
+      "html": "<div class=\"ds-tech-bubble\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"2.5\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"4\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"4\" transform=\"rotate(60 12 12)\"/><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"4\" transform=\"rotate(-60 12 12)\"/></svg><span>React</span></div>",
+      "css": ".ds-tech-bubble { width: clamp(6rem, 13vw, 9rem); height: clamp(6rem, 13vw, 9rem); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.5rem; border-radius: 50%; border: 1px solid var(--line, #7f7f7f); background: var(--card, #f5f5f5); color: var(--ink, #262626); cursor: grab; transition: background-color 0.2s, border-color 0.2s; } .ds-tech-bubble:hover { background: #e6e6e6; border-color: var(--line-strong, #5f5f5f); } .ds-tech-bubble span { font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: 0.78rem; line-height: 1.1; color: var(--muted, #5f5f5f); text-align: center; }"
+    },
+    {
+      "name": "Contact Link",
+      "kind": "custom",
+      "refersTo": "contact-link",
+      "description": "Display-scale link with a 2px ink underline; the email variant copies to clipboard.",
+      "html": "<button class=\"ds-contact-link\"><span>firdausi.zulkifli@gmail.com</span><span class=\"ds-contact-link-status\">Copied</span></button>",
+      "css": ".ds-contact-link { display: inline-flex; align-items: center; gap: 0.4em; max-width: 100%; padding: 0; border: 0; border-bottom: 2px solid var(--ink, #262626); background: none; color: var(--ink, #262626); font-family: \"Syne\", system-ui, sans-serif; font-weight: 600; font-size: clamp(1.35rem, 4.6vw, 4rem); letter-spacing: -0.03em; line-height: 1.05; text-align: left; text-decoration: none; cursor: pointer; } .ds-contact-link:hover { color: var(--muted, #5f5f5f); border-bottom-color: var(--muted, #5f5f5f); } .ds-contact-link:focus-visible { outline: 2px solid var(--ink, #262626); outline-offset: 3px; } .ds-contact-link-status { font-family: \"SpaceGrotesk\", system-ui, sans-serif; font-size: clamp(0.7rem, 1vw, 0.9rem); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted, #5f5f5f); white-space: nowrap; }"
+    },
+    {
+      "name": "Site Mark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Fixed identity tile in the bottom-left corner; inverts on hover.",
+      "html": "<a class=\"ds-site-mark\" href=\"#\" aria-label=\"Zulkifli Firdausi, home\">ZF</a>",
+      "css": ".ds-site-mark { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 1px solid var(--line-strong, #5f5f5f); border-radius: var(--radius, 4px); background: var(--paper, #ededed); color: var(--ink, #262626); font-family: \"Syne\", system-ui, sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: -0.04em; text-decoration: none; transition: background-color 0.2s, color 0.2s; } .ds-site-mark:hover, .ds-site-mark:focus-visible { background: var(--ink, #262626); color: var(--paper, #ededed); } .ds-site-mark:focus-visible { outline: 2px solid var(--ink, #262626); outline-offset: 3px; }"
+    },
+    {
+      "name": "Loading Wordmark",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Entry screen wordmark: solid Syne line over a Fraunces outline line.",
+      "html": "<div class=\"ds-wordmark\"><span class=\"ds-wordmark-solid\">ZULKIFLI</span><span class=\"ds-wordmark-outline\">FIRDAUSI</span></div>",
+      "css": ".ds-wordmark { display: flex; flex-direction: column; align-items: center; text-align: center; line-height: 0.82; font-size: clamp(3rem, 11vw, 9.5rem); letter-spacing: -0.06em; } .ds-wordmark-solid { display: block; font-family: \"Syne\", system-ui, sans-serif; font-weight: 800; color: var(--ink, #262626); } .ds-wordmark-outline { display: block; font-family: \"Fraunces\", Georgia, serif; font-weight: 700; letter-spacing: -0.04em; color: var(--ink, #262626); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Ink-and-Paper Gallery",
+    "overview": "The portfolio behaves like a printed portfolio sheet: one gray paper field, graphite ink, hairline rules, and work framed and hung with generous air. Nothing is tinted and nothing floats on a shadow. Separation comes from hairlines, a single tonal step, inversion, and scale. The giant Syne wordmark supplies the poster voice, Neuton supplies the book voice, and Space Grotesk handles the small printed labels. The interface stays achromatic so project screenshots and technology logos carry all of the color.\n\nMotion is the tactility of the paper. A pixel-grid wipe turns pages, a project card physically becomes its detail view, and the tech stack can be flicked like loose tiles. The grammar is mechanical and controlled: power2/power3 easing, no bounce, no decorative loop. The shell itself never scrolls as a page; each view is a plate in a fixed frame with its own inner scroll, so the identity header, dock, and site mark stay put.",
+    "keyCharacteristics": [
+      "Achromatic chrome: newsprint gray, graphite ink, pencil hairlines. No accent hue.",
+      "Poster-scale display type against book-scale reading type, with no mid-size hero in between.",
+      "Flat surfaces at rest and on hover; depth is tonal and linear, never shadowed.",
+      "A single 4px corner radius on every rectangle; circles only for the tech bubbles.",
+      "Fixed app shell with per-view scrolling and safe-area-aware edges.",
+      "Signature motion: pixel wipe, FLIP modal, proximity-scaled gallery, inertia drag.",
+      "Reduced-motion support is part of the product, not an enhancement."
+    ],
+    "rules": [
+      { "name": "The No Chroma Rule", "body": "The interface holds zero hue. Color enters only through project screenshots and technology logos, never through chrome, states, or focus rings.", "section": "colors" },
+      { "name": "The Inversion Rule", "body": "Interactive emphasis inverts ink and paper, or shifts exactly one tonal step. It never tints, glows, or adds a colored accent.", "section": "colors" },
+      { "name": "The Scale Contrast Rule", "body": "Type is either poster (8–11vw) or print (0.65–1.35rem). A mid-size hero between roughly 2.5rem and 8vw is out of system and competes with the wordmark.", "section": "typography" },
+      { "name": "The Tracking Rule", "body": "Display tightens (-0.03 to -0.06em); labels open up (0.04–0.12em). Never reverse the two.", "section": "typography" },
+      { "name": "The One Accent Rule", "body": "Fraunces appears only in the loading screen's outline wordmark. It is not promoted into page typography.", "section": "typography" },
+      { "name": "The One Screen Rule", "body": "The page itself never scrolls. The shell stays fixed and only the view's body scrolls; chrome never scrolls away.", "section": "layout" },
+      { "name": "The Safe-Area Rule", "body": "Every fixed or full-bleed edge accounts for env(safe-area-inset-*). Full-bleed is never edge-to-edge on a notched device.", "section": "layout" },
+      { "name": "The Flat-By-Default Rule", "body": "No shadows, glows, or blur. If two things need separation, use a hairline or one tonal step; if one needs emphasis, invert it or scale it.", "section": "elevation" },
+      { "name": "The Motion-Is-Depth Rule", "body": "Tactility comes from movement (wipe, FLIP, proximity scale, inertia), never from lighting effects.", "section": "elevation" },
+      { "name": "The One Radius Rule", "body": "Rectangles get 4px. Circles get 50%. No other corner value is introduced.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep the interface achromatic; let screenshots and logos be the only color.",
+      "Do separate surfaces with 1px hairlines or the Newsprint Gray → Soft Paper step.",
+      "Do use the 4px radius on every rectangle and reserve 50% for circles.",
+      "Do set display type at poster scale (8–11vw) and reading type at 0.95–1.3rem.",
+      "Do use Syne for names and titles, Neuton for sentences, Space Grotesk for labels and UI.",
+      "Do uppercase micro-labels with 0.04–0.12em tracking.",
+      "Do invert ink and paper for hover emphasis.",
+      "Do keep the shell fixed and scroll inside the view.",
+      "Do keep interactive targets at least 44px tall and focus outlines visible.",
+      "Do respect prefers-reduced-motion by removing wipes, gallery scaling, FLIP, and inertia while keeping all content reachable.",
+      "Do pad fixed edges with env(safe-area-inset-*)."
+    ],
+    "donts": [
+      "Don't add shadows, glows, gradients, or glass. The only gradient is the 22% black photo scrim.",
+      "Don't add an accent color, tinted state, or colored focus ring.",
+      "Don't use pill or large soft radii, or rounded SaaS-style cards.",
+      "Don't introduce a mid-size display headline between roughly 2.5rem and 8vw.",
+      "Don't promote Fraunces beyond the loading outline wordmark.",
+      "Don't animate filter, blur, or drop-shadow per frame; animate transform and opacity only.",
+      "Don't make the document body scroll or let the chrome scroll away.",
+      "Don't use decorative iconography; the vocabulary is line arrows, check, copy, and close.",
+      "Don't drop body text below 0.95rem or labels below 0.65rem."
+    ]
+  }
+}

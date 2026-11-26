@@ -3,7 +3,7 @@
   "agent": {
     "build": {
       "mode": "primary",
-      "model": "openrouter/qwen/qwen3-coder:free",
+      "model": "Coding",
       "permission": {
         "edit": "allow",
         "bash": "allow"
@@ -11,7 +11,7 @@
     },
     "plan": {
       "mode": "primary",
-      "model": "opencode-zen/nemotron-3-ultra-free",
+      "model": "Coding",
       "prompt": "",
       "permission": {
         "edit": "deny",
@@ -21,7 +21,7 @@
     "code-reviewer": {
       "description": "Reviews code for best practices and potential issues",
       "mode": "subagent",
-      "model": "opencode-zen/deepseek-v4-flash-free",
+      "model": "Coding",
       "prompt": "You are a code reviewer. Focus on security, performance, and maintainability.",
       "permission": {
         "edit": "deny"
