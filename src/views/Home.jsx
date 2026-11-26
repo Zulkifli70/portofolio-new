@@ -6,10 +6,18 @@ export default function Home() {
       <main className="home-main">
         <div className="home-intro">
           {/* Sparkle marks the greeting as an aside, not a live status. */}
-          <svg className="home-star" viewBox="0 0 16 16" aria-hidden="true">
-            <path d="M8 0.8 9.5 5.3 14 8 9.5 10.7 8 15.2 6.5 10.7 2 8 6.5 5.3Z" />
+          <svg
+            className="home-star"
+            viewBox="0 0 16 16"
+            aria-hidden="true"
+          >
+            <path
+              d="M8 0.8 9.5 5.3 14 8 9.5 10.7 8 15.2 6.5 10.7 2 8 6.5 5.3Z"
+            />
           </svg>
-          <p className="about-text">{about.text}</p>
+          <p className="about-text">
+            {about.text}
+          </p>
         </div>
 
         <div className="home-stage">
@@ -19,6 +27,7 @@ export default function Home() {
               FIRDAUSI
             </span>
           </h1>
+          {/* 1px pencil rule sits above the name stage — conveyed by CSS background */}
         </div>
       </main>
     </div>
