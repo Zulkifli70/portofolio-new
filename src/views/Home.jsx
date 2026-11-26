@@ -3,20 +3,6 @@ import { about } from "../data/portfolio";
 export default function Home() {
   return (
     <div className="home">
-      {/* <header className="home-top">
-        <div className="home-signature">
-          <span className="home-signature-name">Zulkifli Firdausi</span>
-          <span className="home-signature-role">
-            Frontend Developer / UI UX Designer
-          </span>
-        </div>
-
-        <div className="home-meta">
-          <span>Portfolio / {new Date().getFullYear()}</span>
-          <span>Based in Indonesia</span>
-        </div>
-      </header> */}
-
       <main className="home-main">
         <div className="home-intro">
           {/* Sparkle marks the greeting as an aside, not a live status. */}
@@ -27,17 +13,6 @@ export default function Home() {
         </div>
 
         <div className="home-stage">
-          <figure className="home-portrait">
-            <img
-              className="about-photo"
-              src="/aboutme.png"
-              alt="Zulkifli Firdausi"
-              width="832"
-              height="1158"
-              fetchPriority="high"
-            />
-          </figure>
-
           <h1 className="home-display">
             <span className="home-display-line">ZULKIFLI</span>
             <span className="home-display-line home-display-line--outline">
