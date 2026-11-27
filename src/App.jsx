@@ -91,14 +91,18 @@ export default function App() {
       image.onload = image.onerror = () => resolve();
       image.src = "/aboutme.png";
     });
-    const min = new Promise((resolve) => setTimeout(resolve, LOADING_DURATION * 1000));
+    const min = new Promise((resolve) =>
+      setTimeout(resolve, LOADING_DURATION * 1000),
+    );
     const cap = new Promise((resolve) =>
       setTimeout(resolve, LOADING_DURATION * 1000 + 200),
     );
 
-    Promise.race([Promise.all([document.fonts.ready, preload, min]), cap]).then(() => {
-      setLoading(false);
-    });
+    Promise.race([Promise.all([document.fonts.ready, preload, min]), cap]).then(
+      () => {
+        setLoading(false);
+      },
+    );
   }, [loading]);
 
   useEffect(() => () => timelineRef.current?.kill(), []);
@@ -225,26 +229,12 @@ export default function App() {
   return (
     <>
       {loading && <LoadingScreen />}
-      <div
-        className="app"
-        aria-hidden={loading || undefined}
-        inert={loading}
-      >
-        <header className="home-top">
-          <div className="home-signature">
-            <span className="home-signature-name">Zulkifli Firdausi</span>
-            <span className="home-signature-role">
-              Frontend Developer / UI UX Designer
-            </span>
-          </div>
-
-          <div className="home-meta">
-            <span>Portfolio / {new Date().getFullYear()}</span>
-            <span>Based in Indonesia</span>
-          </div>
-        </header>
-
-        <div className="app-body" ref={bodyRef} aria-busy={loading || undefined}>
+      <div className="app" aria-hidden={loading || undefined} inert={loading}>
+        <div
+          className="app-body"
+          ref={bodyRef}
+          aria-busy={loading || undefined}
+        >
           <View />
         </div>
 
