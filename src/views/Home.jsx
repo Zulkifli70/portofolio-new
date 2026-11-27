@@ -1,6 +1,89 @@
 import { about } from "../data/portfolio";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 export default function Home() {
+  const reduced = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // --- SVG "Frontend Developer" letters animation ---
+  useEffect(() => {
+    if (reduced()) return;
+    const chars = gsap.utils.toArray(
+      ".home-ink-text text tspan",
+    );
+    if (chars.length === 0) return;
+    gsap.from(chars, {
+      x: -40,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.12,
+      ease: "power2.out",
+    });
+  }, [reduced]);
+
+  // --- Ink trail: circle follows cursor with a fading tail ---
+  const trailRef = useRef([]);
+  useEffect(() => {
+    if (reduced()) return;
+    const maxTrail = 15;
+    const trailEl = document.querySelector(".home-ink-trail");
+    if (!trailEl) return;
+    const circle = document.querySelector(
+      ".home-ink-trail circle",
+    );
+    if (!circle) return;
+
+    let mouseX = 0,
+      mouseY = 0;
+    let targetX = 0,
+      targetY = 0;
+
+    const lerp = (a, b, n) =>
+      a + (b - a) * n;
+
+    const updateCircle = () => {
+      targetX = mouseX;
+      targetY = mouseY;
+      circle.setAttribute("cx", String(targetX));
+      circle.setAttribute("cy", String(targetY));
+      // add current position to trail ref
+      trailRef.current?.unshift({
+        x: targetX,
+        y: targetY,
+        alpha: 1,
+      });
+      if (trailRef.current?.length > maxTrail)
+        trailRef.current?.pop();
+      // update trail circles in DOM
+      const trailEls = document.querySelectorAll(
+        ".home-ink-trail .trail-circle",
+      );
+      trailEls.forEach((el, i) => {
+        const t = trailRef.current?.[i + 1];
+        if (!t) return;
+        el.setAttribute("cx", String(t.x));
+        el.setAttribute("cy", String(t.y));
+        const alpha = 1 - (i / maxTrail) * 0.8;
+        el.style.opacity = String(alpha);
+      });
+      // recursively update
+      requestAnimationFrame(updateCircle);
+    };
+
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // start the trail loop
+    const raf = requestAnimationFrame(updateCircle);
+
+    return () => {
+      cancelAnimationFrame(raf);
+    };
+  }, [reduced]);
+
   return (
     <div className="home">
       <main className="home-main">
@@ -13,6 +96,29 @@ export default function Home() {
           </h1>
           {/* 1px pencil rule sits above the name stage — conveyed by CSS background */}
         </div>
+
+        {/* SVG "Frontend Developer" ink letters */}
+        <svg
+          className="home-ink-text"
+          viewBox="0 0 400 100"
+          aria-label="Frontend Developer"
+        >
+          <text
+            x="0"
+            y="80"
+            fill="#262626"
+            fontFamily="Syne, system-ui, sans-serif"
+            fontWeight="800"
+            fontSize="clamp(3rem, 11vw, 9.5rem)"
+          >
+            <tspan x="0" dy="1.2em" className="letter-tspan">
+              Frontend
+            </tspan>
+            <tspan x="0" dy="1.2em" className="letter-tspan">
+              Developer
+            </tspan>
+          </text>
+        </svg>
 
         <div className="home-intro">
           {/* Sparkle marks the greeting as an aside, not a live status. */}
@@ -29,6 +135,30 @@ export default function Home() {
             {about.text}
           </p>
         </div>
+
+        {/* Ink trail SVG */}
+        <svg
+          className="home-ink-trail"
+          style={{position: 'fixed', top: 0, left: 0, pointerEvents: 'none', width: '100%', height: '100%'}}
+          aria-hidden="true"
+        >
+          <circle
+            className="home-ink-trail-circle"
+            r="8"
+            fill="#262626"
+            opacity="0.8"
+          />
+          {trailRef.current?.length > 0 &&
+            trailRef.current?.map((_, i) => (
+              <circle
+                key={i}
+                className="trail-circle"
+                r="4"
+                fill="#262626"
+                opacity={1 - (i / 15) * 0.8}
+              />
+            ))}
+        </svg>
       </main>
     </div>
   );
