@@ -1,9 +1,9 @@
-import { about, projects } from "../data/portfolio";
+import { about, projects, techStacks } from "../data/portfolio";
 
 /**
  * Home hero, set as a printed portfolio plate: a masthead rule on top,
- * a short lede with portrait in the middle, and FRONTEND DEVELOPER as the
- * poster title pinned to the bottom edge.
+ * a short lede with the stack list in the middle, and FRONTEND DEVELOPER as
+ * the poster title pinned to the bottom edge.
  */
 export default function Home() {
   return (
@@ -22,15 +22,14 @@ export default function Home() {
           </a>
         </div>
 
-        <figure className="hero-portrait">
-          <img
-            src="/aboutme.png"
-            alt="Zulkifli Firdausi"
-            width="832"
-            height="1158"
-            fetchPriority="high"
-          />
-        </figure>
+        <div className="hero-stack">
+          <p className="hero-label">Stack</p>
+          <ul className="hero-stack-list">
+            {techStacks.map((tech) => (
+              <li key={tech.name}>{tech.name}</li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <h1 className="hero-title">

@@ -86,11 +86,6 @@ export default function App() {
   useEffect(() => {
     if (!loading) return;
 
-    const image = new Image();
-    const preload = new Promise((resolve) => {
-      image.onload = image.onerror = () => resolve();
-      image.src = "/aboutme.png";
-    });
     const min = new Promise((resolve) =>
       setTimeout(resolve, LOADING_DURATION * 1000),
     );
@@ -98,7 +93,7 @@ export default function App() {
       setTimeout(resolve, LOADING_DURATION * 1000 + 200),
     );
 
-    Promise.race([Promise.all([document.fonts.ready, preload, min]), cap]).then(
+    Promise.race([Promise.all([document.fonts.ready, min]), cap]).then(
       () => {
         setLoading(false);
       },
