@@ -62,7 +62,7 @@ export default function Home({ ready = true }) {
         </div>
 
         <div className="hero-stack" ref={stack}>
-          <p className="hero-label">Stack</p>
+          <p className="hero-label">Tech Stack</p>
           <ul className="hero-stack-list">
             {techIcons.map((tech) => (
               <li key={tech.name} className="hero-stack-item">
