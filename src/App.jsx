@@ -10,7 +10,6 @@ import gsap from "gsap";
 import Home from "./views/Home";
 import Projects from "./views/Projects";
 import Experience from "./views/Experience";
-import Tech from "./views/Tech";
 import Contact from "./views/Contact";
 import LoadingScreen, { LOADING_DURATION } from "./components/LoadingScreen";
 import { NAV } from "./nav";
@@ -20,7 +19,6 @@ const PAGES = {
   "/": Home,
   "/projects": Projects,
   "/experience": Experience,
-  "/tech": Tech,
   "/contact": Contact,
 };
 
@@ -230,7 +228,7 @@ export default function App() {
           ref={bodyRef}
           aria-busy={loading || undefined}
         >
-          <View />
+          <View ready={!loading} />
         </div>
 
         <nav

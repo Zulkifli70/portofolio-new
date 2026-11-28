@@ -121,22 +121,6 @@ export const experiences = [
   },
 ];
 
-export const techStacks = [
-  { name: "React", imgPath: "/techIcons/react.png" },
-  { name: "Next JS", imgPath: "/techIcons/Next.js.png" },
-  { name: "Tailwind", imgPath: "/techIcons/Tailwind CSS.png" },
-  { name: "Javascript", imgPath: "/techIcons/JavaScript.png" },
-  { name: "GSAP", imgPath: "/techIcons/gsap.png" },
-  { name: "Astro", imgPath: "/techIcons/Astro.png" },
-  { name: "Vue", imgPath: "/techIcons/Vue.js.png" },
-  { name: "TypeScript", imgPath: "/techIcons/TypeScript.png" },
-  { name: "Github", imgPath: "/techIcons/github.png" },
-  { name: "Nuxt JS", imgPath: "/techIcons/nuxtjs.png" },
-  { name: "MongoDB", imgPath: "/techIcons/mongodb.png" },
-  { name: "Figma", imgPath: "/techIcons/Figma.png" },
-  { name: "Postgres", imgPath: "/techIcons/postgres.png" },
-];
-
 export const about = {
   heading: "About Me",
   text: "I care about the small details that make a product smoother, from layout rhythm to thoughtful interactions.",
